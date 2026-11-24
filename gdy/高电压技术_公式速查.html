@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>高电压技术 · 公式速查</title><style>
+:root{--bg:#f7f9fc;--card:#fff;--ink:#1f2937;--muted:#5b6472;--line:#e3e8ef;--brand:#1d4ed8;--brand2:#eff6ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.7}
+.wrap{max-width:1000px;margin:0 auto;padding:30px 18px 70px}
+header{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;border-radius:16px;padding:26px 30px;margin-bottom:18px}
+header h1{margin:0 0 8px;font-size:26px}header p{margin:4px 0;opacity:.92;font-size:14px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:18px}
+.nav .nav-title{font-size:13px;color:var(--muted);margin-right:4px;font-weight:600}
+.nav a{font-size:13px;padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:#f8fafc;color:#334155;text-decoration:none}
+.nav a:hover{background:var(--brand2);border-color:var(--brand);color:var(--brand)}
+.nav a.current{background:var(--brand);border-color:var(--brand);color:#fff}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:18px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+select,input,button{font-family:inherit;font-size:14px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:#fff;color:var(--ink)}
+button{cursor:pointer}button:hover{border-color:var(--brand);color:var(--brand)}
+label{font-size:13px;color:var(--muted);margin-right:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.card.hide{display:none}
+.chead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.chap{font-size:12px;color:var(--muted);background:#f1f5f9;border-radius:99px;padding:2px 9px}
+.name{font-weight:700;color:#1e3a8a;font-size:15px}
+.plain{font-family:Consolas,"Courier New",monospace;font-size:14px;background:#f8fafc;border-left:3px solid var(--brand);padding:8px 11px;border-radius:0 8px 8px 0;margin-bottom:8px;word-break:break-word}
+pre.latex{font-family:Consolas,"Courier New",monospace;font-size:12.5px;color:#334155;background:#f8fafc;border:1px dashed var(--line);border-radius:8px;padding:9px 11px;margin:0;white-space:pre-wrap;word-break:break-all}
+.acts{margin-top:10px;display:flex;gap:8px}
+.note{background:#fffbeb;border:1px solid #fde68a;color:#78350f;border-radius:10px;padding:12px 15px;font-size:14px;margin:12px 0}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+.foot a{color:var(--brand);text-decoration:none}
+.count{font-size:13px;color:var(--muted);margin-left:auto}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.wrap{padding:18px 12px 40px}}
+</style></head><body><div class="wrap">
+<header>
+  <h1>高电压技术 · 公式速查</h1>
+  <p>课件中丢失的公式，按上下文与教材通行写法恢复 · 共 29 条 · 可复制 LaTeX 到笔记软件</p>
+</header>
+<div class="nav" id="siteNav">
+  <span class="nav-title">资料导航</span>
+  <a href="../index.html">🏠 全部课程</a>
+  <a href="高电压技术_知识点总结与复习计划.html">知识点总结</a>
+  <a href="高电压技术_练习题库.html">练习题库（123题）</a>
+  <a class="current" href="高电压技术_公式速查.html">公式速查</a>
+  <a href="高电压技术_公式速查.md">公式 Markdown 源文件</a>
+</div>
+<div class="panel">
+  <div class="row">
+    <div><label for="chap">章节</label><select id="chap"><option value="all">全部章节</option><option value="1.1 电介质的极化">1.1 电介质的极化</option><option value="1.2 电介质的介电常数">1.2 电介质的介电常数</option><option value="1.3 电介质的电导">1.3 电介质的电导</option><option value="1.4 电介质的能量损耗">1.4 电介质的能量损耗</option><option value="2.1.2 气体放电机理">2.1.2 气体放电机理</option><option value="2.1.3 电晕放电">2.1.3 电晕放电</option><option value="2.2.1 气隙的击穿时间">2.2.1 气隙的击穿时间</option><option value="2.2.2 伏秒特性">2.2.2 伏秒特性</option><option value="2.2.3 大气条件">2.2.3 大气条件</option><option value="4.1.1 测定绝缘电阻">4.1.1 测定绝缘电阻</option><option value="4.1.3 介质损耗因数">4.1.3 介质损耗因数</option><option value="4.1.4 局部放电">4.1.4 局部放电</option><option value="4.2.1 工频高压试验">4.2.1 工频高压试验</option><option value="5.1 波沿导线传播">5.1 波沿导线传播</option><option value="5.2 行波的折射和反射">5.2 行波的折射和反射</option><option value="5.3 变压器绕组波过程">5.3 变压器绕组波过程</option><option value="7.1 工频过电压">7.1 工频过电压</option><option value="8.1 绝缘配合">8.1 绝缘配合</option><option value="8.2 绝缘水平的确定">8.2 绝缘水平的确定</option><option value="8.3 架空线路绝缘水平">8.3 架空线路绝缘水平</option></select></div>
+    <div><label for="kw">搜索</label><input id="kw" type="text" placeholder="公式名 / 符号 / LaTeX"></div>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="note">本页是「恢复稿」，不是课件原图。考试前请对照教材或原课件核实，尤其是电晕起始场强、西林电桥、视在放电量、变压器绕组初始分布。</div>
+</div>
+<div class="grid" id="grid">
+    <div class="card" data-chapter="1.1 电介质的极化" data-text="1.1 电介质的极化 平行板电容 C₀=ε₀ S/d,  C=ε S/d,  ε_r=C/C₀ C_0=\frac{\varepsilon_0 S}{d},\qquad C=\frac{\varepsilon S}{d},\qquad \varepsilon_r=\frac{C}{C_0}">
+      <div class="chead"><span class="chap">1.1 电介质的极化</span><span class="name">平行板电容</span></div>
+      <div class="plain">C₀=ε₀ S/d,  C=ε S/d,  ε_r=C/C₀</div>
+      <pre class="latex" id="latex-0">C_0=\frac{\varepsilon_0 S}{d},\qquad C=\frac{\varepsilon S}{d},\qquad \varepsilon_r=\frac{C}{C_0}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(0, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="1.1 电介质的极化" data-text="1.1 电介质的极化 电位移与极化强度 D=ε₀ E+P=ε E,  P=ε₀χ_e E \mathbf{D}=\varepsilon_0\mathbf{E}+\mathbf{P}=\varepsilon\mathbf{E},\qquad \mathbf{P}=\varepsilon_0\chi_e\mathbf{E},\qquad \varepsilon_r=1+\chi_e">
+      <div class="chead"><span class="chap">1.1 电介质的极化</span><span class="name">电位移与极化强度</span></div>
+      <div class="plain">D=ε₀ E+P=ε E,  P=ε₀χ_e E</div>
+      <pre class="latex" id="latex-1">\mathbf{D}=\varepsilon_0\mathbf{E}+\mathbf{P}=\varepsilon\mathbf{E},\qquad \mathbf{P}=\varepsilon_0\chi_e\mathbf{E},\qquad \varepsilon_r=1+\chi_e</pre>
+      <div class="acts">
+        <button onclick="copyLatex(1, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="1.2 电介质的介电常数" data-text="1.2 电介质的介电常数 插入介质后的电荷 ε_r=Q/Q₀=(Q₀+Q&#x27;)/Q₀ Q=Q_0+Q&#x27;,\qquad \varepsilon_r=\frac{Q}{Q_0}=1+\frac{Q&#x27;}{Q_0}">
+      <div class="chead"><span class="chap">1.2 电介质的介电常数</span><span class="name">插入介质后的电荷</span></div>
+      <div class="plain">ε_r=Q/Q₀=(Q₀+Q&#x27;)/Q₀</div>
+      <pre class="latex" id="latex-2">Q=Q_0+Q&#x27;,\qquad \varepsilon_r=\frac{Q}{Q_0}=1+\frac{Q&#x27;}{Q_0}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(2, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="1.3 电介质的电导" data-text="1.3 电介质的电导 电导与电阻率 G=1/R,  R=rhol/S G=\frac{1}{R},\qquad R=\rho\frac{l}{S},\qquad \rho=\frac{1}{\gamma}">
+      <div class="chead"><span class="chap">1.3 电介质的电导</span><span class="name">电导与电阻率</span></div>
+      <div class="plain">G=1/R,  R=rhol/S</div>
+      <pre class="latex" id="latex-3">G=\frac{1}{R},\qquad R=\rho\frac{l}{S},\qquad \rho=\frac{1}{\gamma}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(3, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="1.4 电介质的能量损耗" data-text="1.4 电介质的能量损耗 介质损耗功率 P=UIcosφ=U^2ω Ctanδ P=UI\cos\varphi=U^2\omega C\tan\delta">
+      <div class="chead"><span class="chap">1.4 电介质的能量损耗</span><span class="name">介质损耗功率</span></div>
+      <div class="plain">P=UIcosφ=U^2ω Ctanδ</div>
+      <pre class="latex" id="latex-4">P=UI\cos\varphi=U^2\omega C\tan\delta</pre>
+      <div class="acts">
+        <button onclick="copyLatex(4, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="1.4 电介质的能量损耗" data-text="1.4 电介质的能量损耗 损耗角正切（并联等值） tanδ=I_R/I_C=P/Q=1/(ω C_p R_p) \tan\delta=\frac{I_R}{I_C}=\frac{P}{Q}=\frac{1}{\omega C_p R_p}">
+      <div class="chead"><span class="chap">1.4 电介质的能量损耗</span><span class="name">损耗角正切（并联等值）</span></div>
+      <div class="plain">tanδ=I_R/I_C=P/Q=1/(ω C_p R_p)</div>
+      <pre class="latex" id="latex-5">\tan\delta=\frac{I_R}{I_C}=\frac{P}{Q}=\frac{1}{\omega C_p R_p}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(5, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="1.4 电介质的能量损耗" data-text="1.4 电介质的能量损耗 损耗角正切（串联等值） tanδ=ω C_s R_s \tan\delta=\omega C_s R_s">
+      <div class="chead"><span class="chap">1.4 电介质的能量损耗</span><span class="name">损耗角正切（串联等值）</span></div>
+      <div class="plain">tanδ=ω C_s R_s</div>
+      <pre class="latex" id="latex-6">\tan\delta=\omega C_s R_s</pre>
+      <div class="acts">
+        <button onclick="copyLatex(6, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.1.2 气体放电机理" data-text="2.1.2 气体放电机理 电离系数与电子崩 dn/n=α dx  ⇒  n=n₀ e^αx \frac{dn}{n}=\alpha\,dx\quad\Rightarrow\quad n(x)=n_0 e^{\alpha x}">
+      <div class="chead"><span class="chap">2.1.2 气体放电机理</span><span class="name">电离系数与电子崩</span></div>
+      <div class="plain">dn/n=α dx  ⇒  n=n₀ e^αx</div>
+      <pre class="latex" id="latex-7">\frac{dn}{n}=\alpha\,dx\quad\Rightarrow\quad n(x)=n_0 e^{\alpha x}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(7, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.1.2 气体放电机理" data-text="2.1.2 气体放电机理 汤逊自持放电条件 γ(e^αd-1)=1 \gamma\left(e^{\alpha d}-1\right)=1\qquad\text{或}\qquad e^{\alpha d}=1+\frac{1}{\gamma}">
+      <div class="chead"><span class="chap">2.1.2 气体放电机理</span><span class="name">汤逊自持放电条件</span></div>
+      <div class="plain">γ(e^αd-1)=1</div>
+      <pre class="latex" id="latex-8">\gamma\left(e^{\alpha d}-1\right)=1\qquad\text{或}\qquad e^{\alpha d}=1+\frac{1}{\gamma}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(8, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.1.2 气体放电机理" data-text="2.1.2 气体放电机理 巴申定律与相对空气密度 U_b=f(pd),  δ=(p/p₀)(T₀/T) U_b=f(pd),\qquad \delta=\frac{p}{p_0}\cdot\frac{T_0}{T}">
+      <div class="chead"><span class="chap">2.1.2 气体放电机理</span><span class="name">巴申定律与相对空气密度</span></div>
+      <div class="plain">U_b=f(pd),  δ=(p/p₀)(T₀/T)</div>
+      <pre class="latex" id="latex-9">U_b=f(pd),\qquad \delta=\frac{p}{p_0}\cdot\frac{T_0}{T}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(9, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.1.2 气体放电机理" data-text="2.1.2 气体放电机理 电场不均匀系数 f=E_max/E_av f=\frac{E_{\max}}{E_{\mathrm{av}}}\quad(f=1\text{均匀},\ f\le2\text{稍不均匀},\ f&gt;2\text{极不均匀})">
+      <div class="chead"><span class="chap">2.1.2 气体放电机理</span><span class="name">电场不均匀系数</span></div>
+      <div class="plain">f=E_max/E_av</div>
+      <pre class="latex" id="latex-10">f=\frac{E_{\max}}{E_{\mathrm{av}}}\quad(f=1\text{均匀},\ f\le2\text{稍不均匀},\ f&gt;2\text{极不均匀})</pre>
+      <div class="acts">
+        <button onclick="copyLatex(10, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.1.3 电晕放电" data-text="2.1.3 电晕放电 导线起晕场强（教材通行） E₀=30δ(1+0.3/√(δr)) kV/cm E_0=30\delta\left(1+\frac{0.3}{\sqrt{\delta r}}\right)\ \mathrm{kV/cm}\quad(r\text{单位 cm，教材经验式})">
+      <div class="chead"><span class="chap">2.1.3 电晕放电</span><span class="name">导线起晕场强（教材通行）</span></div>
+      <div class="plain">E₀=30δ(1+0.3/√(δr)) kV/cm</div>
+      <pre class="latex" id="latex-11">E_0=30\delta\left(1+\frac{0.3}{\sqrt{\delta r}}\right)\ \mathrm{kV/cm}\quad(r\text{单位 cm，教材经验式})</pre>
+      <div class="acts">
+        <button onclick="copyLatex(11, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2.1 气隙的击穿时间" data-text="2.2.1 气隙的击穿时间 击穿时间组成 t=t₁+t_s+t_f t=t_1+t_s+t_f\quad(\text{升压}+\text{统计时延}+\text{放电形成时延})">
+      <div class="chead"><span class="chap">2.2.1 气隙的击穿时间</span><span class="name">击穿时间组成</span></div>
+      <div class="plain">t=t₁+t_s+t_f</div>
+      <pre class="latex" id="latex-12">t=t_1+t_s+t_f\quad(\text{升压}+\text{统计时延}+\text{放电形成时延})</pre>
+      <div class="acts">
+        <button onclick="copyLatex(12, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2.2 伏秒特性" data-text="2.2.2 伏秒特性 雷电冲击波前时间定义 T₁=1.67(t₀.9-t₀.3) T_1=1.67\left(t_{0.9}-t_{0.3}\right),\qquad T_2=\text{视在半峰值时间}">
+      <div class="chead"><span class="chap">2.2.2 伏秒特性</span><span class="name">雷电冲击波前时间定义</span></div>
+      <div class="plain">T₁=1.67(t₀.9-t₀.3)</div>
+      <pre class="latex" id="latex-13">T_1=1.67\left(t_{0.9}-t_{0.3}\right),\qquad T_2=\text{视在半峰值时间}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(13, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2.3 大气条件" data-text="2.2.3 大气条件 大气校正 U=U₀ k_t=U₀ k_d k_h U=U_0 k_t=U_0 k_d k_h">
+      <div class="chead"><span class="chap">2.2.3 大气条件</span><span class="name">大气校正</span></div>
+      <div class="plain">U=U₀ k_t=U₀ k_d k_h</div>
+      <pre class="latex" id="latex-14">U=U_0 k_t=U_0 k_d k_h</pre>
+      <div class="acts">
+        <button onclick="copyLatex(14, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.1.1 测定绝缘电阻" data-text="4.1.1 测定绝缘电阻 吸收比与极化指数 K=R₆0s/R₁5s,  PI=R₁0min/R₁min K=\frac{R_{60s}}{R_{15s}},\qquad PI=\frac{R_{10\mathrm{min}}}{R_{1\mathrm{min}}}">
+      <div class="chead"><span class="chap">4.1.1 测定绝缘电阻</span><span class="name">吸收比与极化指数</span></div>
+      <div class="plain">K=R₆0s/R₁5s,  PI=R₁0min/R₁min</div>
+      <pre class="latex" id="latex-15">K=\frac{R_{60s}}{R_{15s}},\qquad PI=\frac{R_{10\mathrm{min}}}{R_{1\mathrm{min}}}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(15, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.1.3 介质损耗因数" data-text="4.1.3 介质损耗因数 西林电桥平衡式 C_x=(R₄/R₃)C_N,  tanδ=ω R₄ C₄ C_x=\frac{R_4}{R_3}C_N,\qquad \tan\delta=\omega R_4 C_4">
+      <div class="chead"><span class="chap">4.1.3 介质损耗因数</span><span class="name">西林电桥平衡式</span></div>
+      <div class="plain">C_x=(R₄/R₃)C_N,  tanδ=ω R₄ C₄</div>
+      <pre class="latex" id="latex-16">C_x=\frac{R_4}{R_3}C_N,\qquad \tan\delta=\omega R_4 C_4</pre>
+      <div class="acts">
+        <button onclick="copyLatex(16, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.1.4 局部放电" data-text="4.1.4 局部放电 视在放电量 q_app=C_x·ΔU q_{\mathrm{app}}=C_x\,\Delta U\quad(\Delta U\text{为试品端瞬时电压变化})">
+      <div class="chead"><span class="chap">4.1.4 局部放电</span><span class="name">视在放电量</span></div>
+      <div class="plain">q_app=C_x·ΔU</div>
+      <pre class="latex" id="latex-17">q_{\mathrm{app}}=C_x\,\Delta U\quad(\Delta U\text{为试品端瞬时电压变化})</pre>
+      <div class="acts">
+        <button onclick="copyLatex(17, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.2.1 工频高压试验" data-text="4.2.1 工频高压试验 试验电流与变压器容量 I=ω C_x U,  S≈ω C_x U^2 I=\omega C_x U,\qquad S\approx\omega C_x U^2">
+      <div class="chead"><span class="chap">4.2.1 工频高压试验</span><span class="name">试验电流与变压器容量</span></div>
+      <div class="plain">I=ω C_x U,  S≈ω C_x U^2</div>
+      <pre class="latex" id="latex-18">I=\omega C_x U,\qquad S\approx\omega C_x U^2</pre>
+      <div class="acts">
+        <button onclick="copyLatex(18, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="5.1 波沿导线传播" data-text="5.1 波沿导线传播 波速与波阻抗 v=1/√(L₀C₀),  Z=√(L₀/C₀) v=\frac{1}{\sqrt{L_0C_0}},\qquad Z=\sqrt{\frac{L_0}{C_0}}">
+      <div class="chead"><span class="chap">5.1 波沿导线传播</span><span class="name">波速与波阻抗</span></div>
+      <div class="plain">v=1/√(L₀C₀),  Z=√(L₀/C₀)</div>
+      <pre class="latex" id="latex-19">v=\frac{1}{\sqrt{L_0C_0}},\qquad Z=\sqrt{\frac{L_0}{C_0}}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(19, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="5.1 波沿导线传播" data-text="5.1 波沿导线传播 波动方程通解 u=f₁(t-x/v)+f₂(t+x/v) u(x,t)=f_1\!\left(t-\frac{x}{v}\right)+f_2\!\left(t+\frac{x}{v}\right),\qquad i=\frac{f_1-f_2}{Z}">
+      <div class="chead"><span class="chap">5.1 波沿导线传播</span><span class="name">波动方程通解</span></div>
+      <div class="plain">u=f₁(t-x/v)+f₂(t+x/v)</div>
+      <pre class="latex" id="latex-20">u(x,t)=f_1\!\left(t-\frac{x}{v}\right)+f_2\!\left(t+\frac{x}{v}\right),\qquad i=\frac{f_1-f_2}{Z}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(20, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="5.2 行波的折射和反射" data-text="5.2 行波的折射和反射 折射与反射系数 α=2Z₂/(Z₁+Z₂),  β=(Z₂-Z₁)/(Z₁+Z₂) \alpha=\frac{2Z_2}{Z_1+Z_2},\qquad \beta=\frac{Z_2-Z_1}{Z_1+Z_2}">
+      <div class="chead"><span class="chap">5.2 行波的折射和反射</span><span class="name">折射与反射系数</span></div>
+      <div class="plain">α=2Z₂/(Z₁+Z₂),  β=(Z₂-Z₁)/(Z₁+Z₂)</div>
+      <pre class="latex" id="latex-21">\alpha=\frac{2Z_2}{Z_1+Z_2},\qquad \beta=\frac{Z_2-Z_1}{Z_1+Z_2}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(21, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="5.2 行波的折射和反射" data-text="5.2 行波的折射和反射 串联电感/并联电容时间常数 τ=L/(Z₁+Z₂),  τ=C Z₁Z₂/(Z₁+Z₂) \tau_L=\frac{L}{Z_1+Z_2},\qquad \tau_C=C\,\frac{Z_1Z_2}{Z_1+Z_2}">
+      <div class="chead"><span class="chap">5.2 行波的折射和反射</span><span class="name">串联电感/并联电容时间常数</span></div>
+      <div class="plain">τ=L/(Z₁+Z₂),  τ=C Z₁Z₂/(Z₁+Z₂)</div>
+      <pre class="latex" id="latex-22">\tau_L=\frac{L}{Z_1+Z_2},\qquad \tau_C=C\,\frac{Z_1Z_2}{Z_1+Z_2}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(22, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="5.3 变压器绕组波过程" data-text="5.3 变压器绕组波过程 初始电位分布 u(x)=U₀ cosh(αx)/cosh(αl)（末端开路） u(x)=U_0\frac{\cosh(\alpha x)}{\cosh(\alpha l)}\ (\text{末端开路}),\qquad u(x)=U_0\frac{\sinh(\alpha x)}{\sinh(\alpha l)}\ (\text{末端短路}),\quad \alpha=\sqrt{C_0/K_0}">
+      <div class="chead"><span class="chap">5.3 变压器绕组波过程</span><span class="name">初始电位分布</span></div>
+      <div class="plain">u(x)=U₀ cosh(αx)/cosh(αl)（末端开路）</div>
+      <pre class="latex" id="latex-23">u(x)=U_0\frac{\cosh(\alpha x)}{\cosh(\alpha l)}\ (\text{末端开路}),\qquad u(x)=U_0\frac{\sinh(\alpha x)}{\sinh(\alpha l)}\ (\text{末端短路}),\quad \alpha=\sqrt{C_0/K_0}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(23, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="7.1 工频过电压" data-text="7.1 工频过电压 限值 U_line≤1.4U_ph,max,  U_bus≤1.3U_ph,max U_{\text{line}}\le1.4U_{\mathrm{ph,max}},\qquad U_{\text{bus}}\le1.3U_{\mathrm{ph,max}}">
+      <div class="chead"><span class="chap">7.1 工频过电压</span><span class="name">限值</span></div>
+      <div class="plain">U_line≤1.4U_ph,max,  U_bus≤1.3U_ph,max</div>
+      <pre class="latex" id="latex-24">U_{\text{line}}\le1.4U_{\mathrm{ph,max}},\qquad U_{\text{bus}}\le1.3U_{\mathrm{ph,max}}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(24, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="8.1 绝缘配合" data-text="8.1 绝缘配合 氧化锌避雷器保护水平 U_L=max(U_res,\ U_steep/1.15) U_{L}=\max\!\left(U_{\mathrm{res}},\ \frac{U_{\mathrm{steep}}}{1.15}\right),\qquad U_{S}=U_{\mathrm{res,sw}}">
+      <div class="chead"><span class="chap">8.1 绝缘配合</span><span class="name">氧化锌避雷器保护水平</span></div>
+      <div class="plain">U_L=max(U_res,\ U_steep/1.15)</div>
+      <pre class="latex" id="latex-25">U_{L}=\max\!\left(U_{\mathrm{res}},\ \frac{U_{\mathrm{steep}}}{1.15}\right),\qquad U_{S}=U_{\mathrm{res,sw}}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(25, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="8.2 绝缘水平的确定" data-text="8.2 绝缘水平的确定 BIL 与 SIL BIL=K_I U_PI,  SIL=K_S K₀ U_xg \mathrm{BIL}=K_I U_{\mathrm{PI}},\quad K_I\ge1.2\ (1.25\text{近}/1.4\text{远});\qquad \mathrm{SIL}=K_S K_0 U_{\mathrm{xg}},\quad K_S=1.15\sim1.25">
+      <div class="chead"><span class="chap">8.2 绝缘水平的确定</span><span class="name">BIL 与 SIL</span></div>
+      <div class="plain">BIL=K_I U_PI,  SIL=K_S K₀ U_xg</div>
+      <pre class="latex" id="latex-26">\mathrm{BIL}=K_I U_{\mathrm{PI}},\quad K_I\ge1.2\ (1.25\text{近}/1.4\text{远});\qquad \mathrm{SIL}=K_S K_0 U_{\mathrm{xg}},\quad K_S=1.15\sim1.25</pre>
+      <div class="acts">
+        <button onclick="copyLatex(26, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="8.2 绝缘水平的确定" data-text="8.2 绝缘水平的确定 冲击转工频等效 U_ac=BIL/β_I,  β_I=1.48 U_{\mathrm{ac}}=\frac{\mathrm{BIL}}{\beta_I},\qquad \beta_I=1.48">
+      <div class="chead"><span class="chap">8.2 绝缘水平的确定</span><span class="name">冲击转工频等效</span></div>
+      <div class="plain">U_ac=BIL/β_I,  β_I=1.48</div>
+      <pre class="latex" id="latex-27">U_{\mathrm{ac}}=\frac{\mathrm{BIL}}{\beta_I},\qquad \beta_I=1.48</pre>
+      <div class="acts">
+        <button onclick="copyLatex(27, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="8.3 架空线路绝缘水平" data-text="8.3 架空线路绝缘水平 爬电比距 λ=nL₀/U_m \lambda=\frac{nL_0}{U_m}\quad(n\text{片数},\ L_0\text{单片爬电距离},\ U_m\text{最高工作线电压})">
+      <div class="chead"><span class="chap">8.3 架空线路绝缘水平</span><span class="name">爬电比距</span></div>
+      <div class="plain">λ=nL₀/U_m</div>
+      <pre class="latex" id="latex-28">\lambda=\frac{nL_0}{U_m}\quad(n\text{片数},\ L_0\text{单片爬电距离},\ U_m\text{最高工作线电压})</pre>
+      <div class="acts">
+        <button onclick="copyLatex(28, this)">复制 LaTeX</button>
+      </div>
+    </div></div>
+<div class="foot">
+  配套资料：<a href="高电压技术_知识点总结与复习计划.html">知识点总结与复习计划</a> ·
+  <a href="高电压技术_练习题库.html">章节练习题库</a> ·
+  <a href="高电压技术_公式速查.md">Markdown 源文件</a><br>
+  三份网页放在同一文件夹即可互相跳转。
+</div>
+</div>
+<script>
+function apply(){
+  const c=document.getElementById('chap').value;
+  const k=document.getElementById('kw').value.trim().toLowerCase();
+  let n=0;
+  document.querySelectorAll('.card').forEach(el=>{
+    const ok=(c==='all'||el.dataset.chapter===c)&&(!k||el.dataset.text.toLowerCase().includes(k));
+    el.classList.toggle('hide',!ok); if(ok)n++;
+  });
+  document.getElementById('count').textContent='显示 '+n+' / 29 条';
+}
+document.getElementById('chap').onchange=apply;
+document.getElementById('kw').oninput=apply;
+function copyLatex(i, btn){
+  const text=document.getElementById('latex-'+i).textContent;
+  const done=(ok)=>{const old=btn.textContent;btn.textContent=ok?'已复制 ✓':'请手动选中复制';setTimeout(()=>btn.textContent=old,1600);};
+  if(navigator.clipboard&&location.protocol!=='file:'){navigator.clipboard.writeText(text).then(()=>done(true)).catch(()=>fallback(text,done));}
+  else fallback(text,done);
+}
+function fallback(text,done){
+  const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  let ok=false;
+  try{ok=!!document.execCommand('copy');}catch(e){ok=false;}
+  ta.remove();
+  done(ok);
+}
+apply();
+</script></body></html>

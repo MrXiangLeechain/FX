@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>电力电子技术 · 章节练习题库</title>
+<style>
+:root{
+  --bg:#f6f8fb; --card:#ffffff; --ink:#1f2937; --muted:#6b7280;
+  --line:#e5e7eb; --brand:#2563eb; --brand-soft:#eff6ff;
+  --ok:#15803d; --ok-bg:#ecfdf5; --bad:#b91c1c; --bad-bg:#fef2f2;
+  --warn:#b45309; --warn-bg:#fffbeb;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;line-height:1.7}
+.wrap{max-width:960px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:26px;margin:0 0 6px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:22px}
+.exam-tip{display:inline-block;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;border-radius:99px;padding:4px 14px;font-size:13px;font-weight:600;margin-bottom:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(16,24,40,.04)}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+label{font-size:13px;color:var(--muted);margin-right:6px}
+select,button,input[type=text],textarea{font-family:inherit;font-size:14px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:#fff;color:var(--ink)}
+select{min-width:150px}
+button{cursor:pointer;background:#fff;transition:.15s}
+button:hover{border-color:var(--brand);color:var(--brand)}
+button.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+button.primary:hover{background:#1d4ed8;color:#fff}
+button:disabled{opacity:.45;cursor:not-allowed}
+.stats{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:var(--muted)}
+.stats b{color:var(--ink);font-size:16px}
+.bar{height:8px;background:#eef2f7;border-radius:99px;overflow:hidden;margin-top:14px}
+.bar>i{display:block;height:100%;background:var(--brand);width:0;transition:width .25s}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.badge{font-size:12px;padding:3px 9px;border-radius:99px;background:var(--brand-soft);color:var(--brand);font-weight:600}
+.badge.j{background:#f5f3ff;color:#6d28d9}
+.badge.b{background:#fff7ed;color:#c2410c}
+.badge.s{background:#ecfeff;color:#0e7490}
+.qtext{font-size:17px;font-weight:600;margin:6px 0 16px;white-space:pre-wrap}
+.opts{display:grid;gap:9px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:9px;padding:10px 12px;cursor:pointer;background:#fff}
+.opt:hover{border-color:var(--brand)}
+.opt.sel{border-color:var(--brand);background:var(--brand-soft)}
+.opt.correct{border-color:var(--ok);background:var(--ok-bg)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt input{margin-top:5px}
+.blank{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.blank input{min-width:220px;flex:1}
+textarea{width:100%;min-height:130px;resize:vertical}
+.fb{margin-top:14px;border-radius:9px;padding:12px 14px;font-size:14px;display:none}
+.fb.ok{display:block;background:var(--ok-bg);color:var(--ok);border:1px solid #bbf7d0}
+.fb.bad{display:block;background:var(--bad-bg);color:var(--bad);border:1px solid #fecaca}
+.fb.note{display:block;background:var(--warn-bg);color:var(--warn);border:1px solid #fde68a}
+.fb b{display:block;margin-bottom:4px}
+.act{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.self{margin-top:12px;display:none;gap:10px}
+.self.show{display:flex}
+.foot{color:var(--muted);font-size:12px;text-align:center;margin-top:26px}
+.foot a{color:var(--brand);text-decoration:none}.foot a:hover{text-decoration:underline}
+.nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:16px}
+.nav .nav-title{font-size:13px;color:var(--muted);margin-right:4px;font-weight:600}
+.nav a{font-size:13px;padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:#f8fafc;color:#334155;text-decoration:none}
+.nav a:hover{background:var(--brand-soft);border-color:var(--brand);color:var(--brand)}
+.nav a.current{background:var(--brand);border-color:var(--brand);color:#fff}
+.scope{margin-top:12px;font-size:13px;color:var(--muted);display:none;align-items:center;gap:8px}
+.scope.show{display:flex}
+.scope b{color:var(--brand)}
+.scope button{padding:3px 9px;font-size:12px}
+.qref{font-size:12px;padding:3px 9px;border:1px solid #bfdbfe;border-radius:99px;background:var(--brand-soft);color:var(--brand);text-decoration:none;white-space:nowrap}
+.qref:hover{background:var(--brand);color:#fff;text-decoration:none}
+.list{margin:0;padding-left:20px}
+.list li{margin:4px 0}
+@media(max-width:600px){.wrap{padding:18px 12px 40px}h1{font-size:22px}.qtext{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>电力电子技术 · 章节练习题库</h1>
+  <div class="sub">依据课程 327 个知识点整理 · 支持单选 / 判断 / 填空 / 简答 · 自动记录错题（保存在本机浏览器）</div>
+  <div class="exam-tip">📅 考试时间：2027 年 1 月 5 日</div>
+
+  <div class="nav" id="siteNav">
+    <span class="nav-title">资料导航</span>
+    <a href="../index.html">🏠 全部课程</a>
+    <a href="电力电子技术_知识点总结与复习计划.html">知识点总结</a>
+    <a class="current" href="电力电子技术_练习题库.html">练习题库（192题）</a>
+    <a href="电力电子技术_公式速查.html">公式速查</a>
+    <a href="电力电子技术_公式速查.md">公式 Markdown 源文件</a>
+  </div>
+
+  <div class="panel">
+    <div class="row">
+      <div><label for="part">章节</label><select id="part"></select></div>
+      <div><label for="type">题型</label><select id="type"></select></div>
+      <div><label for="order">顺序</label><select id="order"><option value="seq">按顺序</option><option value="rand">随机</option></select></div>
+      <button id="start" class="primary">开始练习</button>
+      <button id="wrongOnly">只练错题</button>
+      <button id="clearWrong">清空错题本</button>
+    </div>
+    <div class="scope" id="scope">
+      当前范围：知识点 <b id="scopeNum"></b>（来自总结页跳转）
+      <button id="clearScope">清除范围，练全部</button>
+    </div>
+    <div class="stats">
+      <span>题库总数 <b id="total">0</b></span>
+      <span>本次已答 <b id="done">0</b></span>
+      <span>答对 <b id="right">0</b></span>
+      <span>正确率 <b id="acc">—</b></span>
+      <span>错题本 <b id="wrongCnt">0</b></span>
+    </div>
+    <div class="bar"><i id="progress"></i></div>
+  </div>
+
+  <div class="panel" id="card" style="display:none">
+    <div class="qhead">
+      <div class="badge" id="badge"></div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <a class="qref" id="qref" href="#">回总结原文 ↗</a>
+        <div id="pos" style="color:var(--muted);font-size:13px"></div>
+      </div>
+    </div>
+    <div class="qtext" id="qtext"></div>
+    <div id="area"></div>
+    <div class="fb" id="fb"></div>
+    <div class="self" id="self">
+      <button id="selfOk">✅ 我答对了</button>
+      <button id="selfNo">❌ 没答好</button>
+    </div>
+    <div class="act">
+      <button id="submit" class="primary">提交答案</button>
+      <button id="reveal">查看参考答案</button>
+      <button id="prev">上一题</button>
+      <button id="next">下一题</button>
+    </div>
+  </div>
+
+  <div class="panel" id="finish" style="display:none">
+    <h3 style="margin-top:0">本次练习完成</h3>
+    <div id="summary"></div>
+    <button id="again" class="primary">再练一次</button>
+  </div>
+
+  <div class="foot">
+    配套资料：<a href="电力电子技术_知识点总结与复习计划.html">知识点总结与复习计划</a> ·
+    <a href="电力电子技术_公式速查.html">公式速查网页版</a> ·
+    <a href="电力电子技术_公式速查.md">公式 Markdown 源文件</a> ·
+    <a href="../index.html">返回课程主页</a><br>
+    提示：简答题为主观题，请先看参考答案再自评；错题本仅存于当前浏览器。
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [{"num": "11.1.2", "part": "绪论与电力电子器件", "type": "single", "q": "电力电子器件一般工作在（　）状态", "options": ["放大", "开关", "饱和", "截止"], "answer": 1, "explain": "电力电子器件工作在开关状态，以降低损耗。"}, {"num": "11.1.2", "part": "绪论与电力电子器件", "type": "single", "q": "把直流电变换为交流电的变换称为（　）", "options": ["整流", "逆变", "斩波", "变频"], "answer": 1, "explain": "DC→AC 为逆变；AC→DC 为整流；DC→DC 为斩波。"}, {"num": "11.1.2", "part": "绪论与电力电子器件", "type": "single", "q": "把交流电变换为固定或可调直流电的变换称为（　）", "options": ["逆变", "整流", "调功", "换流"], "answer": 1, "explain": "AC→DC 称为整流。"}, {"num": "11.1.3", "part": "绪论与电力电子器件", "type": "single", "q": "晶闸管问世的年份是（　），标志着电力电子技术的诞生", "options": ["1947 年", "1957 年", "1967 年", "1977 年"], "answer": 1, "explain": "1957 年晶闸管（SCR）问世。"}, {"num": "11.1.2", "part": "绪论与电力电子器件", "type": "judge", "q": "电力电子技术是处理电能变换、控制和功率处理的电子技术。", "answer": true, "explain": "定义正确：用电力电子器件对电能进行变换和控制。"}, {"num": "11.1.3", "part": "绪论与电力电子器件", "type": "judge", "q": "我国大功率电力电子器件（如 IGBT 芯片）的自主研发水平已全面领先国际。", "answer": false, "explain": "我国 IGBT 芯片进口率居高不下，宽禁带器件与国际先进水平尚有差距。"}, {"num": "11.1.2", "part": "绪论与电力电子器件", "type": "blank", "q": "电力电子技术的四大变换类型：AC→DC 称为＿＿，DC→AC 称为＿＿，DC→DC 称为＿＿，AC→AC 称为＿＿。", "answer": "整流、逆变、斩波、变频/调压", "explain": "四大基本变换。"}, {"num": "11.1.2", "part": "绪论与电力电子器件", "type": "short", "q": "电力电子器件为什么工作在开关状态？", "answer": "导通时压降低、关断时漏电流小，开关状态的静态损耗远小于放大状态；放大状态功耗大、发热严重，不适用于功率处理。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "下列属于半控型器件的是（　）", "options": ["功率二极管", "晶闸管", "IGBT", "功率 MOSFET"], "answer": 1, "explain": "晶闸管可控导通、不可控关断，为半控器件。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "下列全控器件中属于电流控制型的是（　）", "options": ["GTO", "IGBT", "功率 MOSFET", "IGCT"], "answer": 0, "explain": "SCR/GTO/BJT 为电流控制；MOSFET/IGBT 为电压控制。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "属于单极型器件的是（　）", "options": ["功率二极管", "晶闸管", "功率 MOSFET", "IGBT"], "answer": 2, "explain": "单极型只有一种载流子参与导电——功率 MOSFET。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "IGBT 属于（　）器件", "options": ["单极型", "双极型", "复合型", "不可控"], "answer": 2, "explain": "IGBT 是 MOSFET 与 BJT 的复合（MOS 输入+双极输出），为复合型。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "电压电流额定值从高到低的正确排序是（　）", "options": ["SCR、IGCT、IGBT、功率 MOSFET", "MOSFET、IGBT、IGCT、SCR", "IGBT、SCR、IGCT、MOSFET", "IGCT、SCR、MOSFET、IGBT"], "answer": 0, "explain": "课件小结给出：SCR > IGCT > IGBT > MOSFET。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "工作频率从高到低的正确排序是（　）", "options": ["SCR、IGCT、IGBT、MOSFET", "功率 MOSFET、IGBT、IGCT、SCR", "IGBT、MOSFET、SCR、IGCT", "IGCT、IGBT、MOSFET、SCR"], "answer": 1, "explain": "频率排序与容量排序相反。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "晶闸管导通的必要条件是（　）", "options": ["阳极加正向电压", "门极加触发电流", "阳极正偏且门极有触发电流", "阳极反偏且门极有电流"], "answer": 2, "explain": "两个条件缺一不可：阳极正偏 + 门极触发电流。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "晶闸管导通后，门极信号的作用是（　）", "options": ["维持导通必须持续提供", "失去控制作用", "可关断晶闸管", "调节导通电流大小"], "answer": 1, "explain": "普通晶闸管导通后门极失去控制作用，关断靠电流降到维持电流以下。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "晶闸管维持导通所需的最低阳极电流称为（　）", "options": ["擎住电流", "维持电流", "浪涌电流", "断态电流"], "answer": 1, "explain": "维持电流 IH：维持导通状态所需的最小阳极电流。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "晶闸管 IT(AV) 是正弦半波平均值电流，其对应有效值为 IT(AV) 的（　）倍", "options": ["1.0", "1.57", "2.0", "3.14"], "answer": 1, "explain": "正弦半波波形系数 1.57：有效值 = 1.57×平均值。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "晶闸管额定电流选型时应按（　）相等的原则并留裕量", "options": ["平均值", "有效值", "峰值", "瞬时值"], "answer": 1, "explain": "发热与有效值成正比，故按有效值相等原则：IT(AV)=(1.5~2)·IT/1.57。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "du/dt 过大时晶闸管会（　）", "options": ["过热烧毁", "误导通", "无法开通", "关断失败"], "answer": 1, "explain": "结电容充电电流相当于触发电流，du/dt 过大导致误导通。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "晶闸管开通时间 ton 等于（　）", "options": ["td+tr", "td+toff", "tr+ts", "toff+tr"], "answer": 0, "explain": "ton=td（延迟时间）+tr（上升时间）。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "下列器件中开关频率最高的是（　）", "options": ["SCR", "IGCT", "IGBT", "功率 MOSFET"], "answer": 3, "explain": "MOSFET 为单极型电压控制器件，开关速度最快。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "IGBT 的综合优势是（　）", "options": ["频率比 MOSFET 更高", "电压驱动且导通压降低、容量大", "是纯双极型器件", "不需要栅极驱动"], "answer": 1, "explain": "IGBT 结合 MOSFET 输入（电压驱动）与 BJT 输出（低导通压降）的优点。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "把功率器件与驱动、保护电路集成在一起的模块是（　）", "options": ["IGBT 模块", "IPM 智能功率模块", "整流桥模块", "GTO 模块"], "answer": 1, "explain": "IPM 集成驱动与过流/过压/过热等保护功能。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "single", "q": "功率二极管的主要参数不包括（　）", "options": ["正向平均电流", "反向重复峰值电压", "门极触发电流", "反向恢复电荷"], "answer": 2, "explain": "二极管无门极，不存在门极参数。"}, {"num": "11.2.4", "part": "绪论与电力电子器件", "type": "single", "q": "驱动电路实现控制电路与主电路电气隔离的常用方法是（　）", "options": ["直接连接", "光电耦合或磁隔离", "共地连接", "并联电容"], "answer": 1, "explain": "常用光耦与磁（变压器）隔离。"}, {"num": "11.2.5", "part": "绪论与电力电子器件", "type": "single", "q": "缓冲电路的主要作用是（　）", "options": ["增大输出功率", "抑制 du/dt、di/dt 和电压电流尖峰", "提高功率因数", "稳定输出频率"], "answer": 1, "explain": "缓冲（吸收）电路改善开关轨迹、减小开关损耗。"}, {"num": "11.2.5", "part": "绪论与电力电子器件", "type": "single", "q": "与开关管并联的关断缓冲电路通常采用（　）", "options": ["串联电感", "RC/RCD 网络", "串联电阻", "稳压管"], "answer": 1, "explain": "关断缓冲用 RC 或 RCD（含放电二极管）并联吸收。"}, {"num": "11.2.5", "part": "绪论与电力电子器件", "type": "single", "q": "导通缓冲电路抑制 di/dt 依靠（　）", "options": ["并联电容", "串联电感", "并联电阻", "并联二极管"], "answer": 1, "explain": "串联电感限制开通电流上升率。"}, {"num": "11.2.5", "part": "绪论与电力电子器件", "type": "single", "q": "馈能式缓冲电路与耗能式相比的优点是（　）", "options": ["结构更简单", "把缓冲储能回馈电源或负载、效率高", "不需要电阻电容", "可靠性一定更高"], "answer": 1, "explain": "馈能式回收储能，效率更高。"}, {"num": "11.2.7", "part": "绪论与电力电子器件", "type": "single", "q": "器件串联使用时需要采取的措施是（　）", "options": ["均流", "均压", "增大驱动", "降低频率"], "answer": 1, "explain": "串联均压（静态均压电阻+动态 RC/缓冲）；并联才需要均流。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "judge", "q": "晶闸管导通之后，撤销门极触发信号晶闸管立即关断。", "answer": false, "explain": "普通晶闸管导通后门极失去控制作用，关断须使阳极电流降到维持电流以下。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "judge", "q": "擎住电流大于维持电流。", "answer": true, "explain": "IL>IH：刚开通时若电流小于擎住电流，撤掉门极脉冲会重新关断。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "judge", "q": "功率 MOSFET 是电压控制型、单极型器件。", "answer": true, "explain": "栅极电压控制、多子导电。"}, {"num": "11.2.5", "part": "绪论与电力电子器件", "type": "judge", "q": "缓冲电路的作用是把开关轨迹限制在器件安全工作区内。", "answer": true, "explain": "缓冲电路即吸收电路，改善开关轨迹。"}, {"num": "11.2.4", "part": "绪论与电力电子器件", "type": "judge", "q": "晶闸管门极采用强触发有利于缩短开通时间并提高 di/dt 耐受能力。", "answer": true, "explain": "强触发脉冲使导通区迅速扩大。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "blank", "q": "晶闸管是＿＿层＿＿端器件，具有＿＿个 PN 结。", "answer": "四、三、三", "explain": "P-N-P-N 四层三端三结。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "blank", "q": "按载流子导电情况，MOSFET 是＿＿型器件，IGBT 是＿＿型器件。", "answer": "单极、复合", "explain": "单极型只有多子；IGBT 为复合型。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "blank", "q": "晶闸管额定电流换算公式：IT(AV) = ＿＿ × IT / ＿＿。", "answer": "(1.5~2)、1.57", "explain": "按有效值相等留 1.5~2 倍裕量除以波形系数。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "short", "q": "简述晶闸管的导通与关断条件。", "answer": "导通：阳极承受正向电压且门极有足够触发电流（缺一不可）。关断：使阳极电流下降到维持电流 IH 以下（负载断开、回路电阻增大或加反向阳极电压），并保持一段时间使其恢复阻断能力。"}, {"num": "11.2.3", "part": "绪论与电力电子器件", "type": "short", "q": "简述电力电子器件按可控性的三分类并各举一例。", "answer": "不可控器件：功率二极管，导通关断均由电路决定；半控器件：晶闸管 SCR，可控开通不可控关断；全控器件：GTO、BJT、MOSFET、IGBT、IGCT，可控制开通与关断。"}, {"num": "11.2.5", "part": "绪论与电力电子器件", "type": "short", "q": "简述缓冲电路的作用与类型。", "answer": "作用：抑制开关过程中的 du/dt、di/dt 与电压电流尖峰，减小开关损耗、改善开关轨迹（限制在 SOA 内）。类型：关断缓冲（RC/RCD 与管并联）、导通缓冲（电感与管串联抑制 di/dt）、复合缓冲（两者结合）；按能量处理方式分耗能式（电阻消耗）与馈能式（回馈电源）。"}, {"num": "11.3.3", "part": "交流-直流变换（相控整流）", "type": "single", "q": "单相半波相控整流器电阻负载的移相范围是（　）", "options": ["0~90°", "0~120°", "0~150°", "0~180°"], "answer": 3, "explain": "电阻负载 α 从 0 到 180°。"}, {"num": "11.3.3", "part": "交流-直流变换（相控整流）", "type": "single", "q": "单相半波整流电阻负载 α=0° 时输出电压平均值 Ud=（　）", "options": ["0.9U2", "0.45U2", "1.17U2", "2.34U2"], "answer": 1, "explain": "半波 α=0 时 Ud=0.45U2。"}, {"num": "11.3.3", "part": "交流-直流变换（相控整流）", "type": "single", "q": "单相桥式整流电阻负载 α=0° 时 Ud=（　）", "options": ["0.45U2", "0.9U2", "1.17U2", "2.34U2"], "answer": 1, "explain": "桥式整流为半波的 2 倍：0.9U2。"}, {"num": "11.3.3", "part": "交流-直流变换（相控整流）", "type": "single", "q": "单相半波电阻负载 Ud 的表达式是（　）", "options": ["0.45U2(1+cosα)/2", "0.45U2(1+cosα)", "0.9U2cosα", "2.34U2cosα"], "answer": 0, "explain": "Ud=0.45U2(1+cosα)/2；桥式电阻负载才是 0.45U2(1+cosα)。"}, {"num": "11.3.3", "part": "交流-直流变换（相控整流）", "type": "single", "q": "单相桥式整流电阻负载时，每个晶闸管的平均电流是输出平均电流的（　）", "options": ["1/2", "1/3", "1/4", "1"], "answer": 0, "explain": "两对管轮流导通，各承担一半。"}, {"num": "11.3.3", "part": "交流-直流变换（相控整流）", "type": "single", "q": "单相桥式整流电阻负载时晶闸管承受的最大正向电压是（　）", "options": ["√2U2", "√2U2/2", "√6U2", "√6U2/2"], "answer": 1, "explain": "漏电阻均分时未导通管承压 u2/2，最大 √2U2/2；最大反向电压为 √2U2。"}, {"num": "11.3.3", "part": "交流-直流变换（相控整流）", "type": "single", "q": "单相桥式整流大电感负载（电流连续）时 Ud=（　）", "options": ["0.45U2(1+cosα)", "0.9U2cosα", "1.17U2cosα", "2.34U2cosα"], "answer": 1, "explain": "电感负载 Ud=0.9U2cosα，移相范围 0~90°。"}, {"num": "11.3.3", "part": "交流-直流变换（相控整流）", "type": "single", "q": "单相桥式整流电感性负载的移相范围是（　）", "options": ["0~180°", "0~120°", "0~90°", "0~150°"], "answer": 2, "explain": "α>90° 时输出电压正负面积相等平均值零，故移相范围 0~90°。"}, {"num": "11.3.3", "part": "交流-直流变换（相控整流）", "type": "single", "q": "单相桥式整流电感负载时变压器二次电流有效值 I2=（　）", "options": ["Id/2", "Id/√2", "0.816Id", "Id"], "answer": 3, "explain": "二次电流为对称正负矩形波，有效值等于 Id。"}, {"num": "11.3.3", "part": "交流-直流变换（相控整流）", "type": "single", "q": "单相整流电路中晶闸管承受的最大正反向电压是（　）", "options": ["U2", "√2U2", "√6U2", "2U2"], "answer": 1, "explain": "相电压峰值 √2U2。"}, {"num": "11.3.3", "part": "交流-直流变换（相控整流）", "type": "single", "q": "反电势负载直接供电时存在的问题是（　）", "options": ["输出电压过高", "导电角小、电流断续且峰值大", "功率因数过高", "晶闸管无法关断"], "answer": 1, "explain": "只有 |u2|>E 时才导通，常串平波电抗器。"}, {"num": "11.3.4", "part": "交流-直流变换（相控整流）", "type": "single", "q": "三相半波共阴极整流电路的自然换相点在相电压过零后的（　）", "options": ["15°", "30°", "45°", "60°"], "answer": 1, "explain": "自然换相点位于 α=30°。"}, {"num": "11.3.4", "part": "交流-直流变换（相控整流）", "type": "single", "q": "三相半波整流大电感负载时 Ud=（　）", "options": ["0.9U2cosα", "1.17U2cosα", "2.34U2cosα", "1.35U2cosα"], "answer": 1, "explain": "三相半波 Ud=1.17U2cosα。"}, {"num": "11.3.4", "part": "交流-直流变换（相控整流）", "type": "single", "q": "三相桥式整流大电感负载时 Ud=（　）", "options": ["0.9U2cosα", "1.17U2cosα", "2.34U2cosα", "0.45U2cosα"], "answer": 2, "explain": "三相桥式 Ud=2.34U2cosα（U2 为相电压）。"}, {"num": "11.3.4", "part": "交流-直流变换（相控整流）", "type": "single", "q": "三相桥式整流器输出电压每周期脉动（　）次", "options": ["3", "6", "12", "2"], "answer": 1, "explain": "共阴极组与共阳极组串联，6 脉波。"}, {"num": "11.3.4", "part": "交流-直流变换（相控整流）", "type": "single", "q": "三相桥式整流电感负载时每个晶闸管电流有效值为（　）", "options": ["0.577Id", "0.816Id", "Id/2", "0.707Id"], "answer": 0, "explain": "IT=Id/√3≈0.577Id（每管导通 120°）。"}, {"num": "11.3.4", "part": "交流-直流变换（相控整流）", "type": "single", "q": "三相桥式整流时变压器二次电流有效值为（　）", "options": ["0.577Id", "0.816Id", "Id", "Id/√2"], "answer": 1, "explain": "I2=√2·Id/√3≈0.816Id。"}, {"num": "11.3.4", "part": "交流-直流变换（相控整流）", "type": "single", "q": "三相桥式整流晶闸管承受的最大正反向电压是（　）", "options": ["√2U2", "√6U2", "√3U2", "2.34U2"], "answer": 1, "explain": "线电压峰值 √6U2。"}, {"num": "11.3.4", "part": "交流-直流变换（相控整流）", "type": "single", "q": "三相半波整流的主要缺点是（　）", "options": ["输出电压过高", "变压器存在直流磁化、利用率低", "需要 6 个晶闸管", "不能接电阻负载"], "answer": 1, "explain": "每相绕组单向导电产生直流磁化分量。"}, {"num": "11.3.4", "part": "交流-直流变换（相控整流）", "type": "single", "q": "双反星形整流电路（带平衡电抗器）适合的场合是（　）", "options": ["高电压小电流", "低电压大电流", "高频变换", "四象限运行"], "answer": 1, "explain": "两组半波并联，电压减半、电流加倍。"}, {"num": "11.3.4", "part": "交流-直流变换（相控整流）", "type": "single", "q": "三相桥式电阻负载 α>60° 时输出电流（　）", "options": ["连续", "断续", "恒为零", "增大"], "answer": 1, "explain": "α>60° 波形不连续，电流断续。"}, {"num": "11.3.5", "part": "交流-直流变换（相控整流）", "type": "single", "q": "晶闸管触发电路与主电路必须保持（　）关系", "options": ["电气隔离", "同步", "功率匹配", "频率相反"], "answer": 1, "explain": "触发脉冲必须与主电路电源同步才能稳定移相。"}, {"num": "11.3.6", "part": "交流-直流变换（相控整流）", "type": "single", "q": "变压器漏抗引起的换相重叠使整流输出电压（　）", "options": ["升高", "降低", "不变", "变为交流"], "answer": 1, "explain": "换相期间输出为两相电压平均，产生换相压降使 Ud 降低。"}, {"num": "11.3.6", "part": "交流-直流变换（相控整流）", "type": "single", "q": "换相重叠角 γ 随负载电流 Id 的增大而（　）", "options": ["减小", "增大", "不变", "先增后减"], "answer": 1, "explain": "cosα−cos(α+γ)=2XB·Id/(√6·U2)，Id 越大 γ 越大。"}, {"num": "11.3.6", "part": "交流-直流变换（相控整流）", "type": "single", "q": "漏抗对整流器的影响不包括（　）", "options": ["输出电压降低", "功率因数变差", "限制 di/dt", "提高输出功率"], "answer": 3, "explain": "漏抗不利影响为主，仅对开通过程 di/dt 有利。"}, {"num": "11.3.7", "part": "交流-直流变换（相控整流）", "type": "single", "q": "变流器工作在有源逆变状态的条件是（　）", "options": ["α<90°", "α>90° 且直流侧有反电势源", "α=90°", "只要直流侧有电感"], "answer": 1, "explain": "α>90°（β<90°）且直流侧反电势极性与晶闸管导通方向一致、|Ud|<|E|。"}, {"num": "11.3.7", "part": "交流-直流变换（相控整流）", "type": "single", "q": "逆变角 β 与触发角 α 的关系是（　）", "options": ["β=α", "β=90°−α", "β=180°−α", "β=2α"], "answer": 2, "explain": "β=180°−α，β<90° 对应 α>90°。"}, {"num": "11.3.7", "part": "交流-直流变换（相控整流）", "type": "single", "q": "最小逆变角 βmin 一般取（　）", "options": ["10°~15°", "20°~25°", "30°~35°", "45°~50°"], "answer": 2, "explain": "βmin=γ+δ(4°~5°)+θ′(≈10°)，取 30°~35°。"}, {"num": "11.3.7", "part": "交流-直流变换（相控整流）", "type": "single", "q": "逆变失败最严重的后果是（　）", "options": ["输出电压降低", "逆变颠覆，外部直流电源与整流输出顺向串联形成短路", "谐波增大", "功率因数提高"], "answer": 1, "explain": "两电源顺向串联短路，电流急剧增大烧毁器件。"}, {"num": "11.3.7", "part": "交流-直流变换（相控整流）", "type": "single", "q": "下列电路中不能实现有源逆变的是（　）", "options": ["三相全控桥", "单相全控桥", "半控桥或带续流二极管的电路", "三相半波全控桥"], "answer": 2, "explain": "半控器件或存在续流二极管时输出电压不能变负，无法逆变。"}, {"num": "11.3.8", "part": "交流-直流变换（相控整流）", "type": "single", "q": "m 脉波整流输出电压的最低谐波次数为（　）", "options": ["1", "m", "2m", "m/2"], "answer": 1, "explain": "m 脉波最低谐波为 m 次，m 越大滤波越容易。"}, {"num": "11.3.3", "part": "交流-直流变换（相控整流）", "type": "judge", "q": "单相桥式整流电阻负载输出电压平均值是单相半波的 2 倍。", "answer": true, "explain": "0.9U2 对 0.45U2（α=0 时）。"}, {"num": "11.3.3", "part": "交流-直流变换（相控整流）", "type": "judge", "q": "单相桥式整流电感性负载时晶闸管导通角 θ 与触发角 α 无关，恒为 π。", "answer": true, "explain": "电流连续时每管导通 180°。"}, {"num": "11.3.4", "part": "交流-直流变换（相控整流）", "type": "judge", "q": "三相桥式整流器可以看作共阴极组与共阳极组三相半波电路的串联组合。", "answer": true, "explain": "正是其构成方式。"}, {"num": "11.3.4", "part": "交流-直流变换（相控整流）", "type": "judge", "q": "三相桥式整流输出电压脉动频率为 150Hz（50Hz 电网）。", "answer": false, "explain": "6 脉波对应 300Hz。"}, {"num": "11.3.6", "part": "交流-直流变换（相控整流）", "type": "judge", "q": "变压器漏抗使换相延迟，对晶闸管开通过程没有任何好处。", "answer": false, "explain": "漏抗限制了 di/dt，对晶闸管开通有利。"}, {"num": "11.3.7", "part": "交流-直流变换（相控整流）", "type": "judge", "q": "α>90° 时变流器就一定能工作在有源逆变状态。", "answer": false, "explain": "还需直流侧有反电势源且 |Ud|<|E|。"}, {"num": "11.3.7", "part": "交流-直流变换（相控整流）", "type": "judge", "q": "为了防止逆变失败，触发电路中可设置附加安全脉冲保证 β 不小于 βmin。", "answer": true, "explain": "课件明确提到的防失败措施。"}, {"num": "11.3.3", "part": "交流-直流变换（相控整流）", "type": "blank", "q": "单相半波整流电阻负载移相范围＿＿；单相桥式电感负载移相范围＿＿。", "answer": "0~180°、0~90°", "explain": "两处常考数字。"}, {"num": "11.3.4", "part": "交流-直流变换（相控整流）", "type": "blank", "q": "三相桥式整流 α=0 时 Ud=＿＿U2；三相半波整流 α=0 时 Ud=＿＿U2。", "answer": "2.34、1.17", "explain": "两个基准值。"}, {"num": "11.3.7", "part": "交流-直流变换（相控整流）", "type": "blank", "q": "最小逆变角 βmin = ＿＿ + ＿＿ + ＿＿，一般取＿＿。", "answer": "换相重叠角γ、关断时间对应电角度δ(4°~5°)、安全裕量角θ′(≈10°)、30°~35°", "explain": "三项之和。"}, {"num": "11.3.3", "part": "交流-直流变换（相控整流）", "type": "short", "q": "画出单相桥式整流电阻负载 α=60° 时 ud 波形并写出 Ud 公式。", "answer": "ud 在正负半波各从 60° 导通到 180°（π），波形为两段完整正弦弧。Ud=0.45U2(1+cos60°)=0.675U2。"}, {"num": "11.3.6", "part": "交流-直流变换（相控整流）", "type": "short", "q": "简述变压器漏抗对整流器的影响。", "answer": "① 换相不能瞬时完成，出现换相重叠角 γ；② 输出电压波形缺块，产生换相压降 ΔUd，平均值降低；③ 功率因数变差、纹波增大；④ 换相时两相短路使电网电压出现缺口；⑤ 限制 di/dt，对晶闸管开通过程有利。"}, {"num": "11.3.7", "part": "交流-直流变换（相控整流）", "type": "short", "q": "简述产生逆变失败的原因及防止措施。", "answer": "原因：① 触发电路不可靠（脉冲丢失、延迟）；② 晶闸管故障；③ 逆变角 β 过小导致换相不充分；④ 交流电源异常（缺相、停电）。后果是逆变颠覆短路。措施：限制最小逆变角 βmin（30°~35°）；触发电路加保护线路或附加安全脉冲；保证交流电源可靠；选用可靠器件。"}, {"num": "11.4.3", "part": "交流-交流变换器", "type": "single", "q": "单相交流调压器电感性负载时，晶闸管导通角 θ 取决于（　）", "options": ["仅触发角 α", "仅阻抗角 φ", "α 与 φ 共同决定", "负载电流大小"], "answer": 2, "explain": "θ=f(α,φ)，电感阻止电流突变。"}, {"num": "11.4.3", "part": "交流-交流变换器", "type": "single", "q": "单相交流调压器电感性负载时 α 与 φ 的关系，错误的是（　）", "options": ["α<φ 时输出电压不可调", "α=φ 时自由分量消失", "α>φ 时 θ 随 α 增大而减小", "α 可以任意小于 0"], "answer": 3, "explain": "最小触发角为 φ，α<φ 时晶闸管全导通。"}, {"num": "11.4.3", "part": "交流-交流变换器", "type": "single", "q": "单相交流调压器通常采用的器件接法是（　）", "options": ["两只晶闸管反并联或双向晶闸管", "四只晶闸管桥式", "一只晶闸管", "IGBT 全桥"], "answer": 0, "explain": "反并联对管控制正负半波。"}, {"num": "11.4.4", "part": "交流-交流变换器", "type": "single", "q": "晶闸管交流调功器的调功方式是（　）", "options": ["改变触发角", "改变导通周波数与总周波数之比", "改变电源频率", "改变负载电阻"], "answer": 1, "explain": "周波控制：N 个周波内导通 M 个。"}, {"num": "11.4.4", "part": "交流-交流变换器", "type": "single", "q": "交流调功器相比移相调压器的优点是（　）", "options": ["调节连续平滑", "过零触发、谐波小、开通损耗小", "输出频率可调", "不需要同步电路"], "answer": 1, "explain": "过零开通使谐波显著减小。"}, {"num": "11.4.4", "part": "交流-交流变换器", "type": "single", "q": "晶闸管交流开关的优点不包括（　）", "options": ["响应快", "寿命长", "无火花", "能切断短路电流"], "answer": 3, "explain": "交流开关不能断短路电流，需配熔断器。"}, {"num": "11.4.6", "part": "交流-交流变换器", "type": "single", "q": "交-交变频器由（　）构成", "options": ["两组反并联的晶闸管整流器", "四象限 IGBT 斩波器", "二极管整流+SPWM 逆变", "晶闸管斩波器"], "answer": 0, "explain": "正组与反组反并联，直接变频。"}, {"num": "11.4.6", "part": "交流-交流变换器", "type": "single", "q": "交-交变频器中，正组还是反组工作由（　）决定", "options": ["输出电压极性", "负载电流方向", "触发角大小", "电网频率"], "answer": 1, "explain": "哪组工作由 io 方向决定，与 uo 极性无关。"}, {"num": "11.4.6", "part": "交流-交流变换器", "type": "single", "q": "交-交变频器的输出频率一般（　）", "options": ["高于电网频率", "等于电网频率", "低于电网频率（≤1/3~1/2）", "任意可调"], "answer": 2, "explain": "输出频率受换流限制，一般不超过电网频率的 1/3~1/2。"}, {"num": "11.4.6", "part": "交流-交流变换器", "type": "single", "q": "正弦波交-交变频器控制触发角 α 采用的方法是（　）", "options": ["恒定 α", "余弦交点法", "PWM 法", "频率跟踪法"], "answer": 1, "explain": "按正弦规律连续调制 α，余弦交点法确定触发时刻。"}, {"num": "11.4.3", "part": "交流-交流变换器", "type": "judge", "q": "交流调压器电感性负载时，触发角 α 可以小于负载阻抗角 φ。", "answer": false, "explain": "最小触发角为 φ；α<φ 时晶闸管全导通，输出不可调。"}, {"num": "11.4.4", "part": "交流-交流变换器", "type": "judge", "q": "调功器的输出功率调节是连续的。", "answer": false, "explain": "以整周波为单位，调节不连续。"}, {"num": "11.4.6", "part": "交流-交流变换器", "type": "blank", "q": "交-交变频器改变正反组切换频率调节输出＿＿，改变 α 大小调节输出＿＿。", "answer": "频率、电压（幅值）", "explain": "调频靠切换频率，调幅靠 α。"}, {"num": "11.4.6", "part": "交流-交流变换器", "type": "short", "q": "简述交-交变频器的工作状态划分。", "answer": "由两组反并联晶闸管整流器构成。io 正半周正组工作、反组封锁；负半周反组工作、正组封锁——组别由电流方向决定。每组内部再按 uo 与 io 方向组合分整流（uo、io 同号，输出正功率）与逆变（uo、io 异号，回馈功率）两种工作状态。"}, {"num": "11.5.3", "part": "直流-直流变换器（斩波）", "type": "single", "q": "直流斩波器输出电压平均值 Uo 与占空比 D 的关系（Buck 型）是（　）", "options": ["Uo=D·Ud", "Uo=Ud/D", "Uo=Ud/(1−D)", "Uo=(1−D)Ud"], "answer": 0, "explain": "Uo=(ton/Ts)Ud=D·Ud。"}, {"num": "11.5.3", "part": "直流-直流变换器（斩波）", "type": "single", "q": "开关周期不变、改变导通时间的调制方式称为（　）", "options": ["PFM", "PWM", "PHM", "SPWM"], "answer": 1, "explain": "PWM：Ts 不变调 ton，应用最多。"}, {"num": "11.5.3", "part": "直流-直流变换器（斩波）", "type": "single", "q": "PWM 相比 PFM 的主要优点是（　）", "options": ["开关频率固定、滤波器容易设计", "电路更简单", "损耗一定更小", "无需控制芯片"], "answer": 0, "explain": "固定频率使滤波设计与谐波分析简单。"}, {"num": "11.5.4", "part": "直流-直流变换器（斩波）", "type": "single", "q": "降压变换器 CCM 时输出电压 Uo=（　）", "options": ["D·Ud", "Ud/(1−D)", "D·Ud/(1−D)", "2D·Ud"], "answer": 0, "explain": "Buck：Uo=D·Ud。"}, {"num": "11.5.4", "part": "直流-直流变换器（斩波）", "type": "single", "q": "降压变换器中续流二极管 VD 的作用是（　）", "options": ["整流", "VT 关断时为电感电流提供续流通路", "稳压", "隔离"], "answer": 1, "explain": "关断期间 L 经 VD 继续向负载供电。"}, {"num": "11.5.4", "part": "直流-直流变换器（斩波）", "type": "single", "q": "Buck 变换器电感电流纹波 ΔiL 等于（　）", "options": ["Ud·D·Ts/L", "Uo(1−D)Ts/L", "Ud(1−D)Ts/L", "Ud·Ts/L"], "answer": 1, "explain": "关断期间斜率为 −Uo/L，ΔiL=Uo(1−D)Ts/L=(Ud−Uo)ton/L。"}, {"num": "11.5.4", "part": "直流-直流变换器（斩波）", "type": "single", "q": "输出电压纹波与电感电流纹波的关系是（　）", "options": ["ΔUo=ΔiL·Ts/(8C)", "ΔUo=ΔiL·Ts/(4C)", "ΔUo=ΔiL·C·Ts", "无关"], "answer": 0, "explain": "电容充放电模型：ΔUo=ΔiL·Ts/8C。"}, {"num": "11.5.4", "part": "直流-直流变换器（斩波）", "type": "single", "q": "Buck 变换器工作象限是（　）", "options": ["第一象限", "第二象限", "第三象限", "四象限"], "answer": 0, "explain": "输出电压电流均单向为正。"}, {"num": "11.5.5", "part": "直流-直流变换器（斩波）", "type": "single", "q": "升压变换器 CCM 时 Uo=（　）", "options": ["D·Ud", "Ud/(1−D)", "D·Ud/(1−D)", "(1−D)Ud"], "answer": 1, "explain": "Boost：Uo=Ud/(1−D)>Ud。"}, {"num": "11.5.5", "part": "直流-直流变换器（斩波）", "type": "single", "q": "升压变换器输出高于输入的原因是（　）", "options": ["变压器升压", "关断期间电感感应电压与电源叠加向输出放电", "电容升压", "占空比小于 1"], "answer": 1, "explain": "放磁阶段 UL 与 Ud 同向串联。"}, {"num": "11.5.5", "part": "直流-直流变换器（斩波）", "type": "single", "q": "升压变换器的输入电流特点是（　）", "options": ["断续", "连续（纹波小）", "矩形波", "正弦"], "answer": 1, "explain": "电感串在输入侧，输入电流连续，适合 PFC。"}, {"num": "11.5.6", "part": "直流-直流变换器（斩波）", "type": "single", "q": "降压-升压变换器 CCM 时 Uo=（　）", "options": ["D·Ud", "Ud/(1−D)", "D·Ud/(1−D)", "Ud"], "answer": 2, "explain": "Buck-Boost：Uo=D·Ud/(1−D)。"}, {"num": "11.5.6", "part": "直流-直流变换器（斩波）", "type": "single", "q": "降压-升压变换器输出电压的极性（　）", "options": ["与输入相同", "与输入相反", "可为正可为负", "为零"], "answer": 1, "explain": "输出极性与输入相反（负电压输出）。"}, {"num": "11.5.6", "part": "直流-直流变换器（斩波）", "type": "single", "q": "D=0.6 时降压-升压变换器工作在（　）状态", "options": ["降压", "升压", "短路", "断续"], "answer": 1, "explain": "D>0.5 时 Uo>Ud，升压。"}, {"num": "11.5.8", "part": "直流-直流变换器（斩波）", "type": "single", "q": "全桥斩波器双极性控制方式下输出电压在（　）之间跳变", "options": ["0 与 +Ud", "+Ud 与 −Ud", "0 与 −Ud", "+Ud 与 +2Ud"], "answer": 1, "explain": "对角管成对互补导通，输出 ±Ud。"}, {"num": "11.5.8", "part": "直流-直流变换器（斩波）", "type": "single", "q": "全桥斩波器双极性控制时输出平均电压 Uo=（　）", "options": ["D·Ud", "(2D−1)Ud", "(1−2D)Ud", "Ud/(1−D)"], "answer": 1, "explain": "Uo=(2D−1)Ud。"}, {"num": "11.5.8", "part": "直流-直流变换器（斩波）", "type": "single", "q": "全桥斩波器单极性控制方式相比双极性的优点是（　）", "options": ["控制更简单", "输出谐波频率高（等效开关频率加倍）、纹波小", "不需要死区", "输出电压更高"], "answer": 1, "explain": "单极性输出在 0 与 +Ud 间跳变，等效开关频率加倍。"}, {"num": "11.5.9", "part": "直流-直流变换器（斩波）", "type": "single", "q": "开关利用率最高的变换器是（　）", "options": ["全桥式", "降压或升压变换器", "降压-升压变换器", "库克变换器"], "answer": 1, "explain": "结构简单、单象限运行，开关利用率最高。"}, {"num": "11.5.9", "part": "直流-直流变换器（斩波）", "type": "single", "q": "要求变换器四个象限运行时应采用（　）", "options": ["Buck", "Boost", "Buck-Boost", "全桥式斩波器"], "answer": 3, "explain": "只有全桥可实现电压电流双向。"}, {"num": "11.5.9", "part": "直流-直流变换器（斩波）", "type": "single", "q": "两象限斩波器中，实现能量回馈的是（　）", "options": ["VT1、VD1 降压通道", "VT2、VD2 组成的反向升压通道", "输出电容", "串入的平波电抗器"], "answer": 1, "explain": "负载能量经升压通道反送电源。"}, {"num": "11.5.4", "part": "直流-直流变换器（斩波）", "type": "judge", "q": "降压变换器的输出电压只能低于输入电压。", "answer": true, "explain": "Uo=D·Ud，D≤1。"}, {"num": "11.5.5", "part": "直流-直流变换器（斩波）", "type": "judge", "q": "升压变换器 VT 导通期间电源同时向负载供电。", "answer": false, "explain": "导通期间电源只给电感充磁，负载由电容供电。"}, {"num": "11.5.6", "part": "直流-直流变换器（斩波）", "type": "judge", "q": "降压-升压变换器的能量传递分两阶段：先存入电感再释放给输出。", "answer": true, "explain": "先充磁后放磁。"}, {"num": "11.5.8", "part": "直流-直流变换器（斩波）", "type": "judge", "q": "双极性控制方式的输出纹波一定小于单极性方式。", "answer": false, "explain": "相反，单极性等效开关频率加倍，纹波更小。"}, {"num": "11.5.3", "part": "直流-直流变换器（斩波）", "type": "blank", "q": "斩波占空比 D=＿＿/＿＿；Buck 变换器 Uo=＿＿。", "answer": "t_on、Ts、D·Ud", "explain": "基本定义与公式。"}, {"num": "11.5.4", "part": "直流-直流变换器（斩波）", "type": "blank", "q": "Buck 变换器电流连续的临界条件：负载电流＿＿临界电流 Iok=＿＿。", "answer": "大于等于、(1−D)·D·Ud·Ts/(2L)", "explain": "低于临界值进入 DCM。"}, {"num": "11.5.5", "part": "直流-直流变换器（斩波）", "type": "short", "q": "简述升压变换器的工作原理（CCM）。", "answer": "VT 导通：电源经 L 充磁储能，负载由电容 C 供电，VD 截止。VT 关断：电感电流不能突变，L 产生感应电压与电源叠加，经 VD 向 C 和负载放电，故 Uo=Ud/(1−D)>Ud。稳态下电感伏秒平衡：Ud·ton=(Uo−Ud)·toff。"}, {"num": "11.5.8", "part": "直流-直流变换器（斩波）", "type": "short", "q": "比较全桥斩波器双极性与单极性控制方式。", "answer": "双极性：VT1/VT4 与 VT2/VT3 对角成对互补，输出在 +Ud 与 −Ud 间跳变，Uo=(2D−1)Ud；控制简单、电流断续风险小，但谐波大。单极性：一侧桥臂按电流方向固定，另一侧 PWM，输出在 0 与 +Ud（或 0 与 −Ud）间跳变；等效开关频率加倍、纹波小、EMI 低。"}, {"num": "11.6.3", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "交流侧接电网的逆变称为（　）", "options": ["无源逆变", "有源逆变", "斩波", "整流"], "answer": 1, "explain": "接电网=有源逆变；接负载=无源逆变。"}, {"num": "11.6.4", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "电压型逆变器直流侧采用（　）", "options": ["大电感滤波", "大电容滤波", "电阻滤波", "不滤波"], "answer": 1, "explain": "大电容相当于恒压源。"}, {"num": "11.6.4", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "电压型逆变器输出电压波形为（　）", "options": ["近似正弦波", "矩形波，与负载阻抗角无关", "由负载决定", "三角波"], "answer": 1, "explain": "输出电压矩形波；输出电流由负载决定。"}, {"num": "11.6.4", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "电压型逆变器反馈无功能量的通道由（　）提供", "options": ["直流侧电感", "各桥臂反并联二极管", "输出电容", "辅助晶闸管"], "answer": 1, "explain": "反并联二极管把无功能量回馈直流侧电容。"}, {"num": "11.6.4", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "180° 导电型逆变器同桥臂上下管切换必须（　）", "options": ["同时切换", "先通后断", "先断后通（留互锁死区）", "长开长断"], "answer": 2, "explain": "先断后通防直通短路；死区由关断时间决定。"}, {"num": "11.6.4", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "三相 180° 导电型电压型逆变器每周输出电压脉动（　）次", "options": ["3", "6", "12", "2"], "answer": 1, "explain": "三相桥 6 阶梯波线电压。"}, {"num": "11.6.5", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "电流型逆变器直流侧采用（　）", "options": ["大电容", "大电感", "电阻", "稳压管"], "answer": 1, "explain": "大电感串联相当于恒流源。"}, {"num": "11.6.5", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "电流型逆变器输出电流波形为（　）", "options": ["正弦", "矩形波", "由负载决定", "三角波"], "answer": 1, "explain": "开关只改变电流路径，输出电流矩形波。"}, {"num": "11.6.5", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "电流型逆变器开关管不必反并联二极管的原因是（　）", "options": ["电流不能反向", "电压不能反向", "电感隔断了反向通路", "器件自带反并联"], "answer": 0, "explain": "反馈无功时电流不反向，无需二极管续流通道。"}, {"num": "11.6.5", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "可实现四象限运行、无需附加设备的逆变器是（　）", "options": ["电压型", "电流型", "半桥式", "全桥电压型"], "answer": 1, "explain": "电流型整流桥可改变电压极性实现再生运行。"}, {"num": "11.6.5", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "电流型逆变器适合的应用场合是（　）", "options": ["稳频稳压电源", "多台电机协同调速", "频繁加减速、经常正反转的单电机拖动", "精密仪器供电"], "answer": 2, "explain": "再生能力强，适合频繁正反转。"}, {"num": "11.6.6", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "SPWM 的调制度 M 定义为（　）", "options": ["载波频率/参考波频率", "正弦参考波幅值/三角载波峰值", "输出电压/输入电压", "导通时间/周期"], "answer": 1, "explain": "M=Ur/Uc，0<M<1。"}, {"num": "11.6.6", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "SPWM 的载波比 N=（　）", "options": ["fr/fc", "fc/fr", "fc·fr", "fc−fr"], "answer": 1, "explain": "N=fc/fr，N 越大谐波频率越高。"}, {"num": "11.6.6", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "参考波半周期内输出只有单一极性电平的调制方式是（　）", "options": ["双极性", "单极性", "同步调制", "异步调制"], "answer": 1, "explain": "单极性控制方式。"}, {"num": "11.6.6", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "同一相上下管互补通断、每半周期输出含正负电平的调制方式是（　）", "options": ["单极性", "双极性", "分段同步", "消谐波法"], "answer": 1, "explain": "双极性控制方式。"}, {"num": "11.6.6", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "载波频率固定、载波比连续变化的调制方式是（　）", "options": ["同步调制", "异步调制", "分段同步调制", "随机调制"], "answer": 1, "explain": "异步调制 fc 固定；分段同步 N 分段固定。"}, {"num": "11.6.6", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "低频段 N 取大、高频段 N 分段固定的调制方式是（　）", "options": ["同步调制", "异步调制", "分段同步调制", "双极性调制"], "answer": 2, "explain": "分段同步综合两者优点。"}, {"num": "11.6.6", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "三相桥式 SPWM 逆变器公共载波为（　）", "options": ["三个独立三角波", "一个公共三角载波", "正弦波", "锯齿波"], "answer": 1, "explain": "三相对称参考波与公共三角载波比较。"}, {"num": "11.6.6", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "SVPWM 相比 SPWM 的显著优点是（　）", "options": ["直流电压利用率高约 15%", "不需要开关", "谐波一定为零", "载波比固定"], "answer": 0, "explain": "空间矢量调制电压利用率高。"}, {"num": "11.6.7", "part": "直流-交流变换器（逆变器）", "type": "single", "q": "逆变器多重化的主要目的是（　）", "options": ["提高频率", "抵消低次谐波、增大容量", "减小体积", "实现升压"], "answer": 1, "explain": "错相叠加消谐波增容量。"}, {"num": "11.6.4", "part": "直流-交流变换器（逆变器）", "type": "judge", "q": "电压型逆变器的输出电流波形为矩形波。", "answer": false, "explain": "输出电压矩形波，输出电流由负载阻抗决定。"}, {"num": "11.6.5", "part": "直流-交流变换器（逆变器）", "type": "judge", "q": "电流型逆变器输出电压波形由负载阻抗决定，近似正弦波。", "answer": true, "explain": "大电感负载时电压近似正弦。"}, {"num": "11.6.6", "part": "直流-交流变换器（逆变器）", "type": "judge", "q": "载波比越大，输出谐波频率越高，所需滤波器体积越小。", "answer": true, "explain": "谐波推向高频便于滤除。"}, {"num": "11.6.6", "part": "直流-交流变换器（逆变器）", "type": "judge", "q": "SPWM 双极性控制中死区时间会使输出正弦波发生畸变。", "answer": true, "explain": "延迟时间造成波形失真。"}, {"num": "11.6.4", "part": "直流-交流变换器（逆变器）", "type": "blank", "q": "电压型逆变器直流侧＿＿滤波，输出＿＿波形为矩形波；电流型逆变器直流侧＿＿滤波，输出＿＿波形为矩形波。", "answer": "大电容、电压、大电感、电流", "explain": "两类逆变器核心特征。"}, {"num": "11.6.6", "part": "直流-交流变换器（逆变器）", "type": "blank", "q": "调制度 M=＿＿/＿＿，一般范围＿＿；载波比 N=＿＿/＿＿。", "answer": "Ur、Uc、0<M<1、fc、fr", "explain": "SPWM 基本定义。"}, {"num": "11.6.4", "part": "直流-交流变换器（逆变器）", "type": "short", "q": "简述电压型逆变器的四个特点。", "answer": "① 直流侧为电压源或并联大电容；② 输出交流电压为矩形波，与负载阻抗角无关；③ 电感性负载的无功由直流侧电容缓冲、经反并联二极管回馈；④ 直流侧向交流侧传送的功率是脉动的。另 180° 导电型须先断后通留死区。"}, {"num": "11.6.5", "part": "直流-交流变换器（逆变器）", "type": "short", "q": "比较电压型与电流型逆变器。", "answer": "滤波：大电容/大电感；电源阻抗：小/大；无功缓冲：电容+反馈二极管/电感无需二极管；输出电压：矩形波/由负载决定近似正弦；输出电流：由负载决定含谐波/矩形波；再生运行：不可（需另加逆变器）/可四象限；适用：稳频稳压多机协同/频繁正反转单机拖动。"}, {"num": "11.7.3", "part": "谐振开关电路（软开关）", "type": "single", "q": "硬开关的主要问题是（　）", "options": ["控制复杂", "开关损耗与开关噪声随频率升高而增大", "输出电压低", "不能用于高频"], "answer": 1, "explain": "电压电流重叠产生开关损耗。"}, {"num": "11.7.3", "part": "谐振开关电路（软开关）", "type": "single", "q": "软开关的目标是使器件在（　）时通断", "options": ["高电压大电流", "零电压或零电流", "恒定电流", "低频"], "answer": 1, "explain": "ZVS/ZCS 消除开关损耗。"}, {"num": "11.7.3", "part": "谐振开关电路（软开关）", "type": "single", "q": "在准谐振变换器上加辅助开关管控制谐振时刻的变换器是（　）", "options": ["负载谐振变换器", "零开关 PWM 变换器", "谐振直流环", "全桥变换器"], "answer": 1, "explain": "零开关 PWM：辅助管仅在主管开关时触发谐振。"}, {"num": "11.7.4", "part": "谐振开关电路（软开关）", "type": "single", "q": "零电流开关准谐振变换器中，谐振电感 Lr 与开关管的连接方式是（　）", "options": ["并联", "串联", "通过变压器", "接地"], "answer": 1, "explain": "ZCS：Lr 串联、Cr 与二极管并联。"}, {"num": "11.7.4", "part": "谐振开关电路（软开关）", "type": "single", "q": "零电压开关准谐振变换器实现零电压的方式是（　）", "options": ["谐振电感与管串联", "谐振电容与开关管并联，电压谐振过零时导通", "增大驱动", "降低频率"], "answer": 1, "explain": "ZVS：Cr 并联，uCr 谐振过零导通。"}, {"num": "11.7.4", "part": "谐振开关电路（软开关）", "type": "single", "q": "开关器件只允许电流单向流通时准谐振变换器工作于（　）", "options": ["全波模式", "半波模式", "双极模式", "DCM"], "answer": 1, "explain": "半波模式；双向流通为全波模式。"}, {"num": "11.7.4", "part": "谐振开关电路（软开关）", "type": "single", "q": "ZCS-QRC 的谐振阶段中，开关管在（　）关断", "options": ["电压峰值", "电流谐振过零时自然关断", "强制关断", "电容电压为零"], "answer": 1, "explain": "电流过零自然关断实现 ZCS。"}, {"num": "11.7.5", "part": "谐振开关电路（软开关）", "type": "single", "q": "ZVS-PWM 变换器实现恒频调压的方法是（　）", "options": ["改变谐振元件参数", "控制辅助开关管关断时刻从而控制占空比", "变频调制", "增大负载"], "answer": 1, "explain": "辅助管控制谐振开始时刻实现 PWM。"}, {"num": "11.7.5", "part": "谐振开关电路（软开关）", "type": "single", "q": "谐振直流环逆变器的原理是（　）", "options": ["母线电压恒定", "LC 谐振使母线电压周期性过零，实现零电压通断", "载波调制", "负载谐振"], "answer": 1, "explain": "输入电压围绕 Ud 振荡，过零区间切换开关状态。"}, {"num": "11.7.3", "part": "谐振开关电路（软开关）", "type": "judge", "q": "软开关允许变换器工作在更高开关频率。", "answer": true, "explain": "开关损耗减小后频率可提升。"}, {"num": "11.7.4", "part": "谐振开关电路（软开关）", "type": "judge", "q": "ZCS-QRC 中谐振电容 Cr 与开关管并联。", "answer": false, "explain": "ZCS 中 Cr 与二极管（续流管）并联、Lr 与开关管串联；Cr 与开关管并联是 ZVS。"}, {"num": "11.7.3", "part": "谐振开关电路（软开关）", "type": "blank", "q": "软开关分为＿＿开关（ZVS）与＿＿开关（ZCS）两类。", "answer": "零电压、零电流", "explain": "两类基本软开关。"}, {"num": "11.7.3", "part": "谐振开关电路（软开关）", "type": "short", "q": "简述谐振变换器的四种分类。", "answer": "① 负载谐振变换器：串/并联 LC 谐振，靠谐振阻抗控制功率；② 准谐振开关变换器：ZCS/ZVS QRC；③ 零开关 PWM 变换器：辅助管控制谐振时刻，恒频 PWM；④ 谐振直流环逆变器：母线电压周期性过零实现 ZVS。"}, {"num": "11.8.2", "part": "装置应用问题", "type": "single", "q": "电流从一个支路向另一个支路转移的过程称为（　）", "options": ["换相/换流", "斩波", "调制", "逆变"], "answer": 0, "explain": "换流定义。"}, {"num": "11.8.2", "part": "装置应用问题", "type": "single", "q": "全控器件（IGBT）逆变器采用的换流方式是（　）", "options": ["器件换流", "电网换流", "负载换流", "强迫换流"], "answer": 0, "explain": "全控器件自身关断。"}, {"num": "11.8.2", "part": "装置应用问题", "type": "single", "q": "相控整流器和有源逆变电路采用的换流方式是（　）", "options": ["器件换流", "电网换流", "负载换流", "强迫换流"], "answer": 1, "explain": "靠电网电压反向关断晶闸管。"}, {"num": "11.8.2", "part": "装置应用问题", "type": "single", "q": "负载电流超前电压（容性负载）时的换流方式是（　）", "options": ["器件换流", "电网换流", "负载换流", "强迫换流"], "answer": 2, "explain": "负载电压反向使晶闸管自然关断。"}, {"num": "11.8.2", "part": "装置应用问题", "type": "single", "q": "设置附加电容谐振电路强迫晶闸管关断的方式是（　）", "options": ["器件换流", "电网换流", "负载换流", "强迫换流"], "answer": 3, "explain": "强迫换流：预充电荷经谐振反加于晶闸管。"}, {"num": "11.8.3", "part": "装置应用问题", "type": "single", "q": "由雷击引起的从电网进入变换器的过电压称为（　）", "options": ["操作过电压", "浪涌过电压", "关断过电压", "泵升电压"], "answer": 1, "explain": "浪涌过电压由雷击等偶然原因引起。"}, {"num": "11.8.3", "part": "装置应用问题", "type": "single", "q": "电机回馈制动造成直流侧电压过高的过电压称为（　）", "options": ["操作过电压", "浪涌过电压", "关断过电压", "泵升电压"], "answer": 3, "explain": "泵升电压。"}, {"num": "11.8.3", "part": "装置应用问题", "type": "single", "q": "抑制电压尖峰、利用电容电压不能突变特性的保护是（　）", "options": ["避雷器", "RC 阻容保护", "快速熔断器", "过流继电器"], "answer": 1, "explain": "RC 阻容保护可装于交流侧/直流侧/元件两端。"}, {"num": "11.8.3", "part": "装置应用问题", "type": "single", "q": "单相变压器次级 RC 保护中电容计算公式 C≥（　）", "options": ["(6·i0%/100)·S/U2²", "S/(6U2²)", "i0%·U2²/S", "U2²/(6S)"], "answer": 0, "explain": "课件给出的 C 计算：C≥(6·i0%/100)·S/U2²。"}, {"num": "11.8.3", "part": "装置应用问题", "type": "single", "q": "最常用的晶闸管过电流保护器件是（　）", "options": ["快速熔断器", "空气开关", "热继电器", "压敏电阻"], "answer": 0, "explain": "快速熔断器与晶闸管串联，在器件损坏前熔断。"}, {"num": "11.8.3", "part": "装置应用问题", "type": "single", "q": "10~1000kVA 变压器的励磁电流百分值 i0% 一般为（　）", "options": ["1~2", "4~10", "10~20", "20~30"], "answer": 1, "explain": "课件给出 4~10。"}, {"num": "11.8.4", "part": "装置应用问题", "type": "single", "q": "检测谐波电流后注入等幅反相谐波电流进行补偿的装置是（　）", "options": ["TCR", "TSC", "有源电力滤波器 APF", "PWM 整流器"], "answer": 2, "explain": "APF 主动补偿谐波。"}, {"num": "11.8.4", "part": "装置应用问题", "type": "single", "q": "晶闸管投切电容器（TSC）的特点是（　）", "options": ["连续调节感性无功", "分级投切容性无功、过零投切无谐波", "输出谐波大", "只能发感性无功"], "answer": 1, "explain": "TSC 以整组电容过零投切。"}, {"num": "11.8.4", "part": "装置应用问题", "type": "single", "q": "TCR+TSC 组合装置（SVC）的优点是（　）", "options": ["连续平滑双向调节无功", "完全无谐波", "不需要晶闸管", "响应慢但精确"], "answer": 0, "explain": "TCR 连续可调 + TSC 分级，组合平滑调节。"}, {"num": "11.8.4", "part": "装置应用问题", "type": "single", "q": "抑制谐波的方法不包括（　）", "options": ["加装 LC 滤波器", "增加整流脉波数（多重化）", "采用 PWM 技术", "提高电网频率"], "answer": 3, "explain": "电网频率不可控。"}, {"num": "11.8.2", "part": "装置应用问题", "type": "judge", "q": "负载谐振式中频电源属于负载换流。", "answer": true, "explain": "容性负载电流超前电压实现负载换流。"}, {"num": "11.8.3", "part": "装置应用问题", "type": "judge", "q": "泵升电压属于操作过电压的一种。", "answer": false, "explain": "泵升电压由回馈制动引起，是直流侧过电压，与操作过电压并列。"}, {"num": "11.8.3", "part": "装置应用问题", "type": "judge", "q": "快速熔断器是变换器过电流保护的第一道（器件级）保护。", "answer": true, "explain": "电子保护软关断→熔断器→断路器的分级配合。"}, {"num": "11.8.4", "part": "装置应用问题", "type": "judge", "q": "电力电子装置普遍采用移相控制导致功率因数偏低。", "answer": true, "explain": "触发角控制使基波电流滞后、含大量无功。"}, {"num": "11.8.2", "part": "装置应用问题", "type": "blank", "q": "四种换流方式：＿＿、＿＿、＿＿、＿＿。", "answer": "器件换流、电网换流、负载换流、强迫换流", "explain": "按关断能量来源分类。"}, {"num": "11.8.3", "part": "装置应用问题", "type": "blank", "q": "过电压的原因：操作过电压、＿＿、＿＿、保护动作过电压、＿＿。", "answer": "浪涌过电压（雷击）、器件关断过电压、泵升电压", "explain": "五类过电压。"}, {"num": "11.8.3", "part": "装置应用问题", "type": "short", "q": "简述变换器过电压保护的主要措施。", "answer": "① 避雷器防雷击浪涌（变压器初级）；② 变压器附加屏蔽层接地或中点经电容接地减小分布电容耦合；③ RC 阻容保护（交流侧/直流侧/元件两端，C 吸收尖峰 R 消耗能量抑制振荡）；④ 压敏电阻吸能；⑤ 缓冲电路吸收关断过电压；⑥ 泵升电压用制动单元/制动电阻消耗。"}, {"num": "11.8.4", "part": "装置应用问题", "type": "short", "q": "简述谐波与无功的危害及抑制/补偿方法。", "answer": "谐波危害：电压畸变、电机变压器附加发热、电容器谐振过载、保护误动、干扰通信。无功危害：功率因数低、线路损耗与电压损失增大、设备利用率下降。抑制：LC 滤波、增加脉波数（多重化）、PWM 技术、有源电力滤波器 APF。补偿：TCR、TSC、静止无功发生器 SVG、PWM 整流器。"}];
+const TYPE_NAME = {single:'单选题', judge:'判断题', blank:'填空题', short:'简答题'};
+const $ = id => document.getElementById(id);
+const params = new URLSearchParams(location.search);
+let activeNum = params.get('num') || '';
+let wrong = JSON.parse(localStorage.getItem('dldz_wrong') || '[]');
+let list = [], idx = 0, done = 0, right = 0, answered = {}, revealed = {};
+
+function saveWrong(){ localStorage.setItem('dldz_wrong', JSON.stringify(wrong)); $('wrongCnt').textContent = wrong.length; }
+function key(q){ return q.type + '|' + q.q; }
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function initFilters(){
+  const parts = [...new Set(QUESTIONS.map(q=>q.part))];
+  const types = [...new Set(QUESTIONS.map(q=>q.type))];
+  $('part').innerHTML = '<option value="all">全部章节</option>' + parts.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('');
+  $('type').innerHTML = '<option value="all">全部题型</option>' + types.map(t=>`<option value="${t}">${TYPE_NAME[t]}</option>`).join('');
+  $('total').textContent = QUESTIONS.length;
+  $('wrongCnt').textContent = wrong.length;
+  const p = params.get('part'), t = params.get('type'), o = params.get('order');
+  if(p) $('part').value = p;
+  if(t) $('type').value = t;
+  if(o) $('order').value = o;
+  if(activeNum){
+    $('scopeNum').textContent = activeNum;
+    $('scope').classList.add('show');
+  }
+}
+
+function start(onlyWrong){
+  let pool = QUESTIONS.slice();
+  if(onlyWrong){ const s = new Set(wrong); pool = pool.filter(q=>s.has(key(q))); if(!pool.length){ alert('错题本为空，先做几题吧'); return; } }
+  else {
+    const p = $('part').value, t = $('type').value;
+    if(p!=='all') pool = pool.filter(q=>q.part===p);
+    if(t!=='all') pool = pool.filter(q=>q.type===t);
+    if(activeNum){
+      const narrowed = pool.filter(q=>q.num===activeNum);
+      if(narrowed.length) pool = narrowed;
+    }
+  }
+  if(!pool.length){ alert('没有符合条件的题目'); return; }
+  if($('order').value==='rand') pool.sort(()=>Math.random()-0.5);
+  list = pool; idx = 0; done = 0; right = 0; answered = {}; revealed = {};
+  $('card').style.display='block'; $('finish').style.display='none';
+  render(); updateStats();
+}
+
+function render(){
+  const q = list[idx];
+  $('badge').textContent = TYPE_NAME[q.type] + ' · ' + q.num;
+  $('badge').className = 'badge ' + (q.type==='judge'?'j':q.type==='blank'?'b':q.type==='short'?'s':'');
+  $('qref').href = '电力电子技术_知识点总结与复习计划.html#sec-' + q.num.replace(/\./g,'-');
+  $('qref').title = '在总结页查看 ' + q.num + ' 的课件要点';
+  $('pos').textContent = `第 ${idx+1} / ${list.length} 题`;
+  $('qtext').textContent = q.q;
+  const area = $('area'); area.innerHTML='';
+  $('fb').className='fb'; $('fb').innerHTML='';
+  $('self').className='self';
+  $('submit').disabled = false; $('reveal').disabled = false;
+
+  if(q.type==='single'){
+    const box=document.createElement('div'); box.className='opts';
+    q.options.forEach((op,i)=>{
+      const lab=document.createElement('label'); lab.className='opt';
+      const inp=document.createElement('input'); inp.type='radio'; inp.name='ans'; inp.value=i;
+      const span=document.createElement('span'); span.textContent=op;
+      lab.append(inp,span); lab.onclick=()=>{ [...box.children].forEach(c=>c.classList.remove('sel')); lab.classList.add('sel'); };
+      box.append(lab);
+    });
+    area.append(box);
+  } else if(q.type==='judge'){
+    const box=document.createElement('div'); box.className='opts';
+    [['正确',true],['错误',false]].forEach(([txt,val])=>{
+      const lab=document.createElement('label'); lab.className='opt';
+      const inp=document.createElement('input'); inp.type='radio'; inp.name='ans'; inp.value=val?'1':'0';
+      const span=document.createElement('span'); span.textContent=txt;
+      lab.append(inp,span); lab.onclick=()=>{ [...box.children].forEach(c=>c.classList.remove('sel')); lab.classList.add('sel'); };
+      box.append(lab);
+    });
+    area.append(box);
+  } else if(q.type==='blank'){
+    const box=document.createElement('div'); box.className='blank';
+    const inp=document.createElement('input'); inp.type='text'; inp.id='blankAns'; inp.placeholder='填入答案（多个空用逗号分隔）';
+    box.append(inp); area.append(box);
+  } else {
+    const ta=document.createElement('textarea'); ta.id='shortAns'; ta.placeholder='先写下自己的答案，再对照参考答案自评';
+    area.append(ta);
+  }
+  if(answered[key(q)]!==undefined){ $('submit').disabled=true; }
+}
+
+function answerFromForm(q){
+  if(q.type==='single'||q.type==='judge'){
+    const el=document.querySelector('input[name=ans]:checked');
+    return el ? (q.type==='judge' ? el.value==='1' : Number(el.value)) : undefined;
+  }
+  if(q.type==='blank'){ const v=$('blankAns').value.trim(); return v? v.split(/[,，;；]/).map(s=>s.trim()).filter(Boolean) : undefined; }
+  const v=$('shortAns').value.trim(); return v? v : undefined;
+}
+
+function isCorrect(q,a){
+  if(a===undefined) return false;
+  if(q.type==='blank'){
+    const norm=s=>String(s).replace(/[\s，,。．.、；;：:]/g,'').toLowerCase();
+    const given=Array.isArray(a)?a:[a], ans=q.answer.map(norm);
+    return ans.every((x,i)=>norm(given[i]||'')===x || (given[i]&&x.includes(norm(given[i]))));
+  }
+  return a===q.answer;
+}
+
+function showFeedback(q, ok, self){
+  const k=key(q);
+  const fb=$('fb');
+  let ansTxt = q.type==='single' ? q.options[q.answer]
+    : q.type==='judge' ? (q.answer?'正确':'错误')
+    : q.type==='blank' ? q.answer.join('、')
+    : q.answer;
+  if(self==='view'){
+    fb.className='fb note';
+    fb.innerHTML='<b>参考答案</b>'+esc(ansTxt)+(q.explain?'<br>'+esc(q.explain):'');
+    if(q.type==='short') $('self').className='self show';
+    $('reveal').disabled=true;
+    return;
+  }
+  answered[k]=ok?1:0;
+  if(self===undefined){
+    fb.className='fb '+(ok?'ok':'bad');
+    fb.innerHTML='<b>'+(ok?'回答正确':'回答错误')+'</b>参考答案：'+esc(ansTxt)+(q.explain?'<br>'+esc(q.explain):'');
+    if(!ok && !wrong.includes(k)) wrong.push(k);
+    if(ok) wrong=wrong.filter(x=>x!==k);
+  } else {
+    fb.className='fb note';
+    fb.innerHTML='<b>参考答案</b>'+esc(ansTxt)+(q.explain?'<br>'+esc(q.explain):'');
+    if(self){ if(!wrong.includes(k)) wrong.push(k); } else wrong=wrong.filter(x=>x!==k);
+  }
+  saveWrong();
+  $('submit').disabled=true; $('reveal').disabled=true;
+  if(q.type==='short') $('self').className='self show';
+}
+
+function checkAnswer(){
+  const q=list[idx], a=answerFromForm(q);
+  if(a===undefined){ alert('请先作答'); return; }
+  if(q.type==='short'){ showFeedback(q,false,'view'); return; }
+  const ok=isCorrect(q,a);
+  if(!answered[key(q)]){ done++; if(ok) right++; }
+  showFeedback(q,ok); updateStats();
+}
+
+function reveal(){
+  const q=list[idx], k=key(q);
+  if(q.type==='short'){ showFeedback(q,false,'view'); return; }
+  if(answered[k]===undefined){ done++; updateStats(); }
+  showFeedback(q,false,undefined);
+}
+
+function selfGrade(ok){
+  const q=list[idx], k=key(q);
+  if(answered[k]===undefined){ done++; if(ok) right++; }
+  else if(ok && answered[k]===0){ right++; }
+  answered[k]=ok?1:0;
+  showFeedback(q,ok,ok); updateStats();
+}
+
+function updateStats(){
+  $('done').textContent=done; $('right').textContent=right;
+  $('acc').textContent=done? Math.round(right/done*100)+'%' : '—';
+  $('progress').style.width=(list.length? idx/list.length*100:0)+'%';
+}
+
+function finish(){
+  $('card').style.display='none'; $('finish').style.display='block';
+  const acc=done? Math.round(right/done*100):0;
+  const wrongList=list.filter(q=>answered[key(q)]===0);
+  $('summary').innerHTML=`<p>本次共 <b>${list.length}</b> 题，已作答 <b>${done}</b> 题，答对 <b>${right}</b> 题，正确率 <b>${acc}%</b>。</p>`
+    + (wrongList.length? `<p>需要回炉的题（${wrongList.length}）：</p><ol class="list">`+wrongList.slice(0,20).map(q=>`<li>${esc(q.q)}</li>`).join('')+'</ol>':'<p>本次全部答对，很好。</p>');
+  $('progress').style.width='100%';
+}
+
+$('start').onclick=()=>start(false);
+$('wrongOnly').onclick=()=>start(true);
+$('clearWrong').onclick=()=>{ if(confirm('确定清空错题本？')){ wrong=[]; saveWrong(); } };
+$('submit').onclick=checkAnswer;
+$('reveal').onclick=reveal;
+$('selfOk').onclick=()=>selfGrade(true);
+$('selfNo').onclick=()=>selfGrade(false);
+$('prev').onclick=()=>{ if(idx>0){ idx--; render(); updateStats(); } };
+$('next').onclick=()=>{ if(idx<list.length-1){ idx++; render(); updateStats(); } else finish(); };
+$('again').onclick=()=>start(false);
+$('clearScope').onclick=()=>{
+  activeNum=''; $('scope').classList.remove('show');
+  const u=new URL(location.href); u.searchParams.delete('num'); history.replaceState(null,'',u);
+  start(false);
+};
+document.addEventListener('keydown',e=>{ if(e.key==='Enter' && !e.shiftKey && document.activeElement.tagName!=='TEXTAREA' && $('card').style.display!=='none'){ e.preventDefault(); if(answered[key(list[idx])]===undefined) checkAnswer(); } });
+initFilters();
+if(params.get('autostart')==='1') start(false);
+</script>
+</body>
+</html>

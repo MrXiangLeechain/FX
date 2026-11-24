@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>继电保护原理 · 公式速查</title><style>
+:root{--bg:#f7f9fc;--card:#fff;--ink:#1f2937;--muted:#5b6472;--line:#e3e8ef;--brand:#1d4ed8;--brand2:#eff6ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.7}
+.wrap{max-width:1000px;margin:0 auto;padding:30px 18px 70px}
+header{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;border-radius:16px;padding:26px 30px;margin-bottom:18px}
+header h1{margin:0 0 8px;font-size:26px}header p{margin:4px 0;opacity:.92;font-size:14px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:18px}
+.nav .nav-title{font-size:13px;color:var(--muted);margin-right:4px;font-weight:600}
+.nav a{font-size:13px;padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:#f8fafc;color:#334155;text-decoration:none}
+.nav a:hover{background:var(--brand2);border-color:var(--brand);color:var(--brand)}
+.nav a.current{background:var(--brand);border-color:var(--brand);color:#fff}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:18px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+select,input,button{font-family:inherit;font-size:14px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:#fff;color:var(--ink)}
+button{cursor:pointer}button:hover{border-color:var(--brand);color:var(--brand)}
+label{font-size:13px;color:var(--muted);margin-right:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.card.hide{display:none}
+.chead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.chap{font-size:12px;color:var(--muted);background:#f1f5f9;border-radius:99px;padding:2px 9px}
+.name{font-weight:700;color:#1e3a8a;font-size:15px}
+.plain{font-family:Consolas,"Courier New",monospace;font-size:14px;background:#f8fafc;border-left:3px solid var(--brand);padding:8px 11px;border-radius:0 8px 8px 0;margin-bottom:8px;word-break:break-word}
+pre.latex{font-family:Consolas,"Courier New",monospace;font-size:12.5px;color:#334155;background:#f8fafc;border:1px dashed var(--line);border-radius:8px;padding:9px 11px;margin:0;white-space:pre-wrap;word-break:break-all}
+.acts{margin-top:10px;display:flex;gap:8px}
+.note{background:#fffbeb;border:1px solid #fde68a;color:#78350f;border-radius:10px;padding:12px 15px;font-size:14px;margin:12px 0}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+.foot a{color:var(--brand);text-decoration:none}
+.count{font-size:13px;color:var(--muted);margin-left:auto}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.wrap{padding:18px 12px 40px}}
+</style></head><body><div class="wrap">
+<header>
+  <h1>继电保护原理 · 公式速查</h1>
+  <p>课件中丢失的公式，按上下文与教材通行写法恢复 · 共 64 条 · 可复制 LaTeX 到笔记软件</p>
+</header>
+<div class="nav" id="siteNav">
+  <span class="nav-title">资料导航</span>
+  <a href="../index.html">🏠 全部课程</a>
+  <a href="继电保护原理_知识点总结与复习计划.html">知识点总结</a>
+  <a href="继电保护原理_练习题库.html">练习题库</a>
+  <a class="current" href="继电保护原理_公式速查.html">公式速查</a>
+  <a href="继电保护原理_公式速查.md">公式 Markdown 源文件</a>
+</div>
+<div class="panel">
+  <div class="row">
+    <div><label for="chap">章节</label><select id="chap"><option value="all">全部章节</option><option value="2.2 互感器">2.2 互感器</option><option value="3.1 电流保护">3.1 电流保护</option><option value="3.2 方向保护">3.2 方向保护</option><option value="3.3 零序保护">3.3 零序保护</option><option value="3.4 小电流接地">3.4 小电流接地</option><option value="3.5 继电器">3.5 继电器</option><option value="4.1 距离保护">4.1 距离保护</option><option value="4.2 距离整定">4.2 距离整定</option><option value="4.2 振荡">4.2 振荡</option><option value="4.3 特殊问题">4.3 特殊问题</option><option value="6.1 重合闸">6.1 重合闸</option><option value="7.1 变压器保护">7.1 变压器保护</option></select></div>
+    <div><label for="kw">搜索</label><input id="kw" type="text" placeholder="公式名 / 符号 / LaTeX"></div>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="note">本页是「恢复稿」，不是课件原图。考试前请对照教材或原课件核实，尤其是振荡测量阻抗轨迹、比率制动电流定义、零序方向角等条目。</div>
+</div>
+<div class="grid" id="grid">
+    <div class="card" data-chapter="2.2 互感器" data-text="2.2 互感器 TA 变比 KTA = I1N / I2N ≈ W2 / W1 K_{TA} = \frac{I_{1N}}{I_{2N}} \approx \frac{W_2}{W_1}">
+      <div class="chead"><span class="chap">2.2 互感器</span><span class="name">TA 变比</span></div>
+      <div class="plain">KTA = I1N / I2N ≈ W2 / W1</div>
+      <pre class="latex" id="latex-0">K_{TA} = \frac{I_{1N}}{I_{2N}} \approx \frac{W_2}{W_1}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(0, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2 互感器" data-text="2.2 互感器 TA 磁势平衡 W1·I1 - W2·I2 = W1·Im（正常时 W1I1 与 W2I2 大部分抵消） \dot{W_1 I_1} - \dot{W_2 I_2} = W_1 \dot{I_m}">
+      <div class="chead"><span class="chap">2.2 互感器</span><span class="name">TA 磁势平衡</span></div>
+      <div class="plain">W1·I1 - W2·I2 = W1·Im（正常时 W1I1 与 W2I2 大部分抵消）</div>
+      <pre class="latex" id="latex-1">\dot{W_1 I_1} - \dot{W_2 I_2} = W_1 \dot{I_m}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(1, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2 互感器" data-text="2.2 互感器 TA 电流误差（比差） f% = (I2&#x27; - I1) / I1 × 100% f = \frac{I_2&#x27; - I_1}{I_1} \times 100\%">
+      <div class="chead"><span class="chap">2.2 互感器</span><span class="name">TA 电流误差（比差）</span></div>
+      <div class="plain">f% = (I2&#x27; - I1) / I1 × 100%</div>
+      <pre class="latex" id="latex-2">f = \frac{I_2&#x27; - I_1}{I_1} \times 100\%</pre>
+      <div class="acts">
+        <button onclick="copyLatex(2, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2 互感器" data-text="2.2 互感器 TA 角误差 δ ≈ I&#x27;m·sinα（弧度） \delta \approx I_m&#x27; \sin\alpha \ (\text{rad})">
+      <div class="chead"><span class="chap">2.2 互感器</span><span class="name">TA 角误差</span></div>
+      <div class="plain">δ ≈ I&#x27;m·sinα（弧度）</div>
+      <pre class="latex" id="latex-3">\delta \approx I_m&#x27; \sin\alpha \ (\text{rad})</pre>
+      <div class="acts">
+        <button onclick="copyLatex(3, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2 互感器" data-text="2.2 互感器 TA 额定容量 S2N = I2N² · Z2N（二次电流标准化后可用 Z2N 表征） S_{2N} = I_{2N}^2 Z_{2N}">
+      <div class="chead"><span class="chap">2.2 互感器</span><span class="name">TA 额定容量</span></div>
+      <div class="plain">S2N = I2N² · Z2N（二次电流标准化后可用 Z2N 表征）</div>
+      <pre class="latex" id="latex-4">S_{2N} = I_{2N}^2 Z_{2N}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(4, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2 互感器" data-text="2.2 互感器 TV 变比 KTV = U1N / U2N（相当于空载运行的小容量降压变压器） K_{TV} = \frac{U_{1N}}{U_{2N}}">
+      <div class="chead"><span class="chap">2.2 互感器</span><span class="name">TV 变比</span></div>
+      <div class="plain">KTV = U1N / U2N（相当于空载运行的小容量降压变压器）</div>
+      <pre class="latex" id="latex-5">K_{TV} = \frac{U_{1N}}{U_{2N}}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(5, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2 互感器" data-text="2.2 互感器 TV 电压误差 ΔU% = (KU·U2 - U1) / U1 × 100% \Delta U = \frac{K_U U_2 - U_1}{U_1} \times 100\%">
+      <div class="chead"><span class="chap">2.2 互感器</span><span class="name">TV 电压误差</span></div>
+      <div class="plain">ΔU% = (KU·U2 - U1) / U1 × 100%</div>
+      <pre class="latex" id="latex-6">\Delta U = \frac{K_U U_2 - U_1}{U_1} \times 100\%</pre>
+      <div class="acts">
+        <button onclick="copyLatex(6, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2 互感器" data-text="2.2 互感器 电容式 TV 分压 U2 = U1 · C1 / (C1 + C2)，K = C1/(C1+C2) U_2 = U_1 \frac{C_1}{C_1 + C_2}">
+      <div class="chead"><span class="chap">2.2 互感器</span><span class="name">电容式 TV 分压</span></div>
+      <div class="plain">U2 = U1 · C1 / (C1 + C2)，K = C1/(C1+C2)</div>
+      <pre class="latex" id="latex-7">U_2 = U_1 \frac{C_1}{C_1 + C_2}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(7, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2 互感器" data-text="2.2 互感器 变换器 UA 输出 U2 = İ2·R = KI·I1，KI = KTA·R（输出与输入电流成正比且同相位） \dot{U_2} = \dot{I_2} R = K_I \dot{I_1}">
+      <div class="chead"><span class="chap">2.2 互感器</span><span class="name">变换器 UA 输出</span></div>
+      <div class="plain">U2 = İ2·R = KI·I1，KI = KTA·R（输出与输入电流成正比且同相位）</div>
+      <pre class="latex" id="latex-8">\dot{U_2} = \dot{I_2} R = K_I \dot{I_1}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(8, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2 互感器" data-text="2.2 互感器 电抗变换器 UX U2 = jXUX·I1（转移阻抗，气隙大磁路不饱和时为常数） \dot{U_2} = j X_{UX} \dot{I_1}">
+      <div class="chead"><span class="chap">2.2 互感器</span><span class="name">电抗变换器 UX</span></div>
+      <div class="plain">U2 = jXUX·I1（转移阻抗，气隙大磁路不饱和时为常数）</div>
+      <pre class="latex" id="latex-9">\dot{U_2} = j X_{UX} \dot{I_1}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(9, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2 互感器" data-text="2.2 互感器 零序电流滤过器 Ir = (İa+İb+İc) = (3I0)/KTA - Iunb \dot{I_r} = \frac{3 \dot{I_0}}{K_{TA}} - \dot{I_{unb}}">
+      <div class="chead"><span class="chap">2.2 互感器</span><span class="name">零序电流滤过器</span></div>
+      <div class="plain">Ir = (İa+İb+İc) = (3I0)/KTA - Iunb</div>
+      <pre class="latex" id="latex-10">\dot{I_r} = \frac{3 \dot{I_0}}{K_{TA}} - \dot{I_{unb}}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(10, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.1 电流保护" data-text="3.1 电流保护 短路电流通用式 Ik = E·KΦ / (Zs + Zk)，三相短路 KΦ=1，两相 KΦ=√3/2 I_k = \frac{E \cdot K_\Phi}{Z_s + Z_k},\ K_\Phi^{(3)}=1,\ K_\Phi^{(2)}=\tfrac{\sqrt{3}}{2}">
+      <div class="chead"><span class="chap">3.1 电流保护</span><span class="name">短路电流通用式</span></div>
+      <div class="plain">Ik = E·KΦ / (Zs + Zk)，三相短路 KΦ=1，两相 KΦ=√3/2</div>
+      <pre class="latex" id="latex-11">I_k = \frac{E \cdot K_\Phi}{Z_s + Z_k},\ K_\Phi^{(3)}=1,\ K_\Phi^{(2)}=\tfrac{\sqrt{3}}{2}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(11, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.1 电流保护" data-text="3.1 电流保护 电流Ⅰ段整定 Iset&#x27; = Krel&#x27; · Ik.B.max，Krel&#x27; = 1.2～1.3 I_{set}^{I} = K_{rel}^{I} \, I_{k.B.max}">
+      <div class="chead"><span class="chap">3.1 电流保护</span><span class="name">电流Ⅰ段整定</span></div>
+      <div class="plain">Iset&#x27; = Krel&#x27; · Ik.B.max，Krel&#x27; = 1.2～1.3</div>
+      <pre class="latex" id="latex-12">I_{set}^{I} = K_{rel}^{I} \, I_{k.B.max}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(12, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.1 电流保护" data-text="3.1 电流保护 电流Ⅰ段最小保护范围 lmin/l = (E/Iset&#x27; - Zs.max)/(z1·lAB) × 100%，要求 ≥15%～20% \frac{l_{min}}{l} = \frac{E/I_{set}^{I} - Z_{s.max}}{z_1 l_{AB}} \times 100\% \ge 15\%">
+      <div class="chead"><span class="chap">3.1 电流保护</span><span class="name">电流Ⅰ段最小保护范围</span></div>
+      <div class="plain">lmin/l = (E/Iset&#x27; - Zs.max)/(z1·lAB) × 100%，要求 ≥15%～20%</div>
+      <pre class="latex" id="latex-13">\frac{l_{min}}{l} = \frac{E/I_{set}^{I} - Z_{s.max}}{z_1 l_{AB}} \times 100\% \ge 15\%</pre>
+      <div class="acts">
+        <button onclick="copyLatex(13, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.1 电流保护" data-text="3.1 电流保护 电流Ⅱ段整定 Iset&#x27;&#x27; = Krel&#x27;&#x27; · Iset1&#x27;，Krel&#x27;&#x27; = 1.1～1.2；t&#x27;&#x27; = t&#x27; + Δt，Δt = 0.5s I_{set}^{II} = K_{rel}^{II} \, I_{set1}^{I}">
+      <div class="chead"><span class="chap">3.1 电流保护</span><span class="name">电流Ⅱ段整定</span></div>
+      <div class="plain">Iset&#x27;&#x27; = Krel&#x27;&#x27; · Iset1&#x27;，Krel&#x27;&#x27; = 1.1～1.2；t&#x27;&#x27; = t&#x27; + Δt，Δt = 0.5s</div>
+      <pre class="latex" id="latex-14">I_{set}^{II} = K_{rel}^{II} \, I_{set1}^{I}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(14, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.1 电流保护" data-text="3.1 电流保护 电流Ⅱ段灵敏度 Ksen&#x27;&#x27; = Ik.B.min / Iset&#x27;&#x27; ≥ 1.3～1.5 K_{sen}^{II} = \frac{I_{k.B.min}}{I_{set}^{II}} \ge 1.3 \sim 1.5">
+      <div class="chead"><span class="chap">3.1 电流保护</span><span class="name">电流Ⅱ段灵敏度</span></div>
+      <div class="plain">Ksen&#x27;&#x27; = Ik.B.min / Iset&#x27;&#x27; ≥ 1.3～1.5</div>
+      <pre class="latex" id="latex-15">K_{sen}^{II} = \frac{I_{k.B.min}}{I_{set}^{II}} \ge 1.3 \sim 1.5</pre>
+      <div class="acts">
+        <button onclick="copyLatex(15, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.1 电流保护" data-text="3.1 电流保护 电流Ⅲ段整定 Iset&#x27;&#x27;&#x27; = Krel&#x27;&#x27;&#x27; · Kss / Kre · IL.max（Kss 自启动系数，Kre 返回系数） I_{set}^{III} = \frac{K_{rel}^{III} K_{ss}}{K_{re}} I_{L.max}">
+      <div class="chead"><span class="chap">3.1 电流保护</span><span class="name">电流Ⅲ段整定</span></div>
+      <div class="plain">Iset&#x27;&#x27;&#x27; = Krel&#x27;&#x27;&#x27; · Kss / Kre · IL.max（Kss 自启动系数，Kre 返回系数）</div>
+      <pre class="latex" id="latex-16">I_{set}^{III} = \frac{K_{rel}^{III} K_{ss}}{K_{re}} I_{L.max}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(16, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.1 电流保护" data-text="3.1 电流保护 电流Ⅲ段时限 t&#x27;&#x27;&#x27;n = t&#x27;&#x27;&#x27;(n+1) + Δt（阶梯原则） t_n^{III} = t_{n+1}^{III} + \Delta t">
+      <div class="chead"><span class="chap">3.1 电流保护</span><span class="name">电流Ⅲ段时限</span></div>
+      <div class="plain">t&#x27;&#x27;&#x27;n = t&#x27;&#x27;&#x27;(n+1) + Δt（阶梯原则）</div>
+      <pre class="latex" id="latex-17">t_n^{III} = t_{n+1}^{III} + \Delta t</pre>
+      <div class="acts">
+        <button onclick="copyLatex(17, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.1 电流保护" data-text="3.1 电流保护 返回系数 Kre = Ire / Iop（过量继电器 Kre &lt; 1，一般 0.85～0.9） K_{re} = \frac{I_{re}}{I_{op}} &lt; 1">
+      <div class="chead"><span class="chap">3.1 电流保护</span><span class="name">返回系数</span></div>
+      <div class="plain">Kre = Ire / Iop（过量继电器 Kre &lt; 1，一般 0.85～0.9）</div>
+      <pre class="latex" id="latex-18">K_{re} = \frac{I_{re}}{I_{op}} &lt; 1</pre>
+      <div class="acts">
+        <button onclick="copyLatex(18, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.1 电流保护" data-text="3.1 电流保护 反时限特性（标准） t = 0.14·tOP / ((I/Ip)^0.02 - 1) t = \frac{0.14\, t_{OP}}{(I/I_p)^{0.02} - 1}">
+      <div class="chead"><span class="chap">3.1 电流保护</span><span class="name">反时限特性（标准）</span></div>
+      <div class="plain">t = 0.14·tOP / ((I/Ip)^0.02 - 1)</div>
+      <pre class="latex" id="latex-19">t = \frac{0.14\, t_{OP}}{(I/I_p)^{0.02} - 1}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(19, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.2 方向保护" data-text="3.2 方向保护 方向元件幅值比较 |U̇m + KU̇m&#x27;| &gt; |U̇m - KU̇m&#x27;|，KU̇m&#x27; = İm·ZK |\dot{U_m} + K\dot{U_m}&#x27;| &gt; |\dot{U_m} - K\dot{U_m}&#x27;|">
+      <div class="chead"><span class="chap">3.2 方向保护</span><span class="name">方向元件幅值比较</span></div>
+      <div class="plain">|U̇m + KU̇m&#x27;| &gt; |U̇m - KU̇m&#x27;|，KU̇m&#x27; = İm·ZK</div>
+      <pre class="latex" id="latex-20">|\dot{U_m} + K\dot{U_m}&#x27;| &gt; |\dot{U_m} - K\dot{U_m}&#x27;|</pre>
+      <div class="acts">
+        <button onclick="copyLatex(20, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.2 方向保护" data-text="3.2 方向保护 方向元件相位比较 -90° ≤ arg(U̇m / KU̇m&#x27;) ≤ 90° -90^\circ \le \arg\frac{\dot{U_m}}{K\dot{U_m}&#x27;} \le 90^\circ">
+      <div class="chead"><span class="chap">3.2 方向保护</span><span class="name">方向元件相位比较</span></div>
+      <div class="plain">-90° ≤ arg(U̇m / KU̇m&#x27;) ≤ 90°</div>
+      <pre class="latex" id="latex-21">-90^\circ \le \arg\frac{\dot{U_m}}{K\dot{U_m}&#x27;} \le 90^\circ</pre>
+      <div class="acts">
+        <button onclick="copyLatex(21, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.2 方向保护" data-text="3.2 方向保护 最大灵敏角（90°接线） φsen = -30°（电压超前电流），由各故障类型角度范围角平分线确定 \varphi_{sen} = -30^\circ">
+      <div class="chead"><span class="chap">3.2 方向保护</span><span class="name">最大灵敏角（90°接线）</span></div>
+      <div class="plain">φsen = -30°（电压超前电流），由各故障类型角度范围角平分线确定</div>
+      <pre class="latex" id="latex-22">\varphi_{sen} = -30^\circ</pre>
+      <div class="acts">
+        <button onclick="copyLatex(22, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.3 零序保护" data-text="3.3 零序保护 单相接地零序电流 3I0k(1) = 3E / (Z1Σ + Z2Σ + Z0Σ)，工程取 Z1Σ=Z2Σ 3 I_{0k}^{(1)} = \frac{3E}{Z_{1\Sigma} + Z_{2\Sigma} + Z_{0\Sigma}}">
+      <div class="chead"><span class="chap">3.3 零序保护</span><span class="name">单相接地零序电流</span></div>
+      <div class="plain">3I0k(1) = 3E / (Z1Σ + Z2Σ + Z0Σ)，工程取 Z1Σ=Z2Σ</div>
+      <pre class="latex" id="latex-23">3 I_{0k}^{(1)} = \frac{3E}{Z_{1\Sigma} + Z_{2\Sigma} + Z_{0\Sigma}}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(23, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.3 零序保护" data-text="3.3 零序保护 两相接地零序电流 3I0k(1,1) = 3E·Z2Σ / [Z1Σ(Z1Σ + Z2Σ + Z0Σ)] 3 I_{0k}^{(1,1)} = \frac{3E\, Z_{2\Sigma}}{Z_{1\Sigma}(Z_{1\Sigma}+Z_{2\Sigma}+Z_{0\Sigma})}">
+      <div class="chead"><span class="chap">3.3 零序保护</span><span class="name">两相接地零序电流</span></div>
+      <div class="plain">3I0k(1,1) = 3E·Z2Σ / [Z1Σ(Z1Σ + Z2Σ + Z0Σ)]</div>
+      <pre class="latex" id="latex-24">3 I_{0k}^{(1,1)} = \frac{3E\, Z_{2\Sigma}}{Z_{1\Sigma}(Z_{1\Sigma}+Z_{2\Sigma}+Z_{0\Sigma})}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(24, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.3 零序保护" data-text="3.3 零序保护 零序Ⅰ段整定 I0set&#x27; = Krel · 3I0k.max，Krel = 1.2～1.3 I_{0.set}^{I} = K_{rel}\, 3 I_{0k.max}">
+      <div class="chead"><span class="chap">3.3 零序保护</span><span class="name">零序Ⅰ段整定</span></div>
+      <div class="plain">I0set&#x27; = Krel · 3I0k.max，Krel = 1.2～1.3</div>
+      <pre class="latex" id="latex-25">I_{0.set}^{I} = K_{rel}\, 3 I_{0k.max}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(25, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.3 零序保护" data-text="3.3 零序保护 零序电流分配系数 C0M = Z0N / (Z0M + Z0N)，IM0 = C0M·IK0，且 C0M + C0N = 1 C_{0M} = \frac{Z_{0N}}{Z_{0M}+Z_{0N}},\ \dot{I}_{M0} = C_{0M}\dot{I}_{K0}">
+      <div class="chead"><span class="chap">3.3 零序保护</span><span class="name">零序电流分配系数</span></div>
+      <div class="plain">C0M = Z0N / (Z0M + Z0N)，IM0 = C0M·IK0，且 C0M + C0N = 1</div>
+      <pre class="latex" id="latex-26">C_{0M} = \frac{Z_{0N}}{Z_{0M}+Z_{0N}},\ \dot{I}_{M0} = C_{0M}\dot{I}_{K0}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(26, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.3 零序保护" data-text="3.3 零序保护 零序分支系数 Kb = I0m / I0M（保护处电流与短路点电流之比，整定取最小值） K_b = \frac{I_{0m}}{I_{0M}}">
+      <div class="chead"><span class="chap">3.3 零序保护</span><span class="name">零序分支系数</span></div>
+      <div class="plain">Kb = I0m / I0M（保护处电流与短路点电流之比，整定取最小值）</div>
+      <pre class="latex" id="latex-27">K_b = \frac{I_{0m}}{I_{0M}}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(27, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.3 零序保护" data-text="3.3 零序保护 零序Ⅱ段整定 I0set&#x27;&#x27; = Krel · Kb.min · I0set(下级Ⅰ段) I_{0.set}^{II} = K_{rel}\, K_{b.min}\, I_{0.set}^{I(\text{下级})}">
+      <div class="chead"><span class="chap">3.3 零序保护</span><span class="name">零序Ⅱ段整定</span></div>
+      <div class="plain">I0set&#x27;&#x27; = Krel · Kb.min · I0set(下级Ⅰ段)</div>
+      <pre class="latex" id="latex-28">I_{0.set}^{II} = K_{rel}\, K_{b.min}\, I_{0.set}^{I(\text{下级})}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(28, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.3 零序保护" data-text="3.3 零序保护 零序方向最灵敏 arg(-3U̇0/3İ0) ≈ 180°-φK0 = 95°～110°，即 3İ0 滞后 3U̇0 约 100°～110° 3\dot{I_0}\ \text{滞后}\ 3\dot{U_0}\ 100^\circ \sim 110^\circ">
+      <div class="chead"><span class="chap">3.3 零序保护</span><span class="name">零序方向最灵敏</span></div>
+      <div class="plain">arg(-3U̇0/3İ0) ≈ 180°-φK0 = 95°～110°，即 3İ0 滞后 3U̇0 约 100°～110°</div>
+      <pre class="latex" id="latex-29">3\dot{I_0}\ \text{滞后}\ 3\dot{U_0}\ 100^\circ \sim 110^\circ</pre>
+      <div class="acts">
+        <button onclick="copyLatex(29, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.4 小电流接地" data-text="3.4 小电流接地 单相接地零序电压 U0 ≈ -E（各处近似相同） \dot{U_0} \approx -\dot{E}">
+      <div class="chead"><span class="chap">3.4 小电流接地</span><span class="name">单相接地零序电压</span></div>
+      <div class="plain">U0 ≈ -E（各处近似相同）</div>
+      <pre class="latex" id="latex-30">\dot{U_0} \approx -\dot{E}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(30, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.4 小电流接地" data-text="3.4 小电流接地 非故障线路零序电流 I0(线路) = jω·C0·U0（自身对地电容电流，母线流向线路） \dot{I}_{0(\text{非故障})} = j\omega C_0 \dot{U_0}">
+      <div class="chead"><span class="chap">3.4 小电流接地</span><span class="name">非故障线路零序电流</span></div>
+      <div class="plain">I0(线路) = jω·C0·U0（自身对地电容电流，母线流向线路）</div>
+      <pre class="latex" id="latex-31">\dot{I}_{0(\text{非故障})} = j\omega C_0 \dot{U_0}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(31, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.5 继电器" data-text="3.5 继电器 电磁力矩 Me = K·I²（与电流平方成正比，与方向无关） M_e = K I^2">
+      <div class="chead"><span class="chap">3.5 继电器</span><span class="name">电磁力矩</span></div>
+      <div class="plain">Me = K·I²（与电流平方成正比，与方向无关）</div>
+      <pre class="latex" id="latex-32">M_e = K I^2</pre>
+      <div class="acts">
+        <button onclick="copyLatex(32, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.5 继电器" data-text="3.5 继电器 动作/返回条件 动作：Me ≥ Ms + Mf；返回：Me ≤ Ms - Mf M_e \ge M_s + M_f\ (\text{动作}),\quad M_e \le M_s - M_f\ (\text{返回})">
+      <div class="chead"><span class="chap">3.5 继电器</span><span class="name">动作/返回条件</span></div>
+      <div class="plain">动作：Me ≥ Ms + Mf；返回：Me ≤ Ms - Mf</div>
+      <pre class="latex" id="latex-33">M_e \ge M_s + M_f\ (\text{动作}),\quad M_e \le M_s - M_f\ (\text{返回})</pre>
+      <div class="acts">
+        <button onclick="copyLatex(33, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.5 继电器" data-text="3.5 继电器 返回系数 Kre = Ire / Iop（过量 &lt;1，欠量 &gt;1） K_{re} = \frac{I_{re}}{I_{op}}">
+      <div class="chead"><span class="chap">3.5 继电器</span><span class="name">返回系数</span></div>
+      <div class="plain">Kre = Ire / Iop（过量 &lt;1，欠量 &gt;1）</div>
+      <pre class="latex" id="latex-34">K_{re} = \frac{I_{re}}{I_{op}}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(34, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.1 距离保护" data-text="4.1 距离保护 测量阻抗 Zm = U̇m / İm = lk · z1（正比于短路距离） Z_m = \frac{\dot{U_m}}{\dot{I_m}} = l_k z_1">
+      <div class="chead"><span class="chap">4.1 距离保护</span><span class="name">测量阻抗</span></div>
+      <div class="plain">Zm = U̇m / İm = lk · z1（正比于短路距离）</div>
+      <pre class="latex" id="latex-35">Z_m = \frac{\dot{U_m}}{\dot{I_m}} = l_k z_1</pre>
+      <div class="acts">
+        <button onclick="copyLatex(35, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.1 距离保护" data-text="4.1 距离保护 零序补偿系数 K0 = (Z0 - Z1) / (3Z1)（单位长度或全长参数） K_0 = \frac{Z_0 - Z_1}{3 Z_1}">
+      <div class="chead"><span class="chap">4.1 距离保护</span><span class="name">零序补偿系数</span></div>
+      <div class="plain">K0 = (Z0 - Z1) / (3Z1)（单位长度或全长参数）</div>
+      <pre class="latex" id="latex-36">K_0 = \frac{Z_0 - Z_1}{3 Z_1}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(36, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.1 距离保护" data-text="4.1 距离保护 接地距离测量电压 U̇φ / (İφ + 3K0·İ0) = Z1K（故障相） Z_m = \frac{\dot{U_\varphi}}{\dot{I_\varphi} + 3 K_0 \dot{I_0}} = Z_{1K}">
+      <div class="chead"><span class="chap">4.1 距离保护</span><span class="name">接地距离测量电压</span></div>
+      <div class="plain">U̇φ / (İφ + 3K0·İ0) = Z1K（故障相）</div>
+      <pre class="latex" id="latex-37">Z_m = \frac{\dot{U_\varphi}}{\dot{I_\varphi} + 3 K_0 \dot{I_0}} = Z_{1K}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(37, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.1 距离保护" data-text="4.1 距离保护 方向圆幅值比较 |Żm - ½Żset| ≤ ½|Zset| \left| \dot{Z_m} - \tfrac{1}{2}\dot{Z_{set}} \right| \le \tfrac{1}{2} |Z_{set}|">
+      <div class="chead"><span class="chap">4.1 距离保护</span><span class="name">方向圆幅值比较</span></div>
+      <div class="plain">|Żm - ½Żset| ≤ ½|Zset|</div>
+      <pre class="latex" id="latex-38">\left| \dot{Z_m} - \tfrac{1}{2}\dot{Z_{set}} \right| \le \tfrac{1}{2} |Z_{set}|</pre>
+      <div class="acts">
+        <button onclick="copyLatex(38, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.1 距离保护" data-text="4.1 距离保护 全阻抗圆幅值比较 |Żm| ≤ |Zset| |\dot{Z_m}| \le |Z_{set}|">
+      <div class="chead"><span class="chap">4.1 距离保护</span><span class="name">全阻抗圆幅值比较</span></div>
+      <div class="plain">|Żm| ≤ |Zset|</div>
+      <pre class="latex" id="latex-39">|\dot{Z_m}| \le |Z_{set}|</pre>
+      <div class="acts">
+        <button onclick="copyLatex(39, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.1 距离保护" data-text="4.1 距离保护 圆特性幅值比较（通用） |Żm - Ż0| ≤ r（Z0 圆心，r 半径） |\dot{Z_m} - \dot{Z_0}| \le r">
+      <div class="chead"><span class="chap">4.1 距离保护</span><span class="name">圆特性幅值比较（通用）</span></div>
+      <div class="plain">|Żm - Ż0| ≤ r（Z0 圆心，r 半径）</div>
+      <pre class="latex" id="latex-40">|\dot{Z_m} - \dot{Z_0}| \le r</pre>
+      <div class="acts">
+        <button onclick="copyLatex(40, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.1 距离保护" data-text="4.1 距离保护 偏移圆幅值比较 ½(1+α)|Zset| ≥ |Żm - (1-α)·½Żset| \tfrac{1+\alpha}{2}|Z_{set}| \ge \left| \dot{Z_m} - \tfrac{1-\alpha}{2}\dot{Z_{set}} \right|">
+      <div class="chead"><span class="chap">4.1 距离保护</span><span class="name">偏移圆幅值比较</span></div>
+      <div class="plain">½(1+α)|Zset| ≥ |Żm - (1-α)·½Żset|</div>
+      <pre class="latex" id="latex-41">\tfrac{1+\alpha}{2}|Z_{set}| \ge \left| \dot{Z_m} - \tfrac{1-\alpha}{2}\dot{Z_{set}} \right|</pre>
+      <div class="acts">
+        <button onclick="copyLatex(41, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.1 距离保护" data-text="4.1 距离保护 圆特性相位比较（通用） 90° ≤ arg[(Żset - Żm) / (Żm + α·Żset)] ≤ 270° 90^\circ \le \arg\frac{\dot{Z_{set}}-\dot{Z_m}}{\dot{Z_m}+\alpha\dot{Z_{set}}} \le 270^\circ">
+      <div class="chead"><span class="chap">4.1 距离保护</span><span class="name">圆特性相位比较（通用）</span></div>
+      <div class="plain">90° ≤ arg[(Żset - Żm) / (Żm + α·Żset)] ≤ 270°</div>
+      <pre class="latex" id="latex-42">90^\circ \le \arg\frac{\dot{Z_{set}}-\dot{Z_m}}{\dot{Z_m}+\alpha\dot{Z_{set}}} \le 270^\circ</pre>
+      <div class="acts">
+        <button onclick="copyLatex(42, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.2 距离整定" data-text="4.2 距离整定 距离Ⅰ段整定 Zset&#x27; = Krel&#x27;·ZAB，Krel&#x27; = 0.8～0.85 Z_{set}^{I} = K_{rel}^{I}\, Z_{AB}">
+      <div class="chead"><span class="chap">4.2 距离整定</span><span class="name">距离Ⅰ段整定</span></div>
+      <div class="plain">Zset&#x27; = Krel&#x27;·ZAB，Krel&#x27; = 0.8～0.85</div>
+      <pre class="latex" id="latex-43">Z_{set}^{I} = K_{rel}^{I}\, Z_{AB}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(43, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.2 距离整定" data-text="4.2 距离整定 距离Ⅱ段整定 Zset&#x27;&#x27; = Krel&#x27;&#x27;·(ZAB + Kb·Zset3&#x27;)，Krel&#x27;&#x27; = 0.8，Kb 取最小分支系数 Z_{set}^{II} = K_{rel}^{II}(Z_{AB} + K_b Z_{set3}^{I})">
+      <div class="chead"><span class="chap">4.2 距离整定</span><span class="name">距离Ⅱ段整定</span></div>
+      <div class="plain">Zset&#x27;&#x27; = Krel&#x27;&#x27;·(ZAB + Kb·Zset3&#x27;)，Krel&#x27;&#x27; = 0.8，Kb 取最小分支系数</div>
+      <pre class="latex" id="latex-44">Z_{set}^{II} = K_{rel}^{II}(Z_{AB} + K_b Z_{set3}^{I})</pre>
+      <div class="acts">
+        <button onclick="copyLatex(44, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.2 距离整定" data-text="4.2 距离整定 距离Ⅲ段躲负荷 Zop&#x27;&#x27;&#x27; = 0.9UN / (Krel&#x27;&#x27;&#x27;·Kss·Kre·IL.max)；方向圆换算 Zset&#x27;&#x27;&#x27; = Zop&#x27;&#x27;&#x27;/cos(φL-φsen) Z_{op}^{III} = \frac{0.9 U_N}{K_{rel}^{III} K_{ss} K_{re} I_{L.max}}">
+      <div class="chead"><span class="chap">4.2 距离整定</span><span class="name">距离Ⅲ段躲负荷</span></div>
+      <div class="plain">Zop&#x27;&#x27;&#x27; = 0.9UN / (Krel&#x27;&#x27;&#x27;·Kss·Kre·IL.max)；方向圆换算 Zset&#x27;&#x27;&#x27; = Zop&#x27;&#x27;&#x27;/cos(φL-φsen)</div>
+      <pre class="latex" id="latex-45">Z_{op}^{III} = \frac{0.9 U_N}{K_{rel}^{III} K_{ss} K_{re} I_{L.max}}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(45, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.2 距离整定" data-text="4.2 距离整定 距离Ⅲ段灵敏度 近后备 Ksen(1) = Zset&#x27;&#x27;&#x27;/ZAB ≥ 1.5；远后备 Ksen(2) = Zset&#x27;&#x27;&#x27;/(ZAB+Kb.max·ZBC) ≥ 1.2 K_{sen}^{(1)} \ge 1.5,\quad K_{sen}^{(2)} \ge 1.2">
+      <div class="chead"><span class="chap">4.2 距离整定</span><span class="name">距离Ⅲ段灵敏度</span></div>
+      <div class="plain">近后备 Ksen(1) = Zset&#x27;&#x27;&#x27;/ZAB ≥ 1.5；远后备 Ksen(2) = Zset&#x27;&#x27;&#x27;/(ZAB+Kb.max·ZBC) ≥ 1.2</div>
+      <pre class="latex" id="latex-46">K_{sen}^{(1)} \ge 1.5,\quad K_{sen}^{(2)} \ge 1.2</pre>
+      <div class="acts">
+        <button onclick="copyLatex(46, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.2 距离整定" data-text="4.2 距离整定 分支系数 Kb = İ2/İ3；助增 Kb&gt;1 使 Zm=ZAB+Kb·Zk 增大，外汲 Kb&lt;1 使 Zm 减小 K_b = \frac{\dot{I}_2}{\dot{I}_3},\quad Z_m = Z_{AB} + K_b Z_k">
+      <div class="chead"><span class="chap">4.2 距离整定</span><span class="name">分支系数</span></div>
+      <div class="plain">Kb = İ2/İ3；助增 Kb&gt;1 使 Zm=ZAB+Kb·Zk 增大，外汲 Kb&lt;1 使 Zm 减小</div>
+      <pre class="latex" id="latex-47">K_b = \frac{\dot{I}_2}{\dot{I}_3},\quad Z_m = Z_{AB} + K_b Z_k</pre>
+      <div class="acts">
+        <button onclick="copyLatex(47, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.2 振荡" data-text="4.2 振荡 振荡电流 İm = (ĚM - ĚN)/ZΣ = 2EM·sin(δ/2)·e^{jφ}/ZΣ \dot{I_m} = \frac{2 E_M \sin\frac{\delta}{2}}{Z_\Sigma}">
+      <div class="chead"><span class="chap">4.2 振荡</span><span class="name">振荡电流</span></div>
+      <div class="plain">İm = (ĚM - ĚN)/ZΣ = 2EM·sin(δ/2)·e^{jφ}/ZΣ</div>
+      <pre class="latex" id="latex-48">\dot{I_m} = \frac{2 E_M \sin\frac{\delta}{2}}{Z_\Sigma}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(48, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.2 振荡" data-text="4.2 振荡 振荡中心电压 Uos = EM·cos(δ/2)（两侧电势相等、阻抗角相同时振荡中心在 ZΣ/2） U_{OS} = E_M \cos\tfrac{\delta}{2}">
+      <div class="chead"><span class="chap">4.2 振荡</span><span class="name">振荡中心电压</span></div>
+      <div class="plain">Uos = EM·cos(δ/2)（两侧电势相等、阻抗角相同时振荡中心在 ZΣ/2）</div>
+      <pre class="latex" id="latex-49">U_{OS} = E_M \cos\tfrac{\delta}{2}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(49, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.2 振荡" data-text="4.2 振荡 振荡时测量阻抗轨迹 Żm = ŻM - ZΣ·(½ - j·ctg(δ/2)/2)，轨迹为 ZΣ 的垂直平分线 \dot{Z_m} = \dot{Z_M} - Z_\Sigma\left( \tfrac{1}{2} - j\tfrac{\mathrm{ctg}\frac{\delta}{2}}{2} \right)">
+      <div class="chead"><span class="chap">4.2 振荡</span><span class="name">振荡时测量阻抗轨迹</span></div>
+      <div class="plain">Żm = ŻM - ZΣ·(½ - j·ctg(δ/2)/2)，轨迹为 ZΣ 的垂直平分线</div>
+      <pre class="latex" id="latex-50">\dot{Z_m} = \dot{Z_M} - Z_\Sigma\left( \tfrac{1}{2} - j\tfrac{\mathrm{ctg}\frac{\delta}{2}}{2} \right)</pre>
+      <div class="acts">
+        <button onclick="copyLatex(50, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.2 振荡" data-text="4.2 振荡 振荡误动时间 t = (δ3 - δ2)/δS · 360°/T（误动角区/滑差角速度） t = \frac{\delta_3 - \delta_2}{\delta_S}\cdot\frac{360^\circ}{T}">
+      <div class="chead"><span class="chap">4.2 振荡</span><span class="name">振荡误动时间</span></div>
+      <div class="plain">t = (δ3 - δ2)/δS · 360°/T（误动角区/滑差角速度）</div>
+      <pre class="latex" id="latex-51">t = \frac{\delta_3 - \delta_2}{\delta_S}\cdot\frac{360^\circ}{T}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(51, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.3 特殊问题" data-text="4.3 特殊问题 电弧电阻 Rg ≈ 50·l / Ig（l 单位 m，Ig 单位 A；弧光电压约 5%UN 近似恒定） R_g \approx \frac{50\, l}{I_g}">
+      <div class="chead"><span class="chap">4.3 特殊问题</span><span class="name">电弧电阻</span></div>
+      <div class="plain">Rg ≈ 50·l / Ig（l 单位 m，Ig 单位 A；弧光电压约 5%UN 近似恒定）</div>
+      <pre class="latex" id="latex-52">R_g \approx \frac{50\, l}{I_g}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(52, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.3 特殊问题" data-text="4.3 特殊问题 双侧电源过渡电阻影响 Żm = Rg·e^{jα}(İk&#x27;/İk&#x27;&#x27;) + Zk，α = arg(İk&#x27;/İk&#x27;&#x27;) \dot{Z_m} = R_g e^{j\alpha} \frac{\dot{I_k}&#x27;}{\dot{I_k}&#x27;&#x27;} + Z_k">
+      <div class="chead"><span class="chap">4.3 特殊问题</span><span class="name">双侧电源过渡电阻影响</span></div>
+      <div class="plain">Żm = Rg·e^{jα}(İk&#x27;/İk&#x27;&#x27;) + Zk，α = arg(İk&#x27;/İk&#x27;&#x27;)</div>
+      <pre class="latex" id="latex-53">\dot{Z_m} = R_g e^{j\alpha} \frac{\dot{I_k}&#x27;}{\dot{I_k}&#x27;&#x27;} + Z_k</pre>
+      <div class="acts">
+        <button onclick="copyLatex(53, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.3 特殊问题" data-text="4.3 特殊问题 突变量距离补偿电压 ΔU̇op = ΔU̇m - Δİm·Zset；区内故障判据 |ΔU̇op| ≥ |ΔU̇k| \Delta\dot{U}_{op} = \Delta\dot{U}_m - \Delta\dot{I}_m Z_{set},\ |\Delta\dot{U}_{op}| \ge |\Delta\dot{U}_k|">
+      <div class="chead"><span class="chap">4.3 特殊问题</span><span class="name">突变量距离补偿电压</span></div>
+      <div class="plain">ΔU̇op = ΔU̇m - Δİm·Zset；区内故障判据 |ΔU̇op| ≥ |ΔU̇k|</div>
+      <pre class="latex" id="latex-54">\Delta\dot{U}_{op} = \Delta\dot{U}_m - \Delta\dot{I}_m Z_{set},\ |\Delta\dot{U}_{op}| \ge |\Delta\dot{U}_k|</pre>
+      <div class="acts">
+        <button onclick="copyLatex(54, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.3 特殊问题" data-text="4.3 特殊问题 突变量距离正向动作特性 |ZS + Zset| ≥ |ZS + ZK|（正向区内）；反方向 ZR &gt; Zset |Z_S + Z_{set}| \ge |Z_S + Z_K|">
+      <div class="chead"><span class="chap">4.3 特殊问题</span><span class="name">突变量距离正向动作特性</span></div>
+      <div class="plain">|ZS + Zset| ≥ |ZS + ZK|（正向区内）；反方向 ZR &gt; Zset</div>
+      <pre class="latex" id="latex-55">|Z_S + Z_{set}| \ge |Z_S + Z_K|</pre>
+      <div class="acts">
+        <button onclick="copyLatex(55, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.1 重合闸" data-text="6.1 重合闸 重合闸时间（单侧电源） tARC = tu（去游离）+ tQF（断路器复原）+ 裕度 t_{ARC} = t_u + t_{QF} + \text{裕度}">
+      <div class="chead"><span class="chap">6.1 重合闸</span><span class="name">重合闸时间（单侧电源）</span></div>
+      <div class="plain">tARC = tu（去游离）+ tQF（断路器复原）+ 裕度</div>
+      <pre class="latex" id="latex-56">t_{ARC} = t_u + t_{QF} + \text{裕度}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(56, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.1 重合闸" data-text="6.1 重合闸 重合闸时间（双侧电源） tARC = (t2.QF + t2.p - t1.p - t1.QF) + tu + 裕度（按最不利：对侧延时跳闸） t_{ARC} = (t_{2.QF}+t_{2.p}-t_{1.p}-t_{1.QF}) + t_u + \text{裕度}">
+      <div class="chead"><span class="chap">6.1 重合闸</span><span class="name">重合闸时间（双侧电源）</span></div>
+      <div class="plain">tARC = (t2.QF + t2.p - t1.p - t1.QF) + tu + 裕度（按最不利：对侧延时跳闸）</div>
+      <pre class="latex" id="latex-57">t_{ARC} = (t_{2.QF}+t_{2.p}-t_{1.p}-t_{1.QF}) + t_u + \text{裕度}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(57, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="7.1 变压器保护" data-text="7.1 变压器保护 纵差理想变比 nTA1 · nTA2 = nT n_{TA1} \cdot n_{TA2} = n_T">
+      <div class="chead"><span class="chap">7.1 变压器保护</span><span class="name">纵差理想变比</span></div>
+      <div class="plain">nTA1 · nTA2 = nT</div>
+      <pre class="latex" id="latex-58">n_{TA1} \cdot n_{TA2} = n_T</pre>
+      <div class="acts">
+        <button onclick="copyLatex(58, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="7.1 变压器保护" data-text="7.1 变压器保护 变比误差 Δn = |(nTA1/nTA2)/nT - 1| \Delta n = \left| \frac{n_{TA1}/n_{TA2}}{n_T} - 1 \right|">
+      <div class="chead"><span class="chap">7.1 变压器保护</span><span class="name">变比误差</span></div>
+      <div class="plain">Δn = |(nTA1/nTA2)/nT - 1|</div>
+      <pre class="latex" id="latex-59">\Delta n = \left| \frac{n_{TA1}/n_{TA2}}{n_T} - 1 \right|</pre>
+      <div class="acts">
+        <button onclick="copyLatex(59, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="7.1 变压器保护" data-text="7.1 变压器保护 最大磁通（涌流机理） Φmax = 2Φm + Φsy（磁通不能突变 + 剩磁） \Phi_{max} = 2\Phi_m + \Phi_{sy}">
+      <div class="chead"><span class="chap">7.1 变压器保护</span><span class="name">最大磁通（涌流机理）</span></div>
+      <div class="plain">Φmax = 2Φm + Φsy（磁通不能突变 + 剩磁）</div>
+      <pre class="latex" id="latex-60">\Phi_{max} = 2\Phi_m + \Phi_{sy}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(60, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="7.1 变压器保护" data-text="7.1 变压器保护 比率差动判据 Id = |İ1&#x27; + İ2&#x27;| &gt; Iop.min 且 Id &gt; K·Ires + Iop.min，Ires = max(|I1&#x27;|,|I2&#x27;|) 或 |İ1&#x27;-İ2&#x27;|/2 I_d = |\dot{I}_1&#x27;+\dot{I}_2&#x27;| &gt; K I_{res} + I_{op.min}">
+      <div class="chead"><span class="chap">7.1 变压器保护</span><span class="name">比率差动判据</span></div>
+      <div class="plain">Id = |İ1&#x27; + İ2&#x27;| &gt; Iop.min 且 Id &gt; K·Ires + Iop.min，Ires = max(|I1&#x27;|,|I2&#x27;|) 或 |İ1&#x27;-İ2&#x27;|/2</div>
+      <pre class="latex" id="latex-61">I_d = |\dot{I}_1&#x27;+\dot{I}_2&#x27;| &gt; K I_{res} + I_{op.min}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(61, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="7.1 变压器保护" data-text="7.1 变压器保护 二次谐波制动 二次谐波幅值/基波幅值 ≥ 15% 时闭锁差动 \frac{I_{2\omega}}{I_{1\omega}} \ge 15\% \Rightarrow \text{闭锁差动}">
+      <div class="chead"><span class="chap">7.1 变压器保护</span><span class="name">二次谐波制动</span></div>
+      <div class="plain">二次谐波幅值/基波幅值 ≥ 15% 时闭锁差动</div>
+      <pre class="latex" id="latex-62">\frac{I_{2\omega}}{I_{1\omega}} \ge 15\% \Rightarrow \text{闭锁差动}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(62, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="7.1 变压器保护" data-text="7.1 变压器保护 复合电压启动 负序过电压 U2.op = (0.06～0.12)UN U_{2.op} = (0.06 \sim 0.12) U_N">
+      <div class="chead"><span class="chap">7.1 变压器保护</span><span class="name">复合电压启动</span></div>
+      <div class="plain">负序过电压 U2.op = (0.06～0.12)UN</div>
+      <pre class="latex" id="latex-63">U_{2.op} = (0.06 \sim 0.12) U_N</pre>
+      <div class="acts">
+        <button onclick="copyLatex(63, this)">复制 LaTeX</button>
+      </div>
+    </div></div>
+<div class="foot">
+  配套资料：<a href="继电保护原理_知识点总结与复习计划.html">知识点总结与复习计划</a> ·
+  <a href="继电保护原理_练习题库.html">章节练习题库</a> ·
+  <a href="继电保护原理_公式速查.md">Markdown 源文件</a> ·
+  <a href="../index.html">返回课程主页</a><br>
+</div>
+</div>
+<script>
+function apply(){
+  const c=document.getElementById('chap').value;
+  const k=document.getElementById('kw').value.trim().toLowerCase();
+  let n=0;
+  document.querySelectorAll('.card').forEach(el=>{
+    const ok=(c==='all'||el.dataset.chapter===c)&&(!k||el.dataset.text.toLowerCase().includes(k));
+    el.classList.toggle('hide',!ok); if(ok)n++;
+  });
+  document.getElementById('count').textContent='显示 '+n+' / 64 条';
+}
+document.getElementById('chap').onchange=apply;
+document.getElementById('kw').oninput=apply;
+function copyLatex(i, btn){
+  const text=document.getElementById('latex-'+i).textContent;
+  const done=(ok)=>{const old=btn.textContent;btn.textContent=ok?'已复制 ✓':'请手动选中复制';setTimeout(()=>btn.textContent=old,1600);};
+  if(navigator.clipboard&&location.protocol!=='file:'){navigator.clipboard.writeText(text).then(()=>done(true)).catch(()=>fallback(text,done));}
+  else fallback(text,done);
+}
+function fallback(text,done){
+  const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  let ok=false;
+  try{ok=!!document.execCommand('copy');}catch(e){ok=false;}
+  ta.remove();
+  done(ok);
+}
+apply();
+</script></body></html>

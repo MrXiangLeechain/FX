@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>发电厂电气部分 · 章节练习题库</title>
+<style>
+:root{
+  --bg:#f6f8fb; --card:#ffffff; --ink:#1f2937; --muted:#6b7280;
+  --line:#e5e7eb; --brand:#2563eb; --brand-soft:#eff6ff;
+  --ok:#15803d; --ok-bg:#ecfdf5; --bad:#b91c1c; --bad-bg:#fef2f2;
+  --warn:#b45309; --warn-bg:#fffbeb;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;line-height:1.7}
+.wrap{max-width:960px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:26px;margin:0 0 6px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:22px}
+.exam-tip{display:inline-block;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;border-radius:99px;padding:4px 14px;font-size:13px;font-weight:600;margin-bottom:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(16,24,40,.04)}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+label{font-size:13px;color:var(--muted);margin-right:6px}
+select,button,input[type=text],textarea{font-family:inherit;font-size:14px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:#fff;color:var(--ink)}
+select{min-width:150px}
+button{cursor:pointer;background:#fff;transition:.15s}
+button:hover{border-color:var(--brand);color:var(--brand)}
+button.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+button.primary:hover{background:#1d4ed8;color:#fff}
+button:disabled{opacity:.45;cursor:not-allowed}
+.stats{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:var(--muted)}
+.stats b{color:var(--ink);font-size:16px}
+.bar{height:8px;background:#eef2f7;border-radius:99px;overflow:hidden;margin-top:14px}
+.bar>i{display:block;height:100%;background:var(--brand);width:0;transition:width .25s}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.badge{font-size:12px;padding:3px 9px;border-radius:99px;background:var(--brand-soft);color:var(--brand);font-weight:600}
+.badge.j{background:#f5f3ff;color:#6d28d9}
+.badge.b{background:#fff7ed;color:#c2410c}
+.badge.s{background:#ecfeff;color:#0e7490}
+.qtext{font-size:17px;font-weight:600;margin:6px 0 16px;white-space:pre-wrap}
+.opts{display:grid;gap:9px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:9px;padding:10px 12px;cursor:pointer;background:#fff}
+.opt:hover{border-color:var(--brand)}
+.opt.sel{border-color:var(--brand);background:var(--brand-soft)}
+.opt.correct{border-color:var(--ok);background:var(--ok-bg)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt input{margin-top:5px}
+.blank{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.blank input{min-width:220px;flex:1}
+textarea{width:100%;min-height:130px;resize:vertical}
+.fb{margin-top:14px;border-radius:9px;padding:12px 14px;font-size:14px;display:none}
+.fb.ok{display:block;background:var(--ok-bg);color:var(--ok);border:1px solid #bbf7d0}
+.fb.bad{display:block;background:var(--bad-bg);color:var(--bad);border:1px solid #fecaca}
+.fb.note{display:block;background:var(--warn-bg);color:var(--warn);border:1px solid #fde68a}
+.fb b{display:block;margin-bottom:4px}
+.act{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.self{margin-top:12px;display:none;gap:10px}
+.self.show{display:flex}
+.foot{color:var(--muted);font-size:12px;text-align:center;margin-top:26px}
+.foot a{color:var(--brand);text-decoration:none}.foot a:hover{text-decoration:underline}
+.nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:16px}
+.nav .nav-title{font-size:13px;color:var(--muted);margin-right:4px;font-weight:600}
+.nav a{font-size:13px;padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:#f8fafc;color:#334155;text-decoration:none}
+.nav a:hover{background:var(--brand-soft);border-color:var(--brand);color:var(--brand)}
+.nav a.current{background:var(--brand);border-color:var(--brand);color:#fff}
+.scope{margin-top:12px;font-size:13px;color:var(--muted);display:none;align-items:center;gap:8px}
+.scope.show{display:flex}
+.scope b{color:var(--brand)}
+.scope button{padding:3px 9px;font-size:12px}
+.qref{font-size:12px;padding:3px 9px;border:1px solid #bfdbfe;border-radius:99px;background:var(--brand-soft);color:var(--brand);text-decoration:none;white-space:nowrap}
+.qref:hover{background:var(--brand);color:#fff;text-decoration:none}
+.list{margin:0;padding-left:20px}
+.list li{margin:4px 0}
+@media(max-width:600px){.wrap{padding:18px 12px 40px}h1{font-size:22px}.qtext{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>发电厂电气部分 · 章节练习题库</h1>
+  <div class="sub">依据课程 14 个知识点整理 · 支持单选 / 判断 / 填空 / 简答 · 自动记录错题（保存在本机浏览器）</div>
+  <div class="exam-tip">📅 考试时间：2027 年 1 月 6 日</div>
+
+  <div class="nav" id="siteNav">
+    <span class="nav-title">资料导航</span>
+    <a href="../index.html">🏠 全部课程</a>
+    <a href="发电厂电气部分_知识点总结与复习计划.html">知识点总结</a>
+    <a class="current" href="发电厂电气部分_练习题库.html">练习题库（181题）</a>
+    <a href="发电厂电气部分_公式速查.html">公式速查</a>
+    <a href="发电厂电气部分_公式速查.md">公式 Markdown 源文件</a>
+  </div>
+
+  <div class="panel">
+    <div class="row">
+      <div><label for="part">章节</label><select id="part"></select></div>
+      <div><label for="type">题型</label><select id="type"></select></div>
+      <div><label for="order">顺序</label><select id="order"><option value="seq">按顺序</option><option value="rand">随机</option></select></div>
+      <button id="start" class="primary">开始练习</button>
+      <button id="wrongOnly">只练错题</button>
+      <button id="clearWrong">清空错题本</button>
+    </div>
+    <div class="scope" id="scope">
+      当前范围：知识点 <b id="scopeNum"></b>（来自总结页跳转）
+      <button id="clearScope">清除范围，练全部</button>
+    </div>
+    <div class="stats">
+      <span>题库总数 <b id="total">0</b></span>
+      <span>本次已答 <b id="done">0</b></span>
+      <span>答对 <b id="right">0</b></span>
+      <span>正确率 <b id="acc">—</b></span>
+      <span>错题本 <b id="wrongCnt">0</b></span>
+    </div>
+    <div class="bar"><i id="progress"></i></div>
+  </div>
+
+  <div class="panel" id="card" style="display:none">
+    <div class="qhead">
+      <div class="badge" id="badge"></div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <a class="qref" id="qref" href="#">回总结原文 ↗</a>
+        <div id="pos" style="color:var(--muted);font-size:13px"></div>
+      </div>
+    </div>
+    <div class="qtext" id="qtext"></div>
+    <div id="area"></div>
+    <div class="fb" id="fb"></div>
+    <div class="self" id="self">
+      <button id="selfOk">✅ 我答对了</button>
+      <button id="selfNo">❌ 没答好</button>
+    </div>
+    <div class="act">
+      <button id="submit" class="primary">提交答案</button>
+      <button id="reveal">查看参考答案</button>
+      <button id="prev">上一题</button>
+      <button id="next">下一题</button>
+    </div>
+  </div>
+
+  <div class="panel" id="finish" style="display:none">
+    <h3 style="margin-top:0">本次练习完成</h3>
+    <div id="summary"></div>
+    <button id="again" class="primary">再练一次</button>
+  </div>
+
+  <div class="foot">
+    配套资料：<a href="发电厂电气部分_知识点总结与复习计划.html">知识点总结与复习计划</a> ·
+    <a href="发电厂电气部分_公式速查.html">公式速查网页版</a> ·
+    <a href="发电厂电气部分_公式速查.md">公式 Markdown 源文件</a> ·
+    <a href="../index.html">返回课程主页</a><br>
+    提示：简答题为主观题，请先看参考答案再自评；错题本仅存于当前浏览器。
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [{"num": "1.1", "part": "概述与电气设备分类", "type": "single", "q": "电气设备按作用可分为（　）", "options": ["一次设备和二次设备", "高压设备和低压设备", "主设备和辅助设备", "静止设备和旋转设备"], "answer": 0, "explain": "按作用不同分为一次设备（生产、变换、输送、分配和使用电能）和二次设备（测量、控制、监视、保护）。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "single", "q": "下列设备中属于二次设备的是（　）", "options": ["避雷器", "电压互感器", "继电保护装置", "电抗器"], "answer": 2, "explain": "二次设备包括测量表计、继电保护及自动远动装置、直流电源设备、操作电器信号设备等。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "single", "q": "只能断开或闭合正常工作电流的开关电器是（　）", "options": ["断路器", "隔离开关", "负荷开关", "熔断器"], "answer": 2, "explain": "负荷开关只能断合正常工作电流；断路器可断短路电流；隔离开关不能断电流；熔断器只断故障电流。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "single", "q": "只能在检修时隔离电压、不能断开电流的设备是（　）", "options": ["隔离开关", "负荷开关", "接触器", "断路器"], "answer": 0, "explain": "隔离开关不能断合电流，只能在检修时隔离电压。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "single", "q": "既能断开正常工作电流又能断开短路电流的设备是（　）", "options": ["隔离开关", "断路器", "熔断器", "负荷开关"], "answer": 1, "explain": "断路器既可断合正常工作电流，也可断合过负荷或短路电流。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "single", "q": "用于限制短路电流的一次设备是（　）", "options": ["避雷器", "电抗器", "并联电容器", "熔断器"], "answer": 1, "explain": "电抗器用于限制短路电流；避雷器用于防御过电压。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "single", "q": "我国第一家发电厂创办于（　）", "options": ["1879 年", "1882 年", "1949 年", "1980 年"], "answer": 1, "explain": "1882 年 7 月 26 日上海电气公司创办中国第一家发电厂。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "single", "q": "高压侧电压 330~500kV、全站停电将引起系统瓦解的变电站是（　）", "options": ["枢纽变电站", "中间变电站", "地区变电站", "终端变电站"], "answer": 0, "explain": "枢纽变电站汇集多个电源和大功率输送通道，停电后果最严重。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "single", "q": "全站停电后仅使该地区中断供电的变电站是（　）", "options": ["枢纽变电站", "中间变电站", "地区变电站", "终端变电站"], "answer": 2, "explain": "地区变电站（110~220kV）停电仅造成该地区供电中断。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "single", "q": "中间变电站高压侧电压一般为（　）", "options": ["110~220kV", "220~330kV", "330~500kV", "500kV 以上"], "answer": 1, "explain": "中间变电站一般为 220~330kV，汇集 2~3 个电源，停电引起区域电网解列。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "single", "q": "下列属于无功补偿设备的是（　）", "options": ["并联电容器和并联电抗器", "电抗器和避雷器", "裸导体和电缆", "互感器"], "answer": 0, "explain": "无功补偿设备包括并联电容器和并联电抗器。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "single", "q": "能频繁关合、承载和开断正常电流及规定过载电流的设备是（　）", "options": ["接触器", "隔离开关", "熔断器", "避雷器"], "answer": 0, "explain": "接触器适用于配电与用电场合的频繁操作。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "single", "q": "本课程期末考试的形式是（　）", "options": ["开卷", "闭卷（选择+填空+判断+作图+简答+计算）", "机考", "口试"], "answer": 1, "explain": "平时成绩 50%+期末闭卷 50%，题型含选择、填空、判断、作图、简答、计算。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "single", "q": "最大水电机组 1000MW 位于（　）", "options": ["三峡", "向家坝", "白鹤滩", "大亚湾"], "answer": 2, "explain": "白鹤滩水电站单机 1000MW；三峡 700MW；向家坝 800MW。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "single", "q": "我国装机容量跃居世界第一始于（　）", "options": ["2010 年", "2013 年底", "2018 年", "2020 年"], "answer": 1, "explain": "2013 年底装机容量世界第一；2018 年起年发电量世界第一。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "judge", "q": "隔离开关可以在系统正常运行时带负荷拉合电路。", "answer": false, "explain": "隔离开关不能断合电流，严禁带负荷操作。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "judge", "q": "熔断器既可断开故障电流，也可断开正常工作电流。", "answer": false, "explain": "熔断器只能断开故障时的过负荷或短路电流。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "judge", "q": "电压互感器和电流互感器都属于一次设备。", "answer": true, "explain": "互感器属于一次设备的第⑤类。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "judge", "q": "直流电源设备（蓄电池组等）属于二次设备。", "answer": true, "explain": "直流电源设备是二次设备的第③类。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "judge", "q": "终端变电站全站停电将引起系统瓦解。", "answer": false, "explain": "枢纽变电站停电才引起系统瓦解；终端变电站停电只损失用户。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "judge", "q": "背靠背换流站实现的是 AC-AC 变换。", "answer": true, "explain": "背靠背换流站为 AC-AC；普通换流站为 AC-DC/DC-AC。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "blank", "q": "按作用不同，电气设备分为____设备和____设备两大类。", "answer": ["一次", "二次"], "explain": "一次设备生产、变换、输送、分配和使用电能；二次设备对其进行测量、控制、监视、保护。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "blank", "q": "我国第一台发电机于 1879 年出现在____。", "answer": ["上海"], "explain": "1879 年 5 月 28 日上海公共租界点亮第一盏电灯。"}, {"num": "1.1", "part": "概述与电气设备分类", "type": "short", "q": "比较断路器、隔离开关、负荷开关、熔断器四种开关电器的开断能力。", "answer": "①断路器：既可断合正常工作电流，也可断合过负荷或短路电流；②隔离开关：不能断合电流，只能在检修时隔离电压；③负荷开关：只能断合正常工作电流；④熔断器：只能断开故障时的过负荷或短路电流。"}, {"num": "2.1", "part": "载流导体的发热和电动力", "type": "single", "q": "导体长期发热与短时发热的根本区别是（　）", "options": ["电流大小不同", "发热过程是否达到稳定温升", "导体材料不同", "电压等级不同"], "answer": 1, "explain": "长期发热达到稳定温升；短时发热时间短、可视为绝热过程（热量全用于升温）。"}, {"num": "2.1", "part": "载流导体的发热和电动力", "type": "single", "q": "两平行载流导体间电动力 F =（　）", "options": ["2×10⁻⁷·i₁i₂·(L/a)", "2×10⁻⁷·i₁i₂·(a/L)", "10⁻⁷·i₁i₂·L", "2×10⁻⁷·(i₁+i₂)·L/a"], "answer": 0, "explain": "F=2×10⁻⁷·i₁i₂·L/a，i 为电流瞬时值（A）。"}, {"num": "2.1", "part": "载流导体的发热和电动力", "type": "single", "q": "三相短路时最大电动力发生在（　）", "options": ["边相", "中间相", "任意相", "地相"], "answer": 1, "explain": "三相短路最大电动力作用于中间相，F≈√3×10⁻⁷·ish²·L/a。"}, {"num": "2.1", "part": "载流导体的发热和电动力", "type": "single", "q": "短路短时发热校验的实质是（　）", "options": ["校验最大工作电流", "校验热效应（最高温度不超过短时允许温度）", "校验机械振动", "校验电压损失"], "answer": 1, "explain": "短时发热按 Qt=∫ik²dt 校验，保证短路最高温度不超过导体短时最高允许温度。"}, {"num": "2.1", "part": "载流导体的发热和电动力", "type": "single", "q": "提高导体载流量的措施不包括（　）", "options": ["增大导体截面", "采用电阻率小的材料", "增大散热表面积", "缩短导体长度而不改变截面散热"], "answer": 3, "explain": "提高载流量从减小电阻和改善散热入手；单纯缩短长度不改变散热能力。"}, {"num": "2.1", "part": "载流导体的发热和电动力", "type": "single", "q": "长期发热温升指数曲线 τ=τ∞(1−e^(−t/T)) 中 T 是（　）", "options": ["短路时间", "发热时间常数", "燃弧时间", "保护动作时间"], "answer": 1, "explain": "T 为发热时间常数，决定温升上升速度。"}, {"num": "2.1", "part": "载流导体的发热和电动力", "type": "single", "q": "硬铝母线的允许应力约为（　）", "options": ["40 MPa", "70 MPa", "120 MPa", "200 MPa"], "answer": 1, "explain": "硬铝允许应力约 70MPa，校验要求计算应力 σjs ≤ 允许应力。"}, {"num": "2.1", "part": "载流导体的发热和电动力", "type": "single", "q": "短路电动力设计中为防止共振应（　）", "options": ["增大导体电流", "避开导体系统的固有频率", "减小导体截面", "提高电压等级"], "answer": 1, "explain": "短路电动力为交变力，需避开固有频率防止共振。"}, {"num": "2.1", "part": "载流导体的发热和电动力", "type": "single", "q": "硬铝导体短时发热最高允许温度约为（　）", "options": ["70 ℃", "120 ℃", "200 ℃", "400 ℃"], "answer": 2, "explain": "硬铝、硬铜短时最高允许温度约 200 ℃（钢约 400 ℃）。"}, {"num": "2.1", "part": "载流导体的发热和电动力", "type": "judge", "q": "短路短时发热过程中，导体散出的热量远大于发热量，应按散热过程计算。", "answer": false, "explain": "短时发热时间短，热量几乎全部用于导体升温，视为绝热过程。"}, {"num": "2.1", "part": "载流导体的发热和电动力", "type": "judge", "q": "三相短路冲击电流越大，导体所受电动力越大。", "answer": true, "explain": "F≈√3×10⁻⁷·ish²·L/a，与冲击电流平方成正比。"}, {"num": "2.1", "part": "载流导体的发热和电动力", "type": "judge", "q": "屋内母线涂漆的主要作用之一是便于识别相序。", "answer": true, "explain": "屋内涂漆便于识别相序；屋外涂漆还利于辐射散热。"}, {"num": "2.1", "part": "载流导体的发热和电动力", "type": "blank", "q": "导体长期发热校验条件：Ial ≥ ____。", "answer": ["Imax"], "explain": "额定载流量（修正后）不小于回路最大持续工作电流。"}, {"num": "2.1", "part": "载流导体的发热和电动力", "type": "blank", "q": "短路热效应 Qt = ∫____dt。", "answer": ["ik²"], "explain": "Qt 为短路电流平方对时间的积分。"}, {"num": "2.1", "part": "载流导体的发热和电动力", "type": "short", "q": "简述长期发热与短时发热的区别及各自的校验方法。", "answer": "长期发热：正常工作电流持续通过，达到稳定温升 τ=τ∞(1−e^(−t/T))；校验方法为额定载流量经环境温度修正后不小于最大持续工作电流（Ial≥Imax）。短时发热：短路电流通过，时间短电流大，视为绝热过程；校验方法为热效应 Qt=∫ik²dt 不超过允许值，即短路最高温度不超过导体短时最高允许温度（约 200 ℃）。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "single", "q": "触头间产生电弧的条件是电源电压和电流分别大于（　）", "options": ["10~20V、80~100mA", "36V、1A", "110V、0.5A", "220V、10A"], "answer": 0, "explain": "电压>10~20V、电流>80~100mA 时触头分离瞬间即产生电弧。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "single", "q": "对电弧的形成起主要作用的游离方式是（　）", "options": ["热游离", "碰撞游离", "光游离", "表面游离"], "answer": 1, "explain": "碰撞游离对电弧形成起主要作用；热游离对电弧维持起主要作用。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "single", "q": "对电弧的维持起主要作用的是（　）", "options": ["碰撞游离", "热电子发射", "热游离", "强电场发射"], "answer": 2, "explain": "电弧形成后触头间电压降低，但弧柱温度高，依靠热游离维持燃烧。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "single", "q": "复合去游离的速率与电弧直径的关系是（　）", "options": ["成正比", "成反比", "与电弧直径平方成正比", "与电弧直径平方成反比"], "answer": 3, "explain": "复合速率与带电质点浓度成正比，因而与电弧直径平方成反比——拉长/变细电弧利于熄灭。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "single", "q": "交流电弧自然熄灭的时刻是（　）", "options": ["电流峰值", "电流过零", "电压峰值", "任意时刻"], "answer": 1, "explain": "交流电弧每半周过零一次，过零时自然熄灭。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "single", "q": "交流电弧最终熄灭的条件是（　）", "options": ["ur(t) ≥ ud(t)", "ud(t) ≥ ur(t)", "ud(t) = 0", "ur(t) = 0"], "answer": 1, "explain": "介质强度恢复 ud(t) 高于弧隙电压恢复 ur(t)，电弧才不重燃而最终熄灭。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "single", "q": "介质强度恢复速度最快的灭弧介质是（　）", "options": ["油", "空气", "SF6", "真空"], "answer": 3, "explain": "真空 > SF6 > 油 > 空气。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "single", "q": "弧隙电压恢复过程主要取决于（　）", "options": ["灭弧装置结构", "触头材料", "线路参数和负荷性质", "灭弧介质种类"], "answer": 2, "explain": "电压恢复由线路参数、负荷性质等决定；介质强度恢复由灭弧装置结构和介质性质决定。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "single", "q": "纵吹的主要作用是（　）", "options": ["把电弧拉长", "使电弧冷却变细", "均衡断口电压", "限制过电压"], "answer": 1, "explain": "纵吹方向与弧柱轴线平行，主要使电弧冷却变细；横吹将电弧拉长增大表面积。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "single", "q": "采用双断口灭弧时，若不装均压电容，两断口电压分配为（　）", "options": ["U1≈U2≈U/2", "U1≈2U/3，U2≈U/3", "U1≈U/3，U2≈2U/3", "U1=U2=U"], "answer": 1, "explain": "因断口等效电容 Cd 与底座对地电容 C0 的分压，第一个断口电压约为 2U/3，工作条件更恶劣。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "single", "q": "加装并联电阻的断路器开断电路时（　）", "options": ["辅助触头先断", "主触头先断，辅助触头后断", "两触头同时断开", "只断主触头"], "answer": 1, "explain": "主触头 Q1 先开断（并联电阻接入使电弧易熄），辅助触头 Q2 再切断并联电阻电流。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "single", "q": "全开断时间小于 0.08s 的断路器称为（　）", "options": ["低速断路器", "中速断路器", "快速断路器", "特高速断路器"], "answer": 2, "explain": ">0.12s 低速、0.08~0.12s 中速、<0.08s 快速。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "single", "q": "断路器全开断时间等于（　）", "options": ["固有分闸时间+燃弧时间", "保护动作时间+固有分闸时间", "燃弧时间+保护动作时间", "固有分闸时间+充电时间"], "answer": 0, "explain": "全开断时间=固有动作（分闸）时间+燃弧时间。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "single", "q": "型号为 LW6-220 的断路器，L 代表（　）", "options": ["真空断路器", "SF6 断路器", "少油断路器", "多油断路器"], "answer": 1, "explain": "L 表示 SF6 断路器（Z 真空、S 少油、D 多油、K 空气）。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "single", "q": "断路器的额定开断电流 INbr 表示（　）", "options": ["长期允许通过的最大电流", "规定条件下能正常开断的最大短路电流", "动稳定电流", "热稳定电流"], "answer": 1, "explain": "INbr 标志断路器的开断能力。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "single", "q": "断路器常用的灭弧触头材料是（　）", "options": ["纯铜", "纯铝", "铜钨合金、银钨合金", "铝合金"], "answer": 2, "explain": "铜钨/银钨合金熔点高、导热好，减少热电子发射和金属蒸气。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "judge", "q": "电弧电流过零自然熄灭后，电弧就最终熄灭了。", "answer": false, "explain": "过零熄灭≠最终熄灭；若电压恢复高于介质强度恢复，电弧重燃。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "judge", "q": "使电弧熄灭的根本途径是加强去游离过程。", "answer": true, "explain": "游离<去游离时电弧熄灭，各种灭弧方法的本质都是加强去游离。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "judge", "q": "横吹方向与弧柱轴线平行。", "answer": false, "explain": "纵吹与弧柱轴线平行（冷却变细）；横吹垂直（拉长电弧）。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "judge", "q": "采用多断口后，每个断口的电压分配是均匀的。", "answer": false, "explain": "因断口电容与对地电容分压，电压分配不均，需装均压电容。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "judge", "q": "断路器的额定电流是指能长期通过的最大电流。", "answer": true, "explain": "额定电流下长期运行发热不超过国家标准规定值。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "blank", "q": "交流电弧最终熄灭的条件是介质强度恢复过程____弧隙电压恢复过程。", "answer": ["高于（快于）"], "explain": "ud(t) ≥ ur(t)。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "blank", "q": "常用的灭弧介质有空气、油、____和真空。", "answer": ["SF6"], "explain": "四种常用灭弧介质。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "blank", "q": "断路器型号中 Z 代表____断路器，L 代表____断路器。", "answer": ["真空", "SF6"], "explain": "型号字母含义。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "short", "q": "简述交流电弧的熄灭条件及两个恢复过程。", "answer": "交流电弧每半周电流过零时自然熄灭，但能否最终熄灭取决于电流过零后弧隙的两个恢复过程：①介质强度恢复过程 ud(t)——弧隙绝缘能力恢复到正常状态的过程，主要取决于灭弧装置结构和灭弧介质性质（真空>SF6>油>空气）；②弧隙电压恢复过程 ur(t)——弧隙电压由熄弧电压逐渐恢复到电源电压的过程，主要取决于线路参数和负荷性质。最终熄灭条件：ud(t) ≥ ur(t)；若弧隙电压高于介质耐受电压，弧隙被击穿、电弧重燃。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "short", "q": "列举高压断路器熄灭交流电弧的主要方法（至少五种）。", "answer": "①利用灭弧介质（空气、油、SF6、真空）；②采用特殊金属材料作灭弧触头（铜钨合金、银钨合金）；③利用气体或油吹动电弧（纵吹、横吹）；④采用多断口熄弧（配均压电容使断口电压均衡）；⑤提高触头分离速度、迅速拉长电弧；⑥断路器加装并联电阻（主触头先断、辅助触头后断）。"}, {"num": "3.1", "part": "灭弧原理及主要开关电器", "type": "short", "q": "简述电弧的形成过程（三个阶段）。", "answer": "①电弧的产生：阴极发射电子（热电子发射+强电场发射），电子在电场作用下产生碰撞游离，介质被击穿形成电弧；②电弧的维持：弧柱高温下发生热游离，不断产生自由电子和正离子维持电弧燃烧；③电弧的熄灭：当去游离过程大于游离过程时，电弧逐渐熄灭。"}, {"num": "4.1", "part": "电气主接线及其设计", "type": "single", "q": "内桥接线的桥断路器接在（　）", "options": ["线路侧", "变压器侧", "母线侧", "发电机侧"], "answer": 0, "explain": "内桥断路器接线路侧，适合线路长、故障率高、变压器不经常切换的场合。"}, {"num": "4.1", "part": "电气主接线及其设计", "type": "single", "q": "适合变压器需要经常切换、线路较短故障率低的场合的主接线是（　）", "options": ["内桥接线", "外桥接线", "单母线不分段", "角形接线"], "answer": 1, "explain": "外桥接线桥断路器接变压器侧，便于变压器的投切操作。"}, {"num": "4.1", "part": "电气主接线及其设计", "type": "single", "q": "单母线分段接线中，一段母线故障时（　）", "options": ["全站停电", "故障段停电、非故障段继续运行", "仅出线停电", "仅电源停电"], "answer": 1, "explain": "分段断路器将故障段隔离，非故障段继续运行。"}, {"num": "4.1", "part": "电气主接线及其设计", "type": "single", "q": "可靠性极高、常用于 330~500kV 枢纽变电站的接线是（　）", "options": ["单母线分段", "双母线", "一台半断路器（3/2）接线", "桥形接线"], "answer": 2, "explain": "3/2 接线可靠性高但投资大、二次接线复杂。"}, {"num": "4.1", "part": "电气主接线及其设计", "type": "single", "q": "扩大单元接线中两台发电机共用一台主变时宜采用（　）", "options": ["双绕组变压器", "分裂绕组变压器", "自耦变压器", "单相变压器组"], "answer": 1, "explain": "扩大单元尽可能采用分裂绕组变压器，容量按两台机之和确定。"}, {"num": "4.2", "part": "电气主接线及其设计", "type": "single", "q": "双母线接线中任一回路通过（　）接到两组母线上", "options": ["一台断路器和两台隔离开关", "两台断路器", "一台断路器和一台隔离开关", "两台断路器和一台隔离开关"], "answer": 0, "explain": "每个回路经一台断路器和两台母线隔离开关分别接两组母线。"}, {"num": "4.2", "part": "电气主接线及其设计", "type": "single", "q": "双母线两组母线分裂运行时，母联断路器应（　）", "options": ["合上", "断开", "两侧隔离开关合上", "改为旁路运行"], "answer": 1, "explain": "分裂运行时母联 QFC 及两侧 QS 断开，相当于单母线分段，可限制短路电流。"}, {"num": "4.2", "part": "电气主接线及其设计", "type": "single", "q": "双母线接线中检修出线断路器且不能停电时，应采取（　）", "options": ["加装旁路母线", "更换断路器", "母线分裂运行", "缩短检修时间"], "answer": 1, "explain": "检修任一回路断路器该回路必须停电，可加装旁路母线解决。"}, {"num": "4.2", "part": "电气主接线及其设计", "type": "single", "q": "倒母线操作中正确的隔离开关操作原则是（　）", "options": ["先拉后合", "先合后拉", "同时操作", "只合不拉"], "answer": 1, "explain": "先合上备用母线侧隔离开关，再拉开工作母线侧隔离开关，保证倒母线期间不停电。"}, {"num": "4.2", "part": "电气主接线及其设计", "type": "single", "q": "110~220kV 双母线接线一般适用于出线（　）的场合", "options": ["2 回以下", "3~4 回", "5 回以上", "10 回以上"], "answer": 2, "explain": "110~220kV 出线 5 回以上时采用双母线；35~60kV 出线超 8 回时采用。"}, {"num": "4.2", "part": "电气主接线及其设计", "type": "single", "q": "双母线接线的突出优点是（　）", "options": ["投资最小", "可靠性高、运行灵活、扩建方便", "接线最简单", "占地最小"], "answer": 1, "explain": "缺点是隔离开关多、占地投资增大、易误操作。"}, {"num": "4.2", "part": "电气主接线及其设计", "type": "single", "q": "35~60kV 采用双母线接线的出线条件一般为（　）", "options": ["超过 4 回", "超过 8 回", "超过 12 回", "超过 16 回"], "answer": 1, "explain": "35~60kV 出线超过 8 回，或连接电源较多、负荷较大时采用。"}, {"num": "4.3", "part": "电气主接线及其设计", "type": "single", "q": "单元接线中主变容量 ST =（　）", "options": ["PG/cosΦ", "1.1·PG·(1−kp)/cosΦ", "1.1·PG·(1+kp)/cosΦ", "PG·(1−kp)"], "answer": 1, "explain": "ST=1.1PG(1−kp)/cosΦ，PG 发电机容量、kp 厂用电率。"}, {"num": "4.3", "part": "电气主接线及其设计", "type": "single", "q": "变电站主变容量一般按（　）规划负荷选择", "options": ["当年负荷", "3~5 年", "5~10 年", "15~20 年"], "answer": 2, "explain": "根据城市规划、负荷性质、电网结构综合确定，一般按 5~10 年规划负荷。"}, {"num": "4.3", "part": "电气主接线及其设计", "type": "single", "q": "一台主变停运时，其余变压器应保证供电的负荷是（　）", "options": ["全部负荷的 100%", "Ⅰ、Ⅱ类负荷（约占 70%~80%）", "仅Ⅲ类负荷", "仅照明负荷"], "answer": 1, "explain": "计及过负荷能力满足Ⅰ、Ⅱ类负荷供电（Ⅰ、Ⅱ类一般占全部负荷 70%~80%）。"}, {"num": "4.3", "part": "电气主接线及其设计", "type": "single", "q": "330kV 及以下应尽量选用（　）", "options": ["单相变压器组", "三相变压器", "五绕组变压器", "干式变压器"], "answer": 1, "explain": "330kV 及以下选三相变压器，500kV 及以上视情况而定。"}, {"num": "4.3", "part": "电气主接线及其设计", "type": "single", "q": "优先选用三绕组变压器的条件是不存在潮流小于（　）的绕组", "options": ["10%SN", "15%SN", "25%SN", "50%SN"], "answer": 1, "explain": "当一个绕组流过的潮流小于 15%SN 时才不选三绕组。"}, {"num": "4.3", "part": "电气主接线及其设计", "type": "single", "q": "两个电压等级所处电网均为大电流直接接地时，宜优先选用（　）", "options": ["分裂绕组变压器", "自耦变压器", "有载调压变压器", "单相变压器组"], "answer": 1, "explain": "自耦变压器损耗小、体积小、效率高。"}, {"num": "4.3", "part": "电气主接线及其设计", "type": "single", "q": "变压器绕组接线组别中应有一个绕组为三角形接法，目的是（　）", "options": ["限制短路电流", "消除三次谐波", "提高功率因数", "便于调压"], "answer": 1, "explain": "三角形接法为三次谐波提供通路，消除三次谐波影响。"}, {"num": "4.3", "part": "电气主接线及其设计", "type": "single", "q": "与系统强联系的大中型发电厂，一种电压等级下主变应不少于（　）", "options": ["1 台", "2 台", "3 台", "4 台"], "answer": 1, "explain": "弱联系中小型电厂或 6~10kV 变电站可只装 1 台；地区性孤立变电站可用 3 台。"}, {"num": "4.3", "part": "电气主接线及其设计", "type": "single", "q": "调压方式选择的原则是（　）", "options": ["一律有载调压", "优先普通（无载）调压，潮流变化大时才用有载调压", "一律无载调压", "随机选择"], "answer": 1, "explain": "只有在潮流变化较大、副边电压不能满足要求时才选有载调压。"}, {"num": "4.4", "part": "电气主接线及其设计", "type": "single", "q": "限制短路电流三种方法的共同本质是（　）", "options": ["减小电源至短路点的等效阻抗", "增大电源至短路点的等效阻抗", "提高电压等级", "增大导体截面"], "answer": 1, "explain": "即减少并列、增加串联。"}, {"num": "4.4", "part": "电气主接线及其设计", "type": "single", "q": "电抗器没有铁芯，其特点是（　）", "options": ["电抗随电流变化", "电抗 XK 恒定不变", "电抗为零", "损耗无穷大"], "answer": 1, "explain": "空心线圈电抗 XK 恒定。"}, {"num": "4.4", "part": "电气主接线及其设计", "type": "single", "q": "出线电抗器一般安装在（　）", "options": ["架空出线断路器前", "电缆出线断路器后面", "母线上", "变压器回路中"], "answer": 1, "explain": "装在发电机电压母线电缆引出线回路中断路器后面，限制电缆馈线短路电流。"}, {"num": "4.4", "part": "电气主接线及其设计", "type": "single", "q": "出线电抗器的百分电抗一般取（　）", "options": ["1%~2%", "3%~6%", "8%~10%", "12%~15%"], "answer": 1, "explain": "XK% 一般取 3%~6%。"}, {"num": "4.4", "part": "电气主接线及其设计", "type": "single", "q": "电抗器正常运行电压损失校验要求 ΔU% 不大于（　）", "options": ["1%", "3%", "5%", "10%"], "answer": 2, "explain": "普通电抗器运行时电压损失百分数 ΔU(%) ≤ 5%。"}, {"num": "4.4", "part": "电气主接线及其设计", "type": "single", "q": "电抗器后短路时母线残压百分数应不低于（　）", "options": ["30%~40%", "60%~70%", "80%~90%", "100%"], "answer": 1, "explain": "残压 ≥60%~70%，有利于非故障用户和厂用电动机运行。"}, {"num": "4.4", "part": "电气主接线及其设计", "type": "single", "q": "分裂电抗器两臂母线电压波动要求（　）", "options": ["≤3%UN", "≤5%UN", "≤10%UN", "无要求"], "answer": 1, "explain": "两臂母线电压波动 ≤5%UN。"}, {"num": "4.1", "part": "电气主接线及其设计", "type": "judge", "q": "外桥接线适合输电线路长、故障率高的场合。", "answer": false, "explain": "那是内桥；外桥适合线路短、变压器需经常切换的场合。"}, {"num": "4.2", "part": "电气主接线及其设计", "type": "judge", "q": "倒母线操作时必须先拉开工作母线侧隔离开关再合上备用母线侧隔离开关。", "answer": false, "explain": "应先合后拉，否则倒母线期间回路停电。"}, {"num": "4.2", "part": "电气主接线及其设计", "type": "judge", "q": "双母线接线中工作母线故障后，所有回路不必等待故障排除即可迅速恢复供电。", "answer": true, "explain": "将各回路倒至备用母线即可恢复供电，这是双母线可靠性的体现。"}, {"num": "4.3", "part": "电气主接线及其设计", "type": "judge", "q": "有载调压变压器应作为变电站的默认首选。", "answer": false, "explain": "优先普通（无载）调压，潮流变化大、电压不满足要求时才选有载调压。"}, {"num": "4.4", "part": "电气主接线及其设计", "type": "judge", "q": "架空线路电抗值较大，一般不装设出线电抗器。", "answer": true, "explain": "出线电抗器装在电缆出线上；架空线本身电抗大。"}, {"num": "4.4", "part": "电气主接线及其设计", "type": "judge", "q": "出线电抗器对电抗器前短路和电抗器后短路都起限流作用。", "answer": false, "explain": "只有电抗器后短路才起限流作用。"}, {"num": "4.2", "part": "电气主接线及其设计", "type": "blank", "q": "双母线接线中，两组母线间通过一台____相连。", "answer": ["母联断路器（QFC）"], "explain": "母联断路器。"}, {"num": "4.3", "part": "电气主接线及其设计", "type": "blank", "q": "单元接线主变容量 ST = ____·PG·(1−kp)/cosΦ。", "answer": ["1.1"], "explain": "系数 1.1。"}, {"num": "4.3", "part": "电气主接线及其设计", "type": "blank", "q": "最大一台主变退出时，其余主变应能输送剩余功率的 ____% 以上。", "answer": ["70"], "explain": "三条件之一。"}, {"num": "4.2", "part": "电气主接线及其设计", "type": "short", "q": "写出检修 W1 母线（倒母线至 W2）的正确操作顺序。", "answer": "①合上 QS2、QS1 和母联断路器 QFC，使 W2 组母线带电，并检查该母线是否完好；②依次合上各回路接于 W2 组母线侧的隔离开关，再依次断开各回路接于 W1 组母线侧的隔离开关（先合后拉）；③拉开母联断路器 QFC，原工作母线 W1 退出运行进行检修。"}, {"num": "4.3", "part": "电气主接线及其设计", "type": "short", "q": "简述具有发电机电压母线的主变压器容量应满足的三个条件。", "answer": "①机端负荷最小时，发电厂剩余功率能全部送出；②最大一台发电机检修或故障时，倒送功率满足最大机端负荷需求；③最大一台主变压器退出时，其他主变能输送剩余功率的 70% 以上。"}, {"num": "4.4", "part": "电气主接线及其设计", "type": "short", "q": "限制短路电流有哪些方法？其共同本质是什么？", "answer": "①装设限流电抗器（出线电抗器、母线电抗器、分裂电抗器）；②采用低压分裂绕组变压器；③采用不同的接线形式和运行方式。共同本质：增大电源至短路点的等效阻抗——减少并联、增加串联，从而把短路电流限制到允许水平，选用轻型电器、降低投资。"}, {"num": "5.1", "part": "厂用电接线及设计", "type": "single", "q": "短时停电会造成设备损坏或迫使机组停运，必须由两个独立电源供电且能自动切换的负荷是（　）", "options": ["Ⅰ类负荷", "Ⅱ类负荷", "Ⅲ类负荷", "照明负荷"], "answer": 0, "explain": "Ⅰ类负荷要求最高；Ⅱ类应有备用电源；Ⅲ类一个电源即可。"}, {"num": "5.1", "part": "厂用电接线及设计", "type": "single", "q": "修配厂、试验室等长时间停电不直接影响发电的负荷属于（　）", "options": ["Ⅰ类", "Ⅱ类", "Ⅲ类", "事故保安负荷"], "answer": 2, "explain": "Ⅲ类负荷。"}, {"num": "5.1", "part": "厂用电接线及设计", "type": "single", "q": "保证机组安全停机所必需的负荷（如盘车电机）由（　）供电", "options": ["厂用高压变压器", "柴油发电机等事故保安电源", "系统倒送电", "照明变压器"], "answer": 1, "explain": "事故保安负荷由柴油发电机、蓄电池逆变器等事故保安电源供电。"}, {"num": "5.1", "part": "厂用电接线及设计", "type": "single", "q": "大型火电机组高压厂用电电压常用（　）", "options": ["380V", "3kV", "6kV 或 10kV", "35kV"], "answer": 2, "explain": "高压厂用电一般 3、6、10kV，大机组常用 6kV 或 10kV；低压 380/220V。"}, {"num": "5.1", "part": "厂用电接线及设计", "type": "single", "q": "火电厂厂用电率大约为（　）", "options": ["0.3%~2%", "5%~10%", "15%~20%", "25%~30%"], "answer": 1, "explain": "火电厂约 5%~10%（热电厂更高）；水电厂约 0.3%~2%。"}, {"num": "5.1", "part": "厂用电接线及设计", "type": "single", "q": "明备用与暗备用的区别在于（　）", "options": ["电压等级不同", "明备用有专用备用电源正常不投入，暗备用由工作电源互为备用", "明备用容量小", "暗备用不用变压器"], "answer": 1, "explain": "明备用为专用备用变压器；暗备用每台工作变压器按大于一台的容量设计。"}, {"num": "5.2", "part": "厂用电接线及设计", "type": "single", "q": "厂用负荷计算中，不经常短时及不经常断续运行的设备（　）", "options": ["全部计入", "按 0.5 倍计入", "一般不予计算", "按 2 倍计入"], "answer": 2, "explain": "只计经常性和连续运行的设备。"}, {"num": "5.2", "part": "厂用电接线及设计", "type": "single", "q": "换算系数法计算厂用分段母线计算负荷的公式是（　）", "options": ["S = Σ(K·P)/(η·cosφ)", "S = ΣP×K", "S = Σ(K·P·η·cosφ)", "S = ΣP/(K·cosφ)"], "answer": 0, "explain": "S = Σ(K·P)/(η·cosφ)，K 换算系数、P 计算功率。"}, {"num": "5.2", "part": "厂用电接线及设计", "type": "single", "q": "轴功率法中同时率 Km 的取值是（　）", "options": ["新建电厂 0.9、扩建电厂 0.95", "新建 0.95、扩建 0.9", "统一取 1.0", "统一取 0.8"], "answer": 0, "explain": "新建 0.9、扩建 0.95。"}, {"num": "5.2", "part": "厂用电接线及设计", "type": "single", "q": "厂用变压器选择时，分裂绕组变压器的负荷应（　）", "options": ["合并计算", "高压绕组、低压绕组分别计算", "只算高压侧", "只算低压侧"], "answer": 1, "explain": "高、低压绕组负荷分别计算。"}, {"num": "5.1", "part": "厂用电接线及设计", "type": "judge", "q": "Ⅰ类负荷可以由单一电源供电。", "answer": false, "explain": "Ⅰ类必须有两个独立电源且能自动切换。"}, {"num": "5.1", "part": "厂用电接线及设计", "type": "judge", "q": "厂用备用电源应与工作电源相互独立。", "answer": true, "explain": "以保证工作电源故障时备用电源可靠投入。"}, {"num": "5.1", "part": "厂用电接线及设计", "type": "blank", "q": "低压厂用电电压为 ____V。", "answer": ["380/220"], "explain": "低压厂用电 380/220V。"}, {"num": "5.2", "part": "厂用电接线及设计", "type": "blank", "q": "轴功率法计算公式 S = Km·Pmax/(η·cosφ) + ____。", "answer": ["ΣSL"], "explain": "ΣSL 为低压厂用计算负荷之和。"}, {"num": "5.1", "part": "厂用电接线及设计", "type": "short", "q": "简述厂用负荷按重要性分类及各类供电要求。", "answer": "Ⅰ类负荷：短时停电会造成人身伤亡、设备损坏或迫使机组停运（如给水泵、循环水泵、送引风机），必须由两个独立电源供电且能自动切换；Ⅱ类负荷：短时停电造成设备损坏或少发电（如疏水泵、输煤设备），应有备用电源；Ⅲ类负荷：长时间停电不直接影响发电（如修配厂、试验室），可由一个电源供电。另有事故保安负荷（盘车电机、润滑油泵等），由柴油发电机、蓄电池逆变器等事故保安电源供电。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "single", "q": "电气设备选择的总原则是（　）", "options": ["按短路条件选择，按正常条件校验", "按正常工作条件选择，按短路状态校验", "只按正常条件选择", "只按短路条件选择"], "answer": 1, "explain": "先按正常工作条件选择，再按短路状态校验热稳定和动稳定。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "single", "q": "发电机回路的最大持续工作电流 Imax =（　）", "options": ["IGN", "1.05·IGN", "1.25·IGN", "0.8·IGN"], "answer": 1, "explain": "发电机、调相机、变压器回路 Imax=1.05IGN。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "single", "q": "电气设备最高工作电压 Ualm 约为其额定电压的（　）", "options": ["1.0 倍", "1.1~1.15 倍", "1.3 倍", "2 倍"], "answer": 1, "explain": "Ualm≈1.1~1.15UN，选择条件 Ualm ≥ USN。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "single", "q": "海拔超过规定值时，每增加 100m 设备最高工作电压应降低（　）", "options": ["0.5%", "1%", "2%", "5%"], "answer": 1, "explain": "每增加 100m 降低 1%；不满足时用高原型设备。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "single", "q": "我国电气设备的额定环境温度基准是（　）", "options": ["+25 ℃", "+40 ℃", "+45 ℃", "+50 ℃"], "answer": 1, "explain": "额定环境温度 +40℃，实际温度不同时额定电流需修正。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "single", "q": "热稳定校验条件为（　）", "options": ["Qt ≤ It²·t", "Qt ≥ It²·t", "ies ≤ ish", "IN ≤ Imax"], "answer": 0, "explain": "短路热效应 Qt 不大于允许热效应 It²·t。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "single", "q": "动稳定校验条件为（　）", "options": ["ies ≥ ish 或 Ies ≥ Ish", "ies ≤ ish", "Qt ≤ It²·t", "Ualm ≥ USN"], "answer": 0, "explain": "峰值耐受电流（动稳定电流）不小于短路冲击电流。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "single", "q": "下列哪类设备可不校验动、热稳定？（　）", "options": ["母线", "断路器", "电压互感器回路中的裸导体和设备", "电流互感器"], "answer": 2, "explain": "TV 回路中的裸导体和设备不验动、热稳定。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "single", "q": "短路电流计算一般按（　）短路验算", "options": ["单相", "两相", "三相", "两相接地"], "answer": 2, "explain": "一般按三相短路验算；其他短路更严重时按最严重情况。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "single", "q": "带电抗器的出线回路，计算短路点一般选在（　）", "options": ["电抗器前", "电抗器后", "母线上", "电源处"], "answer": 1, "explain": "取电抗器后为计算短路点，可选用轻型断路器。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "single", "q": "校验断路器开断能力的计算时间 tk′ =（　）", "options": ["主保护动作时间+固有分闸时间", "后备保护动作时间+全开断时间", "固有分闸时间+燃弧时间", "主保护+燃弧时间"], "answer": 0, "explain": "tk′=tpr1+tin（主保护+固有分闸）。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "single", "q": "校验热效应的短路计算时间 tk =（　）", "options": ["主保护+固有分闸", "后备保护动作时间+断路器全开断时间", "燃弧时间", "主保护+燃弧"], "answer": 1, "explain": "tk=tpr+tbr，tbr=tin+ta（全开断时间=固有分闸+燃弧）。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "single", "q": "母线分段电抗器的 Imax 可取最大一台发电机额定电流的（　）", "options": ["20%~30%", "50%~80%", "90%~100%", "110%"], "answer": 1, "explain": "或取最大一台机跳闸时保证该段母线负荷所需的电流。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "single", "q": "电流互感器正常运行时相当于（　）", "options": ["空载运行的变压器", "二次侧短路的变压器", "二次侧开路的变压器", "电容器"], "answer": 1, "explain": "二次负载串联且阻抗很小，近似二次侧短路——这是与普通变压器的主要区别。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "single", "q": "电流互感器运行中绝对不允许（　）", "options": ["二次侧短路", "二次侧开路", "一次侧过载", "改变变比"], "answer": 1, "explain": "二次开路→励磁磁势猛增→铁芯饱和→尖峰高电压+过热。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "single", "q": "TA 二次开路的后果是（　）", "options": ["二次电流增大", "感应很高尖峰电压并使铁芯过热", "一次电流变为零", "无任何影响"], "answer": 1, "explain": "一次电流全部成为励磁电流，铁芯严重饱和。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "single", "q": "TA 的额定电流比 kI =（　）", "options": ["I1N/I2N = N2/N1", "I1N/I2N = N1/N2", "I2N/I1N", "N1×N2"], "answer": 0, "explain": "kI=I1N/I2N=N2/N1（一次匝数少、二次匝数多）。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "single", "q": "TA 的电流误差 fi 表达式为（　）", "options": ["(kI·I2−I1)/I1 × 100%", "(I1−I2)/I2 × 100%", "(I2−I1)/I1 × 100%", "(kI·I2+I1)/I1 × 100%"], "answer": 0, "explain": "由励磁损耗（I0）引起数值和相位误差。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "single", "q": "TA 额定容量 S2N =（　）", "options": ["I2N²·Z2N", "I2N·Z2N", "I1N²·Z1N", "U2N·I2N"], "answer": 0, "explain": "因二次电流为标准值，S2N 常用 Z2N 表示。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "single", "q": "保证 TA 准确级的条件是（　）", "options": ["Z2L ≥ Z2N", "Z2L ≤ Z2N", "Z2L = 0", "二次电流任意"], "answer": 1, "explain": "二次实际负载不超过额定二次阻抗。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "single", "q": "稳态保护用 TA 的准确级 5P 表示（　）", "options": ["电流误差 5%", "复合误差 5%", "相位差 5′", "容量 5VA"], "answer": 1, "explain": "5P 复合误差 5%，10P 复合误差 10%。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "single", "q": "浇注式（环氧树脂）电流互感器适用于（　）", "options": ["低压", "10~35kV", "35kV 以上", "500kV"], "answer": 1, "explain": "干式用于低压、浇注式 10~35kV、油浸式 35kV 以上。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "single", "q": "电压互感器正常运行时相当于（　）", "options": ["二次侧短路的变压器", "空载运行的变压器", "电抗器", "断路器"], "answer": 1, "explain": "TV 一次并联于回路，二次负载阻抗大，近似空载。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "single", "q": "电压互感器二次侧不允许（　）", "options": ["开路", "短路", "接地", "接仪表"], "answer": 1, "explain": "TV 二次短路电流很大，会烧毁绕组；一、二次均装熔断器。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "single", "q": "TV 二次额定电压通常为（　）", "options": ["36V", "100V", "220V", "380V"], "answer": 1, "explain": "星形接线二次额定电压 100V（开口三角绕组为 100/3V）。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "judge", "q": "熔断器保护的电气设备可不验算热稳定。", "answer": true, "explain": "热稳定由熔断时间保证。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "judge", "q": "采用有限流电阻的熔断器保护的设备可不校验动稳定。", "answer": true, "explain": "限流电阻限制了冲击电流。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "judge", "q": "支柱绝缘子需要校验热稳定。", "answer": false, "explain": "支柱绝缘子不流过电流，不用校验热稳定（但需校验动稳定）。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "judge", "q": "两侧均有电源的断路器，应比较断路器前、后短路电流，取大者为计算短路点。", "answer": true, "explain": "使校验通过的短路电流最大。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "judge", "q": "TA 二次绕组不用的绕组应开路保存。", "answer": false, "explain": "应短接，防止开路产生高电压。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "judge", "q": "同一台电流互感器在不同准确级下的额定容量不同。", "answer": true, "explain": "误差与二次负荷有关，不同准确级对应不同 Z2N。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "blank", "q": "电气设备的最高工作电压约为其额定电压的____倍。", "answer": ["1.1~1.15"], "explain": "Ualm≈1.1~1.15UN。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "blank", "q": "动稳定校验条件：ies ≥ ____。", "answer": ["ish"], "explain": "峰值耐受电流不小于短路冲击电流幅值。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "blank", "q": "TA 电流误差 fi = (kI·I2 − I1)/____ × 100%。", "answer": ["I1"], "explain": "以一次实际电流为基准。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "blank", "q": "TA 二次额定电流标准值为 5A 或____A。", "answer": ["1"], "explain": "两种标准二次电流。"}, {"num": "6.2", "part": "导体与电气设备的原理与选择", "type": "short", "q": "简述 TA 二次侧为什么严禁开路及开路的危害。", "answer": "TA 正常运行时二次负载阻抗很小，近似二次侧短路的变压器，一次电流的磁势绝大部分被二次磁势抵消，铁芯磁通很低。若二次开路，二次磁势消失，一次电流全部变成励磁电流，励磁磁势猛增→铁芯严重饱和→①二次绕组感应出很高的尖峰电压，危及人身和设备绝缘；②铁芯严重过热可能烧毁互感器。因此运行中严禁二次开路，不用的二次绕组应短接并可靠接地。"}, {"num": "6.1", "part": "导体与电气设备的原理与选择", "type": "short", "q": "列举电气设备可不校验热稳定或动稳定的几种情形。", "answer": "①用熔断器保护的电气设备不验算热稳定（热稳定由熔断时间保证）；②采用有限流电阻的熔断器保护的设备可不校验动稳定；③装设在电压互感器回路中的裸导体和电气设备可不验算动、热稳定；④支柱绝缘子不流过电流，不用校验热稳定。"}, {"num": "7.1", "part": "配电装置", "type": "single", "q": "最小安全净距中最基本的是（　）", "options": ["A 值", "B 值", "C 值", "D 值"], "answer": 0, "explain": "A 值最基本，B、C、D、E 在 A 值基础上考虑运行维护等因素确定。"}, {"num": "7.1", "part": "配电装置", "type": "single", "q": "A1 表示（　）", "options": ["不同相带电导体间净距", "带电部分至接地部分的最小电气净距", "带电部分至栅状遮栏距离", "裸导体至地面距离"], "answer": 1, "explain": "A2 为不同相带电导体之间的净距。"}, {"num": "7.1", "part": "配电装置", "type": "single", "q": "B1（带电部分至栅状遮栏）=（　）", "options": ["A1+30mm", "A1+70+30mm", "A1+750mm", "A1+1800mm"], "answer": 2, "explain": "750mm 为检修人员手臂伸入遮栏的长度。"}, {"num": "7.1", "part": "配电装置", "type": "single", "q": "B2（带电部分至网状遮栏）=（　）", "options": ["A1+30mm", "A1+70+30mm", "A1+750mm", "A1+2300mm"], "answer": 1, "explain": "70+30 为手指长度+网眼/施工误差。"}, {"num": "7.1", "part": "配电装置", "type": "single", "q": "屋内配电装置 C 值（无遮栏裸导体至地面）=（　）", "options": ["A1+2300mm", "A1+2300+200mm", "A1+1800mm", "A1+750mm"], "answer": 0, "explain": "屋外 C=A1+2300+200（200 为施工误差）。"}, {"num": "7.1", "part": "配电装置", "type": "single", "q": "屋外配电装置 D 值 =（　）", "options": ["A1+1800mm", "A1+1800+200mm", "A1+2300mm", "A1+750mm"], "answer": 1, "explain": "1800mm 为检修人员与工具长度，200mm 施工误差。"}, {"num": "7.1", "part": "配电装置", "type": "single", "q": "35kV 及以下 E 值取（　）", "options": ["3000mm", "3500mm", "4000mm", "4500mm"], "answer": 2, "explain": "35kV 及以下 E=4000mm；60kV 及以上 E=A1+3500mm。"}, {"num": "7.1", "part": "配电装置", "type": "single", "q": "屋内配电装置通常多用于的电压等级是（　）", "options": ["110kV、220kV", "6kV、35kV", "330kV、500kV", "750kV"], "answer": 1, "explain": "屋外配电装置用于 35kV 及以上；3~10kV 大多采用成套配电装置。"}, {"num": "7.1", "part": "配电装置", "type": "single", "q": "屋内配电装置三层式的特点是（　）", "options": ["造价最低", "安全、可靠性高、占地少，但结构复杂、造价高", "占地最大", "只能用于屋外"], "answer": 1, "explain": "二层式造价较低；单层式占地大。"}, {"num": "7.1", "part": "配电装置", "type": "single", "q": "成套配电装置的突出优点是（　）", "options": ["耗材最少", "结构紧凑占地小、工厂预装建设周期短", "只适合户外", "造价最低"], "answer": 1, "explain": "缺点是耗材较多、造价较高。"}, {"num": "7.1", "part": "配电装置", "type": "judge", "q": "B 值是在 A 值基础上考虑运行维护、设备移动、检修工具活动范围等因素确定的。", "answer": true, "explain": "B、C、D、E 均在 A 值基础上加附加尺寸。"}, {"num": "7.1", "part": "配电装置", "type": "judge", "q": "110kV 及以上多采用屋内配电装置。", "answer": false, "explain": "110kV 及以上多采用屋外配电装置。"}, {"num": "7.1", "part": "配电装置", "type": "blank", "q": "B3（带电部分至板状无孔遮栏）= A1 + ____ mm。", "answer": ["30"], "explain": "板状遮栏无缝隙，只留 30mm 裕度。"}, {"num": "7.1", "part": "配电装置", "type": "blank", "q": "最小安全净距 A 值分为 A1 和____两项。", "answer": ["A2"], "explain": "A2 为不同相带电导体间净距。"}, {"num": "7.1", "part": "配电装置", "type": "short", "q": "写出屋内/屋外配电装置 C 值和 D 值的计算公式。", "answer": "C 值（无遮栏裸导体至地面垂直距离）：屋外 C=A1+2300+200mm，屋内 C=A1+2300mm（2300mm 为人举手高度，200mm 为屋外施工误差）。D 值（不同时停电检修的平行无遮栏裸导体间水平距离）：屋外 D=A1+1800+200mm，屋内 D=A1+1800mm（1800mm 为检修人员加工具长度）。"}, {"num": "8.1", "part": "发电厂和变电站的控制与信号", "type": "single", "q": "灯光监视的断路器控制回路中，红灯亮表示（　）", "options": ["断路器跳闸且合闸回路完好", "断路器合闸且跳闸回路完好", "断路器事故跳闸", "控制电源消失"], "answer": 1, "explain": "绿灯亮表示跳闸状态且合闸回路完好；红灯亮表示合闸状态且跳闸回路完好。"}, {"num": "8.1", "part": "发电厂和变电站的控制与信号", "type": "single", "q": "中央信号系统的事故信号音响装置是（　）", "options": ["警铃", "蜂鸣器（电笛）", "口哨", "音乐"], "answer": 1, "explain": "事故信号用蜂鸣器，预告信号用警铃。"}, {"num": "8.1", "part": "发电厂和变电站的控制与信号", "type": "single", "q": "变压器轻瓦斯动作属于（　）", "options": ["事故信号", "预告信号", "事故保安", "复归信号"], "answer": 1, "explain": "预告信号反映设备异常，音响为警铃并有光字牌。"}, {"num": "8.1", "part": "发电厂和变电站的控制与信号", "type": "single", "q": "断路器控制回路中的防跳装置的作用是（　）", "options": ["防止误合闸", "防止断路器在故障时多次跳合（跳跃）", "防止跳闸失败", "防止电源消失"], "answer": 1, "explain": "防跳装置防止断路器发生多次跳合的\"跳跃\"现象。"}, {"num": "8.1", "part": "发电厂和变电站的控制与信号", "type": "judge", "q": "绿灯亮表示断路器处于合闸状态。", "answer": false, "explain": "绿灯亮为跳闸状态且合闸回路完好；红灯亮为合闸状态且跳闸回路完好。"}, {"num": "8.1", "part": "发电厂和变电站的控制与信号", "type": "judge", "q": "二次接线图分为原理接线图、展开接线图和安装接线图。", "answer": true, "explain": "安装接线图又包括屏面布置图、屏后接线图、端子排图。"}, {"num": "8.1", "part": "发电厂和变电站的控制与信号", "type": "blank", "q": "中央信号系统由事故信号和____信号组成。", "answer": ["预告"], "explain": "事故信号反映断路器事故跳闸，预告信号反映设备异常。"}, {"num": "8.1", "part": "发电厂和变电站的控制与信号", "type": "short", "q": "简述断路器控制回路的基本要求。", "answer": "①能手动和自动（经自动装置）跳、合闸；②能监视控制电源及跳、合闸回路的完好性（红灯监视跳闸回路、绿灯监视合闸回路）；③有防跳装置，防止断路器多次跳合；④跳、合闸指令应为短时脉冲，操作完成后自动复归；⑤接线简单可靠，便于运行操作。"}];
+const TYPE_NAME = {single:'单选题', judge:'判断题', blank:'填空题', short:'简答题'};
+const $ = id => document.getElementById(id);
+const params = new URLSearchParams(location.search);
+let activeNum = params.get('num') || '';
+let wrong = JSON.parse(localStorage.getItem('dfc_wrong') || '[]');
+let list = [], idx = 0, done = 0, right = 0, answered = {}, revealed = {};
+
+function saveWrong(){ localStorage.setItem('dfc_wrong', JSON.stringify(wrong)); $('wrongCnt').textContent = wrong.length; }
+function key(q){ return q.type + '|' + q.q; }
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function initFilters(){
+  const parts = [...new Set(QUESTIONS.map(q=>q.part))];
+  const types = [...new Set(QUESTIONS.map(q=>q.type))];
+  $('part').innerHTML = '<option value="all">全部章节</option>' + parts.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('');
+  $('type').innerHTML = '<option value="all">全部题型</option>' + types.map(t=>`<option value="${t}">${TYPE_NAME[t]}</option>`).join('');
+  $('total').textContent = QUESTIONS.length;
+  $('wrongCnt').textContent = wrong.length;
+  const p = params.get('part'), t = params.get('type'), o = params.get('order');
+  if(p) $('part').value = p;
+  if(t) $('type').value = t;
+  if(o) $('order').value = o;
+  if(activeNum){
+    $('scopeNum').textContent = activeNum;
+    $('scope').classList.add('show');
+  }
+}
+
+function start(onlyWrong){
+  let pool = QUESTIONS.slice();
+  if(onlyWrong){ const s = new Set(wrong); pool = pool.filter(q=>s.has(key(q))); if(!pool.length){ alert('错题本为空，先做几题吧'); return; } }
+  else {
+    const p = $('part').value, t = $('type').value;
+    if(p!=='all') pool = pool.filter(q=>q.part===p);
+    if(t!=='all') pool = pool.filter(q=>q.type===t);
+    if(activeNum){
+      const narrowed = pool.filter(q=>q.num===activeNum);
+      if(narrowed.length) pool = narrowed;
+    }
+  }
+  if(!pool.length){ alert('没有符合条件的题目'); return; }
+  if($('order').value==='rand') pool.sort(()=>Math.random()-0.5);
+  list = pool; idx = 0; done = 0; right = 0; answered = {}; revealed = {};
+  $('card').style.display='block'; $('finish').style.display='none';
+  render(); updateStats();
+}
+
+function render(){
+  const q = list[idx];
+  $('badge').textContent = TYPE_NAME[q.type] + ' · ' + q.num;
+  $('badge').className = 'badge ' + (q.type==='judge'?'j':q.type==='blank'?'b':q.type==='short'?'s':'');
+  $('qref').href = '发电厂电气部分_知识点总结与复习计划.html#sec-' + q.num.replace(/\./g,'-');
+  $('qref').title = '在总结页查看 ' + q.num + ' 的课件要点';
+  $('pos').textContent = `第 ${idx+1} / ${list.length} 题`;
+  $('qtext').textContent = q.q;
+  const area = $('area'); area.innerHTML='';
+  $('fb').className='fb'; $('fb').innerHTML='';
+  $('self').className='self';
+  $('submit').disabled = false; $('reveal').disabled = false;
+
+  if(q.type==='single'){
+    const box=document.createElement('div'); box.className='opts';
+    q.options.forEach((op,i)=>{
+      const lab=document.createElement('label'); lab.className='opt';
+      const inp=document.createElement('input'); inp.type='radio'; inp.name='ans'; inp.value=i;
+      const span=document.createElement('span'); span.textContent=op;
+      lab.append(inp,span); lab.onclick=()=>{ [...box.children].forEach(c=>c.classList.remove('sel')); lab.classList.add('sel'); };
+      box.append(lab);
+    });
+    area.append(box);
+  } else if(q.type==='judge'){
+    const box=document.createElement('div'); box.className='opts';
+    [['正确',true],['错误',false]].forEach(([txt,val])=>{
+      const lab=document.createElement('label'); lab.className='opt';
+      const inp=document.createElement('input'); inp.type='radio'; inp.name='ans'; inp.value=val?'1':'0';
+      const span=document.createElement('span'); span.textContent=txt;
+      lab.append(inp,span); lab.onclick=()=>{ [...box.children].forEach(c=>c.classList.remove('sel')); lab.classList.add('sel'); };
+      box.append(lab);
+    });
+    area.append(box);
+  } else if(q.type==='blank'){
+    const box=document.createElement('div'); box.className='blank';
+    const inp=document.createElement('input'); inp.type='text'; inp.id='blankAns'; inp.placeholder='填入答案（多个空用逗号分隔）';
+    box.append(inp); area.append(box);
+  } else {
+    const ta=document.createElement('textarea'); ta.id='shortAns'; ta.placeholder='先写下自己的答案，再对照参考答案自评';
+    area.append(ta);
+  }
+  if(answered[key(q)]!==undefined){ $('submit').disabled=true; }
+}
+
+function answerFromForm(q){
+  if(q.type==='single'||q.type==='judge'){
+    const el=document.querySelector('input[name=ans]:checked');
+    return el ? (q.type==='judge' ? el.value==='1' : Number(el.value)) : undefined;
+  }
+  if(q.type==='blank'){ const v=$('blankAns').value.trim(); return v? v.split(/[,，;；]/).map(s=>s.trim()).filter(Boolean) : undefined; }
+  const v=$('shortAns').value.trim(); return v? v : undefined;
+}
+
+function isCorrect(q,a){
+  if(a===undefined) return false;
+  if(q.type==='blank'){
+    const norm=s=>String(s).replace(/[\s，,。．.、；;：:]/g,'').toLowerCase();
+    const given=Array.isArray(a)?a:[a], ans=q.answer.map(norm);
+    return ans.every((x,i)=>norm(given[i]||'')===x || (given[i]&&x.includes(norm(given[i]))));
+  }
+  return a===q.answer;
+}
+
+function showFeedback(q, ok, self){
+  const k=key(q);
+  const fb=$('fb');
+  let ansTxt = q.type==='single' ? q.options[q.answer]
+    : q.type==='judge' ? (q.answer?'正确':'错误')
+    : q.type==='blank' ? q.answer.join('、')
+    : q.answer;
+  if(self==='view'){
+    fb.className='fb note';
+    fb.innerHTML='<b>参考答案</b>'+esc(ansTxt)+(q.explain?'<br>'+esc(q.explain):'');
+    if(q.type==='short') $('self').className='self show';
+    $('reveal').disabled=true;
+    return;
+  }
+  answered[k]=ok?1:0;
+  if(self===undefined){
+    fb.className='fb '+(ok?'ok':'bad');
+    fb.innerHTML='<b>'+(ok?'回答正确':'回答错误')+'</b>参考答案：'+esc(ansTxt)+(q.explain?'<br>'+esc(q.explain):'');
+    if(!ok && !wrong.includes(k)) wrong.push(k);
+    if(ok) wrong=wrong.filter(x=>x!==k);
+  } else {
+    fb.className='fb note';
+    fb.innerHTML='<b>参考答案</b>'+esc(ansTxt)+(q.explain?'<br>'+esc(q.explain):'');
+    if(self){ if(!wrong.includes(k)) wrong.push(k); } else wrong=wrong.filter(x=>x!==k);
+  }
+  saveWrong();
+  $('submit').disabled=true; $('reveal').disabled=true;
+  if(q.type==='short') $('self').className='self show';
+}
+
+function checkAnswer(){
+  const q=list[idx], a=answerFromForm(q);
+  if(a===undefined){ alert('请先作答'); return; }
+  if(q.type==='short'){ showFeedback(q,false,'view'); return; }
+  const ok=isCorrect(q,a);
+  if(!answered[key(q)]){ done++; if(ok) right++; }
+  showFeedback(q,ok); updateStats();
+}
+
+function reveal(){
+  const q=list[idx], k=key(q);
+  if(q.type==='short'){ showFeedback(q,false,'view'); return; }
+  if(answered[k]===undefined){ done++; updateStats(); }
+  showFeedback(q,false,undefined);
+}
+
+function selfGrade(ok){
+  const q=list[idx], k=key(q);
+  if(answered[k]===undefined){ done++; if(ok) right++; }
+  else if(ok && answered[k]===0){ right++; }
+  answered[k]=ok?1:0;
+  showFeedback(q,ok,ok); updateStats();
+}
+
+function updateStats(){
+  $('done').textContent=done; $('right').textContent=right;
+  $('acc').textContent=done? Math.round(right/done*100)+'%' : '—';
+  $('progress').style.width=(list.length? idx/list.length*100:0)+'%';
+}
+
+function finish(){
+  $('card').style.display='none'; $('finish').style.display='block';
+  const acc=done? Math.round(right/done*100):0;
+  const wrongList=list.filter(q=>answered[key(q)]===0);
+  $('summary').innerHTML=`<p>本次共 <b>${list.length}</b> 题，已作答 <b>${done}</b> 题，答对 <b>${right}</b> 题，正确率 <b>${acc}%</b>。</p>`
+    + (wrongList.length? `<p>需要回炉的题（${wrongList.length}）：</p><ol class="list">`+wrongList.slice(0,20).map(q=>`<li>${esc(q.q)}</li>`).join('')+'</ol>':'<p>本次全部答对，很好。</p>');
+  $('progress').style.width='100%';
+}
+
+$('start').onclick=()=>start(false);
+$('wrongOnly').onclick=()=>start(true);
+$('clearWrong').onclick=()=>{ if(confirm('确定清空错题本？')){ wrong=[]; saveWrong(); } };
+$('submit').onclick=checkAnswer;
+$('reveal').onclick=reveal;
+$('selfOk').onclick=()=>selfGrade(true);
+$('selfNo').onclick=()=>selfGrade(false);
+$('prev').onclick=()=>{ if(idx>0){ idx--; render(); updateStats(); } };
+$('next').onclick=()=>{ if(idx<list.length-1){ idx++; render(); updateStats(); } else finish(); };
+$('again').onclick=()=>start(false);
+$('clearScope').onclick=()=>{
+  activeNum=''; $('scope').classList.remove('show');
+  const u=new URL(location.href); u.searchParams.delete('num'); history.replaceState(null,'',u);
+  start(false);
+};
+document.addEventListener('keydown',e=>{ if(e.key==='Enter' && !e.shiftKey && document.activeElement.tagName!=='TEXTAREA' && $('card').style.display!=='none'){ e.preventDefault(); if(answered[key(list[idx])]===undefined) checkAnswer(); } });
+initFilters();
+if(params.get('autostart')==='1') start(false);
+</script>
+</body>
+</html>

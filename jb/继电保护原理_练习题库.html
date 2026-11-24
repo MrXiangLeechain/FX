@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>继电保护原理 · 章节练习题库</title>
+<style>
+:root{
+  --bg:#f6f8fb; --card:#ffffff; --ink:#1f2937; --muted:#6b7280;
+  --line:#e5e7eb; --brand:#2563eb; --brand-soft:#eff6ff;
+  --ok:#15803d; --ok-bg:#ecfdf5; --bad:#b91c1c; --bad-bg:#fef2f2;
+  --warn:#b45309; --warn-bg:#fffbeb;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;line-height:1.7}
+.wrap{max-width:960px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:26px;margin:0 0 6px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:22px}
+.exam-tip{display:inline-block;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;border-radius:99px;padding:4px 14px;font-size:13px;font-weight:600;margin-bottom:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(16,24,40,.04)}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+label{font-size:13px;color:var(--muted);margin-right:6px}
+select,button,input[type=text],textarea{font-family:inherit;font-size:14px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:#fff;color:var(--ink)}
+select{min-width:150px}
+button{cursor:pointer;background:#fff;transition:.15s}
+button:hover{border-color:var(--brand);color:var(--brand)}
+button.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+button.primary:hover{background:#1d4ed8;color:#fff}
+button:disabled{opacity:.45;cursor:not-allowed}
+.stats{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:var(--muted)}
+.stats b{color:var(--ink);font-size:16px}
+.bar{height:8px;background:#eef2f7;border-radius:99px;overflow:hidden;margin-top:14px}
+.bar>i{display:block;height:100%;background:var(--brand);width:0;transition:width .25s}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.badge{font-size:12px;padding:3px 9px;border-radius:99px;background:var(--brand-soft);color:var(--brand);font-weight:600}
+.badge.j{background:#f5f3ff;color:#6d28d9}
+.badge.b{background:#fff7ed;color:#c2410c}
+.badge.s{background:#ecfeff;color:#0e7490}
+.qtext{font-size:17px;font-weight:600;margin:6px 0 16px;white-space:pre-wrap}
+.opts{display:grid;gap:9px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:9px;padding:10px 12px;cursor:pointer;background:#fff}
+.opt:hover{border-color:var(--brand)}
+.opt.sel{border-color:var(--brand);background:var(--brand-soft)}
+.opt.correct{border-color:var(--ok);background:var(--ok-bg)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt input{margin-top:5px}
+.blank{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.blank input{min-width:220px;flex:1}
+textarea{width:100%;min-height:130px;resize:vertical}
+.fb{margin-top:14px;border-radius:9px;padding:12px 14px;font-size:14px;display:none}
+.fb.ok{display:block;background:var(--ok-bg);color:var(--ok);border:1px solid #bbf7d0}
+.fb.bad{display:block;background:var(--bad-bg);color:var(--bad);border:1px solid #fecaca}
+.fb.note{display:block;background:var(--warn-bg);color:var(--warn);border:1px solid #fde68a}
+.fb b{display:block;margin-bottom:4px}
+.act{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.self{margin-top:12px;display:none;gap:10px}
+.self.show{display:flex}
+.foot{color:var(--muted);font-size:12px;text-align:center;margin-top:26px}
+.foot a{color:var(--brand);text-decoration:none}.foot a:hover{text-decoration:underline}
+.nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:16px}
+.nav .nav-title{font-size:13px;color:var(--muted);margin-right:4px;font-weight:600}
+.nav a{font-size:13px;padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:#f8fafc;color:#334155;text-decoration:none}
+.nav a:hover{background:var(--brand-soft);border-color:var(--brand);color:var(--brand)}
+.nav a.current{background:var(--brand);border-color:var(--brand);color:#fff}
+.scope{margin-top:12px;font-size:13px;color:var(--muted);display:none;align-items:center;gap:8px}
+.scope.show{display:flex}
+.scope b{color:var(--brand)}
+.scope button{padding:3px 9px;font-size:12px}
+.qref{font-size:12px;padding:3px 9px;border:1px solid #bfdbfe;border-radius:99px;background:var(--brand-soft);color:var(--brand);text-decoration:none;white-space:nowrap}
+.qref:hover{background:var(--brand);color:#fff;text-decoration:none}
+.list{margin:0;padding-left:20px}
+.list li{margin:4px 0}
+@media(max-width:600px){.wrap{padding:18px 12px 40px}h1{font-size:22px}.qtext{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>继电保护原理 · 章节练习题库</h1>
+  <div class="sub">依据课程 18 个知识点整理 · 支持单选 / 判断 / 填空 / 简答 · 自动记录错题（保存在本机浏览器）</div>
+  <div class="exam-tip">📅 考试时间：2026 年 12 月 21 日</div>
+
+  <div class="nav" id="siteNav">
+    <span class="nav-title">资料导航</span>
+    <a href="../index.html">🏠 全部课程</a>
+    <a href="继电保护原理_知识点总结与复习计划.html">知识点总结</a>
+    <a class="current" href="继电保护原理_练习题库.html">练习题库（206题）</a>
+    <a href="继电保护原理_公式速查.html">公式速查</a>
+    <a href="继电保护原理_公式速查.md">公式 Markdown 源文件</a>
+  </div>
+
+  <div class="panel">
+    <div class="row">
+      <div><label for="part">章节</label><select id="part"></select></div>
+      <div><label for="type">题型</label><select id="type"></select></div>
+      <div><label for="order">顺序</label><select id="order"><option value="seq">按顺序</option><option value="rand">随机</option></select></div>
+      <button id="start" class="primary">开始练习</button>
+      <button id="wrongOnly">只练错题</button>
+      <button id="clearWrong">清空错题本</button>
+    </div>
+    <div class="scope" id="scope">
+      当前范围：知识点 <b id="scopeNum"></b>（来自总结页跳转）
+      <button id="clearScope">清除范围，练全部</button>
+    </div>
+    <div class="stats">
+      <span>题库总数 <b id="total">0</b></span>
+      <span>本次已答 <b id="done">0</b></span>
+      <span>答对 <b id="right">0</b></span>
+      <span>正确率 <b id="acc">—</b></span>
+      <span>错题本 <b id="wrongCnt">0</b></span>
+    </div>
+    <div class="bar"><i id="progress"></i></div>
+  </div>
+
+  <div class="panel" id="card" style="display:none">
+    <div class="qhead">
+      <div class="badge" id="badge"></div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <a class="qref" id="qref" href="#">回总结原文 ↗</a>
+        <div id="pos" style="color:var(--muted);font-size:13px"></div>
+      </div>
+    </div>
+    <div class="qtext" id="qtext"></div>
+    <div id="area"></div>
+    <div class="fb" id="fb"></div>
+    <div class="self" id="self">
+      <button id="selfOk">✅ 我答对了</button>
+      <button id="selfNo">❌ 没答好</button>
+    </div>
+    <div class="act">
+      <button id="submit" class="primary">提交答案</button>
+      <button id="reveal">查看参考答案</button>
+      <button id="prev">上一题</button>
+      <button id="next">下一题</button>
+    </div>
+  </div>
+
+  <div class="panel" id="finish" style="display:none">
+    <h3 style="margin-top:0">本次练习完成</h3>
+    <div id="summary"></div>
+    <button id="again" class="primary">再练一次</button>
+  </div>
+
+  <div class="foot">
+    配套资料：<a href="继电保护原理_知识点总结与复习计划.html">知识点总结与复习计划</a> ·
+    <a href="继电保护原理_公式速查.html">公式速查网页版</a> ·
+    <a href="继电保护原理_公式速查.md">公式 Markdown 源文件</a> ·
+    <a href="../index.html">返回课程主页</a><br>
+    提示：简答题为主观题，请先看参考答案再自评；错题本仅存于当前浏览器。
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [{"num": "2.1", "part": "绪论与基本概念", "type": "single", "q": "继电保护装置反应异常运行状态时，正确的处理方式是（　）", "options": ["延时跳闸切除故障元件", "发出告警信号（或延时跳闸）", "立即跳闸且不允许发信号", "不做任何处理"], "answer": 1, "explain": "故障时有选择地快速切除故障元件；异常运行状态时发信号或延时跳闸。"}, {"num": "2.1", "part": "绪论与基本概念", "type": "single", "q": "过量继电器灵敏系数的定义是（　）", "options": ["保护整定值/保护范围末端故障量最小值", "保护范围末端故障量最小值/保护整定值", "保护整定值/最大运行方式故障量", "故障量最大值/整定值"], "answer": 1, "explain": "过量继电器 Ksen=保护范围内部故障某突变量物理量最小值/同一物理量保护整定值。"}, {"num": "2.1", "part": "绪论与基本概念", "type": "single", "q": "三段式电流保护中，强调灵敏性、保证保护线路全长的是（　）", "options": ["电流Ⅰ段", "电流Ⅱ段", "电流Ⅲ段", "电流Ⅳ段"], "answer": 1, "explain": "Ⅰ段强调速动性，Ⅱ段强调灵敏性（保护全长），Ⅲ段保证可靠性（后备）。"}, {"num": "2.1", "part": "绪论与基本概念", "type": "judge", "q": "小电流接地系统发生单相接地时，允许继续运行 1～2 小时。", "answer": true, "explain": "接地电流很小、三相线电压仍对称，对负荷供电几乎无影响，但应发信号防止两点接地。"}, {"num": "2.1", "part": "绪论与基本概念", "type": "judge", "q": "小电流接地系统发生单相接地时，非故障相对地电压升高约 1.732 倍。", "answer": true, "explain": "升高为 √3 倍相电压。"}, {"num": "2.1", "part": "绪论与基本概念", "type": "blank", "q": "在我国，中性点直接接地的大电流接地系统主要用于____kV 及以上的电压等级。", "answer": ["110"], "explain": "110kV 及以上为中性点直接接地系统。"}, {"num": "2.1", "part": "绪论与基本概念", "type": "blank", "q": "继电保护装置由测量部分、____部分和执行部分组成。", "answer": ["逻辑"], "explain": "测量—逻辑—执行三部分。"}, {"num": "2.1", "part": "绪论与基本概念", "type": "short", "q": "简述继电保护\"四性\"的内容及其相互关系。", "answer": "①可靠性：不误动、不拒动；②选择性：只切除故障元件，停电范围最小；③速动性：尽快切除故障；④灵敏性：保护范围内故障能可靠反应。四者相互矛盾又相互统一：三段式配置充分体现设计思想——Ⅰ段强调速动性、Ⅱ段强调灵敏性、Ⅲ段保证可靠性（后备），兼顾四性。"}, {"num": "2.1", "part": "绪论与基本概念", "type": "short", "q": "什么是近后备与远后备？", "answer": "近后备：同一元件处装设的保护（如电流Ⅲ段）作为本元件主保护（Ⅰ、Ⅱ段）拒动时的后备。远后备：作为相邻元件（下一线路/变压器）的保护和断路器拒动时的后备，防止短路点无法切除。"}, {"num": "2.2", "part": "互感器及变换器", "type": "single", "q": "电流互感器正常运行时，二次绕组的工作状态接近于（　）", "options": ["开路状态", "短路状态", "空载状态", "谐振状态"], "answer": 1, "explain": "二次负载是仪表/继电器的电流线圈，阻抗很小，接近短路运行。"}, {"num": "2.2", "part": "互感器及变换器", "type": "single", "q": "运行中的电流互感器二次侧严禁开路，其直接原因是开路后（　）", "options": ["二次电流过大烧毁仪表", "励磁磁势猛增、铁芯高度饱和，产生高电压并使铁芯过热", "一次电流增大危及系统", "变比发生变化"], "answer": 1, "explain": "二次开路后去磁磁势消失，励磁磁势猛增至全部一次安匝，铁芯饱和产生尖顶波高电压并使铁芯过热。"}, {"num": "2.2", "part": "互感器及变换器", "type": "single", "q": "电流互感器误差最小的运行区域是（　）", "options": ["一次电流远小于额定电流", "一次电流为额定电流附近", "一次电流超过额定电流很多", "二次负载任意"], "answer": 1, "explain": "一次电流增大至额定附近时 TA 运行在设计工作状态，误差最小。"}, {"num": "2.2", "part": "互感器及变换器", "type": "single", "q": "测量用 TA 的准确度级中，用于收费电能表的是（　）", "options": ["0.1 级", "0.2 级", "0.5 级", "3 级"], "answer": 2, "explain": "0.5 级用于收费电能表；0.2 级用于实验室精密测量。"}, {"num": "2.2", "part": "互感器及变换器", "type": "single", "q": "继电保护规程规定，保护用 TA 最坏工作条件下电流误差和角误差分别不超过（　）", "options": ["5%、5°", "10%、7°", "15%、10°", "3%、3°"], "answer": 1, "explain": "电流误差不超过 10%、角度误差不超过 7°，由此形成 10% 误差曲线。"}, {"num": "2.2", "part": "互感器及变换器", "type": "single", "q": "两相不完全星形接线在小电流接地系统并联线路异地两点接地时的优点是（　）", "options": ["能 100% 切除两条线路", "有 2/3 几率只切除一条线路，供电可靠性高", "能反应 B 相接地短路", "接线系数恒为 1/2"], "answer": 1, "explain": "并联线路异名相两点接地时有 2/3 几率只切除一条线路。"}, {"num": "2.2", "part": "互感器及变换器", "type": "single", "q": "Yd11 变压器三角形侧发生两相短路时，星形侧装设完全星形接线的保护，其中一相继电器电流比另两相（　）", "options": ["小一半", "大一倍", "相同", "大三倍"], "answer": 1, "explain": "完全星形接线接于 B 相的继电器电流比其他两相大一倍，灵敏系数提高一倍。"}, {"num": "2.2", "part": "互感器及变换器", "type": "single", "q": "电压互感器运行中严禁（　）", "options": ["二次侧开路", "二次侧短路", "一次侧接地", "二次侧接地"], "answer": 1, "explain": "TV 二次短路产生很大短路电流损坏 TV，二次出口装熔断器保护。"}, {"num": "2.2", "part": "互感器及变换器", "type": "single", "q": "下列 TV 接线方式中，既可测线电压、相电压，又可作绝缘监视的是（　）", "options": ["Vv 接线", "三相三柱式 Y/Y0 接线", "三相五柱式 Y0/Y0/开口三角接线", "单相接线"], "answer": 2, "explain": "三相五柱式 TV 可测线电压和相电压并可作绝缘监视；三相三柱式不能测相电压、不能绝缘监察。"}, {"num": "2.2", "part": "互感器及变换器", "type": "single", "q": "电容式电压互感器中，阻尼电阻 rd 的作用是（　）", "options": ["补偿分压器内阻抗", "抑制铁磁谐振过电压", "提高分压精度", "限制作业过电压于一次侧"], "answer": 1, "explain": "rd 用以抑制铁磁谐振过电压；补偿电抗 L 用于补偿电容分压器内阻抗。"}, {"num": "2.2", "part": "互感器及变换器", "type": "single", "q": "与电磁式 TV 相比，电容式 TV 的缺点是（　）", "options": ["冲击绝缘强度低", "误差特性和暂态特性较差、输出容量小", "体积大成本高", "不能兼作载波耦合电容"], "answer": 1, "explain": "电容式 TV 误差与暂态特性比电磁式差，暂态自由振荡与直流分量衰减慢，可使快速保护延迟甚至误动。"}, {"num": "2.2", "part": "互感器及变换器", "type": "single", "q": "TA 极性采用减极性原则标注，一次电流从 L1 流入时，二次感应电流（　）", "options": ["从 K1 流入、K2 流出", "从 K2 流入、K1 流出", "方向不确定", "不产生感应电流"], "answer": 1, "explain": "二次感应电流从 K2 流入、K1 流出，两者产生的磁通方向相反。"}, {"num": "2.2", "part": "互感器及变换器", "type": "single", "q": "微机变压器保护两侧 TA 的接入方式及相位修正方式是（　）", "options": ["Y 侧二次接 Δ 形，硬件修正", "全 Y 接入，软件内部计算修正", "全 Δ 接入，硬件修正", "两侧均接成 Vv，无需修正"], "answer": 1, "explain": "微机保护全 Y 接入，通过内部计算完成 30° 相位修正。"}, {"num": "2.2", "part": "互感器及变换器", "type": "single", "q": "电缆线路获取零序电流最常采用的元件是（　）", "options": ["零序电流滤过器（三台 TA 并联）", "零序电流互感器（套于电缆上）", "零序电压滤过器", "负序滤过器"], "answer": 1, "explain": "零序电流互感器套在三相电缆上，无不平衡电流且接线简单。"}, {"num": "2.2", "part": "互感器及变换器", "type": "judge", "q": "TA 二次侧必须有一端接地，以防止一次侧高压窜入二次侧危及人身和设备安全。", "answer": true}, {"num": "2.2", "part": "互感器及变换器", "type": "judge", "q": "TA 一次电流的大小取决于二次电流的大小。", "answer": false, "explain": "一次电流由一次负载电流决定，与二次电流大小无关。"}, {"num": "2.2", "part": "互感器及变换器", "type": "judge", "q": "三相三柱式 TV 一次绕组中性点不能引出，因此不能用来进行交流电网的绝缘监察。", "answer": true}, {"num": "2.2", "part": "互感器及变换器", "type": "blank", "q": "TA 二次开路时，磁通波形由正弦波变为____波，磁通过零附近 diΦ/dt 很大，感应出尖顶波高电压。", "answer": ["平顶"], "explain": "铁芯磁饱和使磁通变为高幅值交流平顶波。"}, {"num": "2.2", "part": "互感器及变换器", "type": "blank", "q": "TV 测量准确度级有 0.2、0.5、1、____ 四个等级。", "answer": ["3"], "explain": "规定 TV 测量精度为 0.2、0.5、1、3 四个准确度级。"}, {"num": "2.2", "part": "互感器及变换器", "type": "blank", "q": "为避免谐振，消弧线圈采用过补偿方式，消弧线圈电抗为全部容抗的____倍（写出数值范围）。", "answer": ["1.05～1.1"], "explain": "消弧线圈电抗=(1.05～1.1)×全部容抗，即 Ih>Ic。"}, {"num": "2.2", "part": "互感器及变换器", "type": "short", "q": "简述 TA 二次侧为什么不能开路。", "answer": "正常时二次电流的去磁磁势使励磁磁势很小，二次电压不超过几十伏。二次开路后二次电流为零，去磁作用消失，一次电流全部用于励磁，合成磁通猛增、铁芯高度饱和，磁通变为高幅值平顶波；磁通过零时变化率最大，在开路两端感应出交流高幅值尖顶冲击波电压（数千甚至上万伏），危及人身安全并威胁二次电缆绝缘；同时磁路饱和使磁滞涡流损耗剧增，铁芯过热甚至烧毁 TA，并产生剩磁影响互感器特性。"}, {"num": "2.2", "part": "互感器及变换器", "type": "short", "q": "简述互感器的作用（技术、经济、安全三方面）。", "answer": "技术：将一次高电压、大电流变为二次标准低电压（100V）小电流（5A/1A），便于测量并易实现自动化、远动化；经济：测量仪表与继电器标准化、小型化、结构轻巧价低，可用低压小截面控制电缆，屏内布线简单、安装调试方便；安全：使二次设备与一次高压隔离，二次侧一点接地保证人身设备安全，一次系统短路时保护二次设备免受大电流伤害。"}, {"num": "3.1", "part": "电网的电流保护", "type": "single", "q": "同一地点发生三相短路时流过保护安装处电流最大的运行方式称为（　）", "options": ["最小运行方式", "最大运行方式", "额定运行方式", "经济运行方式"], "answer": 1, "explain": "最大运行方式下 Zs 取最小，短路电流最大。"}, {"num": "3.1", "part": "电网的电流保护", "type": "single", "q": "电流Ⅰ段的整定原则是躲过（　）", "options": ["本线路最大负荷电流", "本线路末端（相邻线路出口）的最大短路电流", "下级线路末端最小短路电流", "最小负荷阻抗"], "answer": 1, "explain": "Iset'=Krel'·Ik.B.max，保证相邻线路出口短路不误动。"}, {"num": "3.1", "part": "电网的电流保护", "type": "single", "q": "电流Ⅰ段可靠系数 Krel' 的典型取值是（　）", "options": ["1.0～1.05", "1.1～1.2", "1.2～1.3", "1.5～2.0"], "answer": 2, "explain": "Krel'=1.2～1.3，主要考虑非周期分量、参数误差、电势波动、测量误差与裕度。"}, {"num": "3.1", "part": "电网的电流保护", "type": "single", "q": "电流Ⅰ段灵敏性用最小保护范围校验，要求保护范围不小于线路全长的（　）", "options": ["5%", "15%～20%", "50%", "80%"], "answer": 1, "explain": "Ksen'=lmin/l×100%≥15%～20%。"}, {"num": "3.1", "part": "电网的电流保护", "type": "single", "q": "电流Ⅱ段与下级线路电流Ⅰ段配合时，配合系数 Krel'' 一般取（　）", "options": ["1.2～1.3", "1.1～1.2", "0.85", "2.0"], "answer": 1, "explain": "Krel''=1.1～1.2；Ⅱ段动作时限比下级Ⅰ段高 Δt=0.5s。"}, {"num": "3.1", "part": "电网的电流保护", "type": "single", "q": "电流保护各级之间的时限级差 Δt 考虑的主要因素不包括（　）", "options": ["断路器动作时间+灭弧时间", "时间继电器的延时误差", "继电器外部故障切除后的返回延时", "线路对地电容电流"], "answer": 3, "explain": "Δt 由断路器动作与灭弧、时间元件误差、测量元件返回延时和裕度构成，通常取 0.5s。"}, {"num": "3.1", "part": "电网的电流保护", "type": "single", "q": "电流Ⅲ段（定时限过电流）的整定原则是（　）", "options": ["躲过线路末端最大短路电流", "躲过最大负荷电流并保证外部故障切除后可靠返回", "与下级Ⅰ段定值配合", "躲过系统振荡电流"], "answer": 1, "explain": "Iset'''=Krel'''·Kss/Kre·IL.max。"}, {"num": "3.1", "part": "电网的电流保护", "type": "single", "q": "电流Ⅲ段作为远后备保护时灵敏系数要求为（　）", "options": ["≥1.2", "≥1.3～1.5", "≥2.0", "≥1.0"], "answer": 0, "explain": "近后备要求 ≥1.3～1.5，远后备 ≥1.2。"}, {"num": "3.1", "part": "电网的电流保护", "type": "single", "q": "关于电流Ⅱ段的评价，正确的是（　）", "options": ["能作相邻线路的远后备", "灵敏度好、能保护线路全长，但带 0.3～1s 延时", "瞬时动作且保护全长", "不受系统运行方式影响"], "answer": 1, "explain": "Ⅱ段保护全长但带延时，速动性差一些，也不能作为下级线路的远后备。"}, {"num": "3.1", "part": "电网的电流保护", "type": "single", "q": "三段式电流保护的主要优点和主要缺点分别是（　）", "options": ["灵敏性好/可靠性差", "可靠性高/灵敏性受运行方式变化影响大", "速动性差/投资高", "选择性差/接线复杂"], "answer": 1, "explain": "简单可靠是主要优点；灵敏性受运行方式影响大是主要缺点。"}, {"num": "3.1", "part": "电网的电流保护", "type": "single", "q": "小电流接地系统中异地两点接地（不同线路）时，采用三相星形接线与两相星形接线相比（　）", "options": ["三相星形只跳一条线", "三相星形各种异名相接地均跳两回线，供电可靠性不如两相星形", "两者结果完全相同", "三相星形保护拒动"], "answer": 1, "explain": "三相星形异地两点接地均跳两回线；两相星形有几率只跳一条线，可靠性更好。"}, {"num": "3.1", "part": "电网的电流保护", "type": "single", "q": "两相星形接线用于小电流接地系统相间短路保护时，应将保护安装在（　）", "options": ["各线路不同的两相上", "所有线路相同的两相上（一般 A、C 相）", "三相全部安装", "只在 B 相安装"], "answer": 1, "explain": "应在线路上装于相同的两相（一般 A、C 相），否则异名相接地配合混乱。"}, {"num": "3.1", "part": "电网的电流保护", "type": "single", "q": "反时限过电流保护的动作特性是（　）", "options": ["时限与电流无关", "电流越大动作时限越长", "电流越大动作时限越短", "电流越大越不动作"], "answer": 2, "explain": "反时限：电流小时限长、电流大时限短，可同时兼顾速动性与选择性。"}, {"num": "3.1", "part": "电网的电流保护", "type": "judge", "q": "电流Ⅰ段能保护本线路的全长。", "answer": false, "explain": "Ⅰ段只能保护线路首端的一部分（一般 15%～20% 以上），不能保护全长。"}, {"num": "3.1", "part": "电网的电流保护", "type": "judge", "q": "电流Ⅰ、Ⅱ段联合工作构成单端电气量的主保护，全线故障可在 0.5s 内切除。", "answer": true}, {"num": "3.1", "part": "电网的电流保护", "type": "judge", "q": "线路与变压器相连时，电流速断可以保护线路全长并保护变压器的一部分。", "answer": true, "explain": "变压器阻抗较大，短路电流曲线在变压器处下降快。"}, {"num": "3.1", "part": "电网的电流保护", "type": "blank", "q": "电流Ⅲ段整定公式为 Iset'''=Krel'''·Kss/Kre·IL.max，其中 Kss 称为____系数。", "answer": ["自启动"], "explain": "外部故障切除后电动机自启动，电流大于额定工作电流。"}, {"num": "3.1", "part": "电网的电流保护", "type": "blank", "q": "三段式电流保护主要用于____kV 及以下的单电源辐射网。", "answer": ["35"], "explain": "35kV 及以下低压配电网络广泛应用阶段式电流保护。"}, {"num": "3.1", "part": "电网的电流保护", "type": "short", "q": "写出电流Ⅰ、Ⅱ、Ⅲ段的整定原则与灵敏度校验要求。", "answer": "Ⅰ段：Iset'=Krel'·Ik.B.max（Krel'=1.2～1.3），t=0；灵敏性按最小保护范围校验，最小运行方式两相短路下 ≥15%～20%。Ⅱ段：Iset''=Krel''·Iset1'（Krel''=1.1～1.2，与下级Ⅰ段配合），t''=t'+0.5s；Ksen''=Ik.B.min/Iset''≥1.3～1.5（本线路末端）。Ⅲ段：Iset'''=Krel'''·Kss/Kre·IL.max，按阶梯原则配合时限；近后备 Ksen≥1.3～1.5、远后备 ≥1.2（最小运行方式末端两相短路）。"}, {"num": "3.1", "part": "电网的电流保护", "type": "short", "q": "为什么电流Ⅰ段不能保护线路全长？怎样解决？", "answer": "为保证选择性，Ⅰ段必须躲过线路末端（相邻线路出口）最大短路电流；由于故障点在本线路末端与相邻线路出口时短路电流几乎相同且存在计算与测量误差，取 Krel'>1 后保护范围必然小于全长。解决方法：增设电流Ⅱ段（与下级Ⅰ段配合、加 Δt=0.5s 时限）保护线路全长，Ⅰ、Ⅱ段联合构成主保护。"}, {"num": "3.2", "part": "电网的电流保护", "type": "single", "q": "双侧电源网络中保护误动（如 K1 短路时保护 2 动作）的根本原因是（　）", "options": ["电流定值太小", "反方向短路时电流也超过定值，缺乏方向判别", "时间整定错误", "TA 极性接反"], "answer": 1, "explain": "无方向元件时，反方向故障电流同样可能超过定值导致误动。"}, {"num": "3.2", "part": "电网的电流保护", "type": "single", "q": "继电保护规定的电流正方向是（　）", "options": ["由线路指向母线", "由母线指向线路", "任意规定", "与电压正方向一致"], "answer": 1, "explain": "教材规定正方向为母线指向线路（保护安装处指向被保护元件）。"}, {"num": "3.2", "part": "电网的电流保护", "type": "single", "q": "方向元件以保护安装处电压为参考相量判别方向，其相位比较动作条件是 U̇m 与 KU̇m' 的夹角（　）", "options": ["不超过 ±90°", "不超过 ±180°", "恒为 0°", "恒为 90°"], "answer": 0, "explain": "arg(U̇m/KU̇m')∈(-90°,+90°) 时正向动作，等价于幅值比较 |U̇m+KU̇m'|>|U̇m-KU̇m'|。"}, {"num": "3.2", "part": "电网的电流保护", "type": "single", "q": "相间短路功率方向元件广泛采用的接线方式称为（　）", "options": ["0° 接线", "30° 接线", "90° 接线", "120° 接线"], "answer": 2, "explain": "90° 接线：A 相接 İA 与 U̇BC；引入非故障相电压使两相短路无死区。"}, {"num": "3.2", "part": "电网的电流保护", "type": "single", "q": "90° 接线方向元件的最大灵敏角通常设计为（电压超前电流的角度）（　）", "options": ["+30°", "-30°", "-45°", "0°"], "answer": 1, "explain": "正方向各种相间短路电压超前电流角度在 -60°～0°，取角平分线 φsen=-30°。"}, {"num": "3.2", "part": "电网的电流保护", "type": "single", "q": "90° 接线对各种两相短路都没有死区的原因是（　）", "options": ["电流足够大", "引入了非故障相电压，测量电压不为零", "记忆电压的作用", "采用了负序分量"], "answer": 1, "explain": "两相短路时非故障相电压仍存在，引入后测量电压不接近 0。"}, {"num": "3.2", "part": "电网的电流保护", "type": "single", "q": "正方向出口三相短路时方向元件失去比相依据，采用的对策是（　）", "options": ["提高电流定值", "利用短路前电压的\"记忆电压\"", "改用两相星形接线", "延时躲开"], "answer": 1, "explain": "出口三相短路 Um≈0 出现电压死区，用记忆电压进行方向判别（Ⅰ段可实现）。"}, {"num": "3.2", "part": "电网的电流保护", "type": "single", "q": "双电源网络电流Ⅲ段加装方向元件的\"少而精\"原则中，同母线保护中可以不装方向元件的是（　）", "options": ["延时最短的保护", "延时最长的保护", "任意一个保护", "灵敏系数最高的保护"], "answer": 1, "explain": "Ⅲ段主要靠时限配合，只允许延时最长的一个不装方向元件。"}, {"num": "3.2", "part": "电网的电流保护", "type": "judge", "q": "电流Ⅰ段只要反方向最大短路电流小于本保护定值，就可以不装方向元件。", "answer": true, "explain": "反方向不会误动，无需方向元件。"}, {"num": "3.2", "part": "电网的电流保护", "type": "judge", "q": "方向元件的灵敏度应比电流元件更高，否则会影响保护的灵敏度。", "answer": true}, {"num": "3.2", "part": "电网的电流保护", "type": "blank", "q": "方向元件幅值比较方程为 |U̇m+KU̇m'|＞|U̇m-KU̇m'|，其中 KU̇m'=İm·____（具有阻抗性质、移相后）。", "answer": ["ZK"], "explain": "KU̇m' 为电流经阻抗变换移相得到的电压相量。"}, {"num": "3.2", "part": "电网的电流保护", "type": "short", "q": "对功率方向元件的基本要求有哪些？", "answer": "①应具有明确的方向性（实现其引入的作用）；②正向故障时可靠动作并有足够的灵敏性——方向元件灵敏度应高于电流元件，否则会影响保护灵敏度；③两个电气量都需要最小门槛，在电流Ⅲ段末端短路时测量电压、电流应大于门槛值（否则影响灵敏度）。"}, {"num": "3.3", "part": "电网的电流保护", "type": "single", "q": "接地短路时零序电压最高的地点是（　）", "options": ["变压器中性点接地处", "短路点", "线路中点", "母线处"], "answer": 1, "explain": "短路点零序电压最高，变压器中性点接地处为零。"}, {"num": "3.3", "part": "电网的电流保护", "type": "single", "q": "零序电流的回路是（　）", "options": ["经负荷侧形成回路", "由短路点经各变压器接地中性点形成回路", "经相间电容形成回路", "经消弧线圈与大地形成回路"], "answer": 1, "explain": "零序电流由短路点经过所有变压器接地点构成回路。"}, {"num": "3.3", "part": "电网的电流保护", "type": "single", "q": "零序电流滤过器的不平衡电流主要由（　）引起", "options": ["负荷电流波动", "三台 TA 励磁特性（励磁电流）不一致", "系统振荡", "过渡电阻"], "answer": 1, "explain": "Iunb=(İmA+İmB+İmC)，为 TA 励磁电流不等所致。"}, {"num": "3.3", "part": "电网的电流保护", "type": "single", "q": "零序电流Ⅰ段整定时，除躲线路末端最大零序电流外，还应躲（　）", "options": ["最大负荷电流", "断路器三相不同时合闸的 3I0.unb（否则靠 100ms 延时）", "振荡电流", "负序电流"], "answer": 1, "explain": "还需躲非全相运行 3I0；会误动时靠 100ms 延时或退出运行。"}, {"num": "3.3", "part": "电网的电流保护", "type": "single", "q": "工程中取 Z1Σ=Z2Σ，当 Z0Σ＜Z1Σ 时，接地故障中零序电流最大的是（　）", "options": ["单相接地", "两相接地", "两相相间", "三相短路"], "answer": 0, "explain": "Z0Σ<Z1Σ 时单相接地 3I0 最大；Z0Σ>Z1Σ 时两相接地最大。"}, {"num": "3.3", "part": "电网的电流保护", "type": "single", "q": "零序Ⅱ段与下级线路零序Ⅰ段配合时应采用的分支系数是（　）", "options": ["最大分支系数", "最小分支系数", "平均分支系数", "任意分支系数"], "answer": 1, "explain": "整定取最小分支系数（分流最大），保证下级Ⅰ段范围末端故障不误动。"}, {"num": "3.3", "part": "电网的电流保护", "type": "single", "q": "零序Ⅲ段一次动作电流通常取 300～800A，主要目的是（　）", "options": ["躲过最大负荷电流", "保证高阻接地故障时的灵敏度", "躲过励磁涌流", "提高动作速度"], "answer": 1, "explain": "110kV 及以上导线对树木放电等高阻接地（100～300Ω）主要靠零序Ⅲ段切除。"}, {"num": "3.3", "part": "电网的电流保护", "type": "single", "q": "零序方向元件最灵敏的条件是（　）", "options": ["3İ0 与 3U̇0 同相", "3İ0 滞后 3U̇0 约 100°～110°", "3İ0 超前 3U̇0 90°", "3İ0 与 3U̇0 反相且差 30°"], "answer": 1, "explain": "正方向接地时 3İ0 滞后 3U̇0 约 180°-φK0=95°～110°。"}, {"num": "3.3", "part": "电网的电流保护", "type": "single", "q": "零序电流保护出口短路无死区的原因是（　）", "options": ["零序电流很大", "出口接地短路时零序电压最大", "采用记忆电压", "不受过渡电阻影响"], "answer": 1, "explain": "出口接地短路 3U0 最大，方向元件能可靠动作。"}, {"num": "3.3", "part": "电网的电流保护", "type": "single", "q": "零序电流保护受系统运行方式影响的特点是（　）", "options": ["完全不受影响", "仅通过 Z0Σ 间接影响，影响较小", "通过 Z1Σ 直接影响，影响很大", "仅受负荷影响"], "answer": 1, "explain": "正序阻抗（运行方式）的影响是间接的，零序保护范围较稳定。"}, {"num": "3.3", "part": "电网的电流保护", "type": "single", "q": "一个变电站有两台变压器时，为使零序保护范围稳定，通常做法是（　）", "options": ["两台都接地", "平常只允许一台接地，另一台检修切换时再接地", "两台都不接地", "随机接地"], "answer": 1, "explain": "目的是让各变电站接地阻抗尽可能变化小（自耦变压器必须每台接地）。"}, {"num": "3.3", "part": "电网的电流保护", "type": "single", "q": "关于零序电流保护优点的说法错误的是（　）", "options": ["灵敏度高，几乎不受负荷电流影响", "系统振荡时零序保护可能误动", "出口短路无死区", "耐高阻接地能力强"], "answer": 1, "explain": "三相对称工况（振荡、过负荷）对零序保护几乎没有影响。"}, {"num": "3.3", "part": "电网的电流保护", "type": "judge", "q": "微机保护常采用自产 3U0=U̇A+U̇B+U̇C 获取零序电压。", "answer": true, "explain": "110kV 及以上系统规程确定采用自产零序电压。"}, {"num": "3.3", "part": "电网的电流保护", "type": "judge", "q": "零序电流由故障点流向变压器中性点，保护安装处零序电流=短路点零序电流×分配系数。", "answer": true, "explain": "IM0=C0M·IK0，C0M=Z0N/(Z0M+Z0N)，且 C0M+C0N=1。"}, {"num": "3.3", "part": "电网的电流保护", "type": "blank", "q": "减小 TA 误差的主要方法：减小 TA 二次负载、增大变比、选择不易饱和的 TA 和____二次电缆线径。", "answer": ["增大"], "explain": "还包括正确校验 10% 误差曲线。"}, {"num": "3.3", "part": "电网的电流保护", "type": "short", "q": "零序电流保护有哪些优点？", "answer": "①灵敏度高——几乎不受负荷电流影响；②受运行方式影响较小——仅通过零序阻抗间接影响；③系统振荡、过负荷等三相对称工况几乎无影响；④出口短路无死区（出口接地短路零序电压最大）；⑤耐高阻接地能力强；⑥第Ⅲ段延时一般较短。"}, {"num": "3.4", "part": "电网的电流保护", "type": "single", "q": "小电流接地系统单相接地时，故障线路的 3I0 是（　）", "options": ["自身对地电容电流，方向从母线流向线路", "全系统非故障元件电容电流之和减去自身，方向从线路流向母线", "零", "全系统电容电流之和"], "answer": 1, "explain": "非故障线路 3I0 为自身电容电流（母线流向线路），故障线路方向相反、数值最大。"}, {"num": "3.4", "part": "电网的电流保护", "type": "single", "q": "小电流接地系统单相接地保护的主要任务是（　）", "options": ["快速跳闸切除故障线路", "发出信号并便于选出故障线路", "立即切除全部出线", "闭锁重合闸"], "answer": 1, "explain": "单相接地可继续运行 1～2h，应及时发信号防止两点接地，并具备选线能力。"}, {"num": "3.4", "part": "电网的电流保护", "type": "single", "q": "小电阻接地系统（8～12Ω）的分析计算方法与（　）类似", "options": ["消弧线圈接地系统", "大电流接地系统（零序回路接入 3Rg）", "不接地系统完全相同", "谐振接地系统"], "answer": 1, "explain": "仅在零序回路中接入 3Rg，分析方法与大电流接地系统类似。"}, {"num": "3.4", "part": "电网的电流保护", "type": "judge", "q": "小电流接地系统单相接地后各处的零序电压几乎一样（线路零序压降很小）。", "answer": true, "explain": "因此可用零序电压除以容抗获得线路零序电流，监视接地故障。"}, {"num": "3.5", "part": "电网的电流保护", "type": "single", "q": "电磁型继电器的电磁力矩与线圈电流的关系是（　）", "options": ["成正比", "与电流平方成正比且与电流方向无关", "与电流平方成正比且与方向有关", "与电流三次方成正比"], "answer": 1, "explain": "Me=K·I²，方向无关，故可交直流两用（结构有差别）。"}, {"num": "3.5", "part": "电网的电流保护", "type": "single", "q": "继电器由动作状态返回到起始位置的最大电流称为（　）", "options": ["动作电流", "返回电流", "启动电流", "额定电流"], "answer": 1, "explain": "返回条件 Me≤Ms-Mf；Ire<Iop。"}, {"num": "3.5", "part": "电网的电流保护", "type": "single", "q": "过量继电器的返回系数 Kre 一般规定为（　）", "options": ["大于 1", "等于 1", "0.85～0.9", "0.5～0.6"], "answer": 2, "explain": "Kre=Ire/Iop<1，DL-10 系列一般不小于 0.85，通常默认 0.85。"}, {"num": "3.5", "part": "电网的电流保护", "type": "single", "q": "返回系数太大的缺点是（　）", "options": ["灵敏度降低", "触点易抖动、可靠性降低", "动作速度变慢", "整定困难"], "answer": 1, "explain": "Kre 太大剩余力矩小、触点易抖动；太小则降低保护灵敏度。"}, {"num": "3.5", "part": "电网的电流保护", "type": "single", "q": "DL-10 系列电流继电器改变动作电流的\"粗调\"方法是（　）", "options": ["调整弹簧把手", "改变线圈串并联方式（并联动作电流为串联的 2 倍）", "改变舌片初始位置", "更换线圈"], "answer": 1, "explain": "粗调为线圈串并联切换，精调为弹簧把手，还可改变舌片初始位置。"}, {"num": "3.5", "part": "电网的电流保护", "type": "single", "q": "电磁型电压继电器与电流继电器相比（　）", "options": ["线圈匝数多、导线细，并联接入 TV 二次侧", "线圈匝数少、导线粗，串联接入 TA 二次侧", "结构与接线完全相同", "不能调整整定值"], "answer": 0, "explain": "电压线圈匝多线细阻抗大、并联接入；电流线圈匝少线粗阻抗小、串联接入。"}, {"num": "3.5", "part": "电网的电流保护", "type": "single", "q": "低电压继电器的返回系数 Kre=Ure/Uop（　）", "options": ["小于 1", "大于 1", "等于 1", "为零"], "answer": 1, "explain": "欠量继电器（低电压）返回系数大于 1。"}, {"num": "3.5", "part": "电网的电流保护", "type": "single", "q": "能同时反应电流大小的中间继电器系列中，带自保持线圈的是（　）", "options": ["DZ 型", "DZS 型", "DZB 型", "DZK 型"], "answer": 2, "explain": "DZB 带自保持线圈；DZS 延时动作；DZK 快速动作。"}, {"num": "3.5", "part": "电网的电流保护", "type": "single", "q": "信号继电器 KS 的特点是（　）", "options": ["动作后自动复归", "动作后自保持，需手动或电动复位", "只能发声信号", "触点容量特别大"], "answer": 1, "explain": "KS 自保持动作状态，指示保护动作并发出光/声信号。"}, {"num": "3.5", "part": "电网的电流保护", "type": "single", "q": "极化继电器的突出特点是（　）", "options": ["只反应电流大小", "能反应电流方向，只适用于直流", "交直流均可", "动作无限慢"], "answer": 1, "explain": "极化磁通由永久磁铁产生，只有\"·\"端流入一定方向的电流才动作，不适用交流。"}, {"num": "3.5", "part": "电网的电流保护", "type": "single", "q": "时间继电器线圈按短时通电设计，长期加电压时应（　）", "options": ["并联电容", "串入附加电阻提高热稳定", "降低电压", "无需处理"], "answer": 1, "explain": "长期（>30s）加电压必须串附加电阻；型号后加 C 表示可长期通电。"}, {"num": "3.5", "part": "电网的电流保护", "type": "judge", "q": "继电器的继电特性是指动作与返回都是干脆的跃变，没有中间状态。", "answer": true, "explain": "动作过程存在很大剩余转矩，动作是突发性的。"}, {"num": "3.5", "part": "电网的电流保护", "type": "judge", "q": "DL-11/10 型电流继电器，线圈串联时整定范围为 5～10A，并联时为 2.5～5A。", "answer": false, "explain": "串联时 2.5～5A，并联时 5～10A（并联动作电流为串联 2 倍）。"}, {"num": "3.5", "part": "电网的电流保护", "type": "blank", "q": "继电器的返回系数 Kre=Ire/Iop，其中 Ire 为返回电流，Iop 为____电流。", "answer": ["动作"], "explain": "过量继电器 Iop>Ire，故 Kre<1。"}, {"num": "3.5", "part": "电网的电流保护", "type": "short", "q": "简述继电特性的两个特点及其工程意义。", "answer": "①明确性：动作状态垂直跃变（摩擦阻力一旦被克服即形成跃变，不会缓变）——动作干脆明确，保证保护行为确定；②稳定性：动作电流与返回电流不相等（Iop≠Ire），电流波动时触点不会来回弹跳。工程上通过返回系数 Kre（0.85～0.9）协调两者：太大易抖动、太小降低灵敏度。"}, {"num": "4.1", "part": "电网的距离保护", "type": "single", "q": "距离保护的基本测量量是（　）", "options": ["短路电流幅值", "测量电压与测量电流的比值（测量阻抗）", "负序电流", "功率因数"], "answer": 1, "explain": "Zm=U̇m/İm=lk·z1，正比于短路点距离。"}, {"num": "4.1", "part": "电网的距离保护", "type": "single", "q": "正常运行时测量阻抗的特征是（　）", "options": ["幅值小、阻抗角 70°～85°", "幅值大、阻抗角一般小于 30°", "幅值小、阻抗角 0°", "幅值随时间周期变化"], "answer": 1, "explain": "负荷阻抗幅值大、角小；短路阻抗幅值小、角 70°～85°。"}, {"num": "4.1", "part": "电网的距离保护", "type": "single", "q": "接地距离 0° 接线方式的测量电压电流组合是（　）", "options": ["U̇A/(İA-İB)", "U̇A/(İA+3K0·İ0)", "U̇AB/İA", "3U̇0/3İ0"], "answer": 1, "explain": "带零序补偿的接地距离接线：K0=(Z0-Z1)/(3Z1)。"}, {"num": "4.1", "part": "电网的距离保护", "type": "single", "q": "采用正确接线方式后，下列故障中故障相（相间）测量阻抗等于短路点正序阻抗 Z1K 的是（　）", "options": ["单相接地时的非故障相", "两相相间短路（故障相间）", "单相接地时以非故障相构成的相间", "所有情况都等于 Z1K"], "answer": 1, "explain": "三相短路、两相相间、两相接地（故障相间）及单相接地（故障相）测量阻抗均为 Z1K；含非故障相的偏大。"}, {"num": "4.1", "part": "电网的距离保护", "type": "single", "q": "方向阻抗继电器的整定阻抗与圆的关系是（　）", "options": ["整定阻抗是圆心到原点的距离", "整定阻抗是圆的直径", "整定阻抗是圆的半径", "整定阻抗与圆无关"], "answer": 1, "explain": "方向圆以 Zset 为直径、最大灵敏角方向；保护范围最大处为直径方向。"}, {"num": "4.1", "part": "电网的距离保护", "type": "single", "q": "偏移阻抗特性（α≠0）的优点和缺点是（　）", "options": ["有方向性/有出口死区", "无出口死区/反方向出口短路会误动", "无死区且方向性好/保护范围小", "能测距/不能判方向"], "answer": 1, "explain": "偏移特性无出口死区，但反方向出口短路会误动，常用于合闸时。"}, {"num": "4.1", "part": "电网的距离保护", "type": "single", "q": "全阻抗圆特性阻抗继电器（　）", "options": ["圆心在原点、无方向性、较少采用", "圆心不在原点、有方向性", "只能判方向不能判范围", "动作区不含原点"], "answer": 0, "explain": "|Zm|≤|Zset|，圆心在原点，没有方向性也没有最大灵敏角概念。"}, {"num": "4.1", "part": "电网的距离保护", "type": "single", "q": "偏移度 α=1 时，幅值比较动作方程 |Żm-½Żset|≤½|Zset| 变为（　）", "options": ["|Żm|≤|Zset|", "|Żm|≥|Zset|", "|Żm-½Żset|≤|Zset|", "arg(Zset-Zm)/Zm=90°"], "answer": 0, "explain": "α=1 即全阻抗圆：|Zm|≤|Zset|；α=0 时为方向圆。"}, {"num": "4.1", "part": "电网的距离保护", "type": "single", "q": "偏移阻抗特性相位比较动作方程为（　）", "options": ["90°≤arg[(Zset-Zm)/(Zm+αZset)]≤270°", "0°≤arg[(Zset-Zm)/Zm]≤180°", "|Zset-Zm|>|Zm|", "arg[(Zset-Zm)/(Zm)]≤90°"], "answer": 0, "explain": "α=0 为方向圆相位方程，α=1 为全阻抗圆相位方程。"}, {"num": "4.1", "part": "电网的距离保护", "type": "single", "q": "与圆特性相比，多边形特性的优点是（　）", "options": ["动作方程更简单", "保护范围与耐过渡电阻能力容易兼顾", "完全没有最大灵敏角概念且范围更大", "只能用于接地保护"], "answer": 1, "explain": "多边形 +R 方向面积大，躲过渡电阻能力优于圆特性，且可防相邻线路出口经过渡电阻短路误动。"}, {"num": "4.1", "part": "电网的距离保护", "type": "single", "q": "距离保护装置中 TV 断线闭锁的作用是防止（　）", "options": ["系统振荡时误动", "TV 断线后测量电压为 0 导致的误动", "过渡电阻引起的超越", "TA 饱和"], "answer": 1, "explain": "TV 断线后 U=0，任何故障都会 0/I 误动，需在启动前判别断线并闭锁。"}, {"num": "4.1", "part": "电网的距离保护", "type": "judge", "q": "阻抗保护与距离保护几乎反映同一性质，一个侧重保护范围、另一个侧重具体测量数值。", "answer": true}, {"num": "4.1", "part": "电网的距离保护", "type": "judge", "q": "接地距离接线方式中，零序补偿系数 K0=(Z0-Z1)/(3Z1) 只能用线路全长参数计算。", "answer": false, "explain": "K0 既可用单位长度参数也可用线路全长参数计算，实质是同一比值（平均值）。"}, {"num": "4.1", "part": "电网的距离保护", "type": "blank", "q": "测量阻抗在 R-X 复平面上：正常时为负荷阻抗（幅值大、角小），短路时为 lk·z1（幅值小、阻抗角____°～85°）。", "answer": ["70"], "explain": "线路阻抗角一般在 70°～85°。"}, {"num": "4.1", "part": "电网的距离保护", "type": "blank", "q": "方向圆特性中，测量电压电流夹角等于最大灵敏角 φsen 时，功率 P=UIcosφ 达____。", "answer": ["最大"], "explain": "故称最大灵敏角。"}, {"num": "4.1", "part": "电网的距离保护", "type": "short", "q": "画出并比较方向圆、偏移圆、全阻抗圆三种特性，说明各自的动作方程与特点。", "answer": "方向圆：Zset 为直径、圆心 Zset/2；幅值方程 ½|Zset|≥|Żm-½Żset|；能判短路范围与方向，出口短路有死区需记忆。偏移圆：向反方向偏移 α·Zset；幅值方程 ½(1+α)|Zset|≥|Żm-(1-α)½Żset|；无出口死区但反方向出口短路误动，常用于合闸时。全阻抗圆：圆心在原点、半径 |Zset|；|Żm|≤|Zset|；无方向性、无最大灵敏角概念，较少采用。三者相位比较方程统一为 90°≤arg[(Zset-Zm)/(Zm+αZset)]≤270°，α=0 方向圆、α=1 全阻抗。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "距离Ⅰ段的整定公式为（　）", "options": ["Zset'=Krel'·ZAB，Krel'=0.8～0.85", "Zset'=Krel'·ZAB，Krel'=1.2～1.3", "Zset'=ZAB+Kb·Zset3'", "Zset'=0.9UN/(Krel·Kss·Kre·IL.max)"], "answer": 0, "explain": "距离Ⅰ段可靠系数 0.8～0.85（欠量动作，考虑各类误差）。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "距离Ⅰ段的灵敏度校验方式是（　）", "options": ["与电流Ⅰ段相同需校验最小保护范围", "灵敏度即等于可靠系数，不必单独验算", "校验 Ksen≥1.25", "校验 Ksen≥1.5"], "answer": 1, "explain": "距离Ⅰ段保护范围基本不受运行方式影响，灵敏度=可靠系数。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "距离Ⅱ段与相邻线路距离Ⅰ段配合时，分支系数应取（　）", "options": ["最大值", "最小值", "平均值", "任意值"], "answer": 1, "explain": "取最小分支系数对应测量阻抗最小（最不利），保证不误动。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "距离Ⅱ段的灵敏系数要求（本线路末端）为（　）", "options": ["≥1.2", "≥1.25～1.5", "≥2.0", "≥1.0"], "answer": 1, "explain": "Ksen''=Zset''/ZAB≥1.25～1.5。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "距离Ⅲ段按躲最小负荷阻抗整定时，公式 Zop'''=0.9UN/(Krel'''·Kss·Kre·IL.max) 中 0.9 的含义是（　）", "options": ["可靠系数", "考虑运行中电压允许波动 ±10%", "自启动系数", "返回系数"], "answer": 1, "explain": "最小电压考虑为 0.9UN（电压允许波动 ±10%）。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "采用方向阻抗圆特性时，由动作阻抗 Zop''' 换算整定阻抗的公式是（　）", "options": ["Zset=Zop/cos(φL-φsen)", "Zset=Zop·cos(φL-φsen)", "Zset=Zop/sin(φL)", "Zset=Zop"], "answer": 0, "explain": "动作阻抗处于特性边界，方向圆沿最大灵敏角方向换算。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "距离Ⅲ段动作时限要求 ≥1.5～2s 的原因是（　）", "options": ["与断路器动作时间配合", "Ⅲ段一般不经振荡闭锁，靠延时躲过振荡误动", "躲过渡电阻", "减小 TA 误差"], "answer": 1, "explain": "Ⅲ段不经振荡闭锁，靠长延时保证振荡时不误动。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "距离Ⅲ段作为相邻元件远后备时灵敏系数要求 ≥1.2，校验点应取（　）", "options": ["相邻线路首端", "相邻线路各末端（全部远后备均需满足）", "本线路中点", "母线处"], "answer": 1, "explain": "相邻元件各处的远后备均满足才算合格。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "关于助增与外汲，正确的说法是（　）", "options": ["助增使测量阻抗减小", "外汲使测量阻抗增大", "助增使测量阻抗增大、外汲使测量阻抗减小", "两者都使测量阻抗增大"], "answer": 2, "explain": "助增电流存在使 Zm 增大，外汲（分流）使 Zm 减小。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "双端供电系统中两侧距离Ⅰ段动作范围约占线路全长的（　）", "options": ["各 15%～20%", "合计 60%～70%", "100%", "各 50%"], "answer": 1, "explain": "两侧瞬动范围约 60%～70%；中间 30%～40% 区域靠 0.5s 延时相继动作。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "系统振荡时振荡电流的最大值出现在（　）", "options": ["δ=0°", "δ=90°", "δ=180°", "δ=270°"], "answer": 2, "explain": "Im=2EM·sin(δ/2)/ZΣ，δ=180° 时最大；此时振荡中心电压为零。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "两侧电势幅值相等、各元件阻抗角相等时，振荡中心位于（　）", "options": ["保护安装处", "综合阻抗 ZΣ 的中点处", "线路末端", "任意位置"], "answer": 1, "explain": "振荡中心在 ZΣ/2 处，Uos=EM·cos(δ/2)。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "系统振荡时测量阻抗的变化轨迹是（　）", "options": ["以 Zset 为半径的圆", "垂直于 ZΣ 且过其中点的直线", "一条水平线", "抛物线"], "answer": 1, "explain": "Żm=ŻM-ZΣ(½-j·ctg(δ/2)/2)，ŻM 不随 δ 变，轨迹为 ZΣ 的垂直平分线。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "振荡闭锁\"短时开放\"的时间通常为（　）", "options": ["0～50ms", "150～250ms", "500ms", "1.5s"], "answer": 1, "explain": "故障启动后开放距离Ⅰ、Ⅱ段 150～250ms，之后闭锁。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "动稳定破坏导致距离保护误动的最早时间大约在故障后（　）", "options": ["0～50ms", "150～250ms", "500ms 以上", "2s 以上"], "answer": 1, "explain": "研究分析表明故障 150ms～250ms 之后才可能导致误动，故短时开放 150～250ms。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "振荡与短路的主要区别特征不包括（　）", "options": ["对称性（振荡三相对称）", "电气量变化速度与规律不同", "动作后是否返回", "短路电流一定大于振荡电流"], "answer": 3, "explain": "振荡电流也可能很大，不能以大小区分；区别在于对称性、变化速度规律与返回特性。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "整定值相同的情况下，系统振荡时误动时间更长的阻抗特性是（　）", "options": ["方向圆特性", "全阻抗特性", "橄榄形特性", "透镜形特性"], "answer": 1, "explain": "全阻抗误动角区 δ1～δ4 大于方向圆 δ2～δ3，误动时间更长。"}, {"num": "4.2", "part": "电网的距离保护", "type": "single", "q": "振荡闭锁期间再发生不对称故障时的\"再开放\"判据通常利用（　）", "options": ["零序功率方向", "负序电流（如 I2/I1≥0.5～0.7 或 I2+3I0 关系）", "三次谐波", "低电压"], "answer": 1, "explain": "利用不对称故障出现负序、零序分量的特征重新开放距离Ⅰ、Ⅱ段。"}, {"num": "4.2", "part": "电网的距离保护", "type": "judge", "q": "距离Ⅰ段几乎不受系统运行方式变化的影响，保护范围比较稳定。", "answer": true, "explain": "这是距离保护相对电流保护的核心优点。"}, {"num": "4.2", "part": "电网的距离保护", "type": "judge", "q": "环网上各线路距离保护相互配合会形成循环配合要求，无解，只能有一条线路不形成配合关系。", "answer": true}, {"num": "4.2", "part": "电网的距离保护", "type": "blank", "q": "距离Ⅱ段整定公式：Zset''=Krel''(ZAB+Kb·Zset3')，其中 Kb 称为____系数，整定时取最小值。", "answer": ["分支"], "explain": "分支系数反映相邻线路的助增/外汲分流关系。"}, {"num": "4.2", "part": "电网的距离保护", "type": "blank", "q": "振荡闭锁中，距离Ⅲ段主要靠不小于____秒的动作时限防止振荡误动。", "answer": ["1.5"], "explain": "Ⅲ段时限应≥1.5～2s。"}, {"num": "4.2", "part": "电网的距离保护", "type": "short", "q": "写出单端电气量保护（电流、零序、距离）三段式整定原则的统一归纳。", "answer": "Ⅰ段——躲本线路末端短路（实质是躲相邻线路出口短路）；Ⅱ段——保护本线路全长（加延时），本线路末端有灵敏度；Ⅲ段——躲最大负荷（再加延时），并验证近后备、远后备有灵敏度。各段整定都考虑不误动的条件；防拒动依靠三段共同作用，甚至再配置其他保护。"}, {"num": "4.2", "part": "电网的距离保护", "type": "short", "q": "简述振荡闭锁的三种主要措施。", "answer": "①短时开放：故障判别元件（I2、3I0 突变）启动后，允许距离Ⅰ、Ⅱ段立即投入判别 150～250ms，若动作则继续开放至跳闸或返回；150ms 内不动作则闭锁Ⅰ、Ⅱ段（防止动稳定破坏后误动）。②利用阻抗变化率不同（dZ/dt：短路突变、振荡缓变周期性）区分振荡与短路。③利用动作延时：Ⅲ段时限 ≥1.5s 不经振荡闭锁，靠延时躲振荡。另配\"再开放\"逻辑（不对称故障利用 I2、3I0 特征重新开放）。"}, {"num": "4.3", "part": "电网的距离保护", "type": "single", "q": "TV 断线时距离保护会出现（　）", "options": ["拒动", "0/I 特性——只要故障就动作（误动）", "测量阻抗增大", "方向元件误动"], "answer": 1, "explain": "U=0 时 Zm=0 落在任何动作区内，故需 TV 断线闭锁（启动前判别）。"}, {"num": "4.3", "part": "电网的距离保护", "type": "single", "q": "最小精确工作电流是指阻抗测量误差恰为（　）时的测量电流", "options": ["5%", "10%", "15%", "20%"], "answer": 1, "explain": "精工电流/精工电压对应误差 10% 的界限，保证阻抗测量精度。"}, {"num": "4.3", "part": "电网的距离保护", "type": "single", "q": "《线路保护设计规范》要求在 (0.05～20)IN 范围内阻抗测量误差不大于（　）", "options": ["1%", "5%", "10%", "15%"], "answer": 1, "explain": "整定值处允许装置误差 ±5%，0.95Zset 内必须动作、1.5Zset 以上必须不动作。"}, {"num": "4.3", "part": "电网的距离保护", "type": "single", "q": "相间短路过渡电阻的主要成分是（　）", "options": ["杆塔接地电阻", "电弧电阻", "树木电阻", "导线与地接触电阻"], "answer": 1, "explain": "相间短路以电弧电阻为主 Rg≈50l/Ig，弧光电压近似恒定约 5%UN。"}, {"num": "4.3", "part": "电网的距离保护", "type": "single", "q": "单侧电源线路上过渡电阻使测量阻抗增大，其影响规律错误的是（　）", "options": ["使测量阻抗增大可能拒动", "保护装置距短路点越近影响越大", "线路越短影响越大", "线路越长影响越大"], "answer": 3, "explain": "线路越短（整定值越小）受过渡电阻影响越大。"}, {"num": "4.3", "part": "电网的距离保护", "type": "single", "q": "双侧电源线路上过渡电阻附加测量阻抗的性质取决于（　）", "options": ["故障类型", "两侧短路电流相位差 arg(İk'/İk'')", "过渡电阻大小", "线路长度"], "answer": 1, "explain": "A 侧送电（α>0）时呈容性（Zm 减小可能误动——稳态超越），受电侧呈感性（Zm 增大易拒动）。"}, {"num": "4.3", "part": "电网的距离保护", "type": "single", "q": "因过渡电阻使测量阻抗变小、导致保护误动或拒动的现象称为（　）", "options": ["暂态超越", "稳态超越", "振荡超越", "非周期超越"], "answer": 1, "explain": "稳态超越指受过渡电阻影响测量阻抗变小引起的误动/无选择性动作。"}, {"num": "4.3", "part": "电网的距离保护", "type": "single", "q": "克服过渡电阻影响的一般时间策略是（　）", "options": ["全程以提高躲过渡电阻能力为主", "刚故障 150ms 内以提高躲过渡电阻能力为主，之后以防振荡为主", "全程以防振荡为主", "与时间无关"], "answer": 1, "explain": "两者要求矛盾：150ms 内振荡轨迹未落入特性区，先躲过渡电阻避免拒动；之后防误动。"}, {"num": "4.3", "part": "电网的距离保护", "type": "single", "q": "串补电容使测量阻抗呈容性可能造成的后果是（　）", "options": ["只有拒动", "区内故障拒动、区外故障误动", "只有误动", "无影响"], "answer": 1, "explain": "Zm=lk·z1-jXC；串补两侧短路都可能误动或拒动。对策为负序功率方向元件或记忆方向。"}, {"num": "4.3", "part": "电网的距离保护", "type": "single", "q": "串补电容线路的对策中，实际串补装置的组成部分包括（　）", "options": ["仅电容", "电容+MOV（金属氧化物变阻器）+放电间隙", "电容+电抗器", "电容+熔断器"], "answer": 1, "explain": "放电间隙击穿时 C 被短接相当于无影响；MOV 作用期间呈非线性仍需研究对策。"}, {"num": "4.3", "part": "电网的距离保护", "type": "single", "q": "单相重合闸装置中最常用的选相元件是（　）", "options": ["低电压选相", "相电流差突变量选相", "阻抗选相", "相电流选相"], "answer": 1, "explain": "常用：相电流差突变量选相、序电流分量选相、相电流选相、低电压选相、阻抗选相。"}, {"num": "4.3", "part": "电网的距离保护", "type": "single", "q": "工频突变量距离保护构造的补偿电压是（　）", "options": ["ΔU̇op=ΔU̇-Δİ·Zset", "ΔU̇op=ΔU̇+Δİ·Zset", "ΔU̇op=U̇-İ·Zm", "ΔU̇op=3U̇0/3İ0"], "answer": 0, "explain": "ΔU̇op=ΔU̇m-Δİm·Zset；区内故障 |ΔU̇op|≥|ΔU̇k|。"}, {"num": "4.3", "part": "电网的距离保护", "type": "single", "q": "工频突变量距离保护相比方向阻抗特性的优点不包括（　）", "options": ["正方向出口短路无死区", "耐过渡电阻能力更好", "反方向短路方向性好", "不受系统振荡影响"], "answer": 3, "explain": "突变量保护利用故障分量，振荡或系统操作也可能启动，并非不受振荡影响。"}, {"num": "4.3", "part": "电网的距离保护", "type": "single", "q": "高压线路无延时保护针对 0.7Zset 处短路的动作速度标准为（　）", "options": ["不大于 10ms", "不大于 30ms", "不大于 100ms", "不大于 500ms"], "answer": 1, "explain": "标准规定不大于 30ms。"}, {"num": "4.3", "part": "电网的距离保护", "type": "judge", "q": "TV 断线闭锁的判别原则是：启动元件动作之前出现电压降低则判为断线并闭锁距离保护。", "answer": true, "explain": "启动之后电压低是短路正常现象，不再判断线。"}, {"num": "4.3", "part": "电网的距离保护", "type": "blank", "q": "接地故障的过渡电阻远大于相间故障，500kV 线路按____Ω 考核。", "answer": ["300"], "explain": "标准：110kV—75Ω、220kV—100Ω、500kV—300Ω。"}, {"num": "4.3", "part": "电网的距离保护", "type": "short", "q": "简述过渡电阻对距离保护的影响及主要克服措施。", "answer": "影响：①单侧电源：Zm=Zk+Rg 增大→拒动或范围缩短；装置距故障点越近、线路越短影响越大；②双侧电源：附加阻抗性质取决于两侧短路电流相位差 arg(İk'/İk'')，送电侧呈容性（Zm 减小→稳态超越误动），受电侧呈感性（Zm 增大→拒动）。措施：①采用允许较大过渡电阻的动作特性（多边形特性，+R 方向面积大）；②时间策略：150ms 内以躲过渡电阻为主、之后以防振荡为主；③配置零序电流保护配合（受振荡影响小、灵敏度高）。"}, {"num": "5.1", "part": "纵联保护", "type": "single", "q": "纵联保护区别于单端电气量保护的根本特点是（　）", "options": ["动作速度更快", "双侧测量，能区分本线路末端与相邻线路出口短路", "接线更简单", "不受过渡电阻影响"], "answer": 1, "explain": "纵联保护实现全线速动，弥补单端保护 30%～40% 相继动作区的不足。"}, {"num": "5.1", "part": "纵联保护", "type": "single", "q": "纵联保护的三种基本原理是（　）", "options": ["电流差动、相位差动、纵联方向", "电流速断、距离、零序", "比幅、比相、比时间", "高频、微波、光纤"], "answer": 0, "explain": "以基尔霍夫电流定律的电流差动、比较两侧电流相位的相位差动、比较两侧故障方向的纵联方向。"}, {"num": "5.1", "part": "纵联保护", "type": "single", "q": "光纤通信用于纵联保护的优点不包括（　）", "options": ["频带宽、信息容量大", "传输损耗低、距离远", "抗干扰能力强", "弯曲半径无限制"], "answer": 3, "explain": "光纤弯曲半径一般不小于 30mm，这是其缺点之一。"}, {"num": "5.1", "part": "纵联保护", "type": "single", "q": "闭锁式纵联方向保护中，高定值与低定值的关系是（　）", "options": ["高定值=低定值", "高定值为低定值的 1.5～2 倍", "低定值为高定值的 2 倍", "无固定关系"], "answer": 1, "explain": "保证准备跳闸时两侧保护均已启动发信。"}, {"num": "5.1", "part": "纵联保护", "type": "single", "q": "闭锁式纵联保护\"远方启动发信\"的主要作用不包括（　）", "options": ["更可靠地防止纵联保护单侧工作", "方便手动检查通道", "弱电源侧延时 100ms 远方启动给对侧跳闸时间", "加快本侧跳闸速度"], "answer": 3, "explain": "远方启动不是为了加快跳闸，而是防单侧工作并便于检查通道。"}, {"num": "5.1", "part": "纵联保护", "type": "single", "q": "闭锁式纵联保护停信的三种情况是（　）", "options": ["保护停信、其他保护停信、断路器位置停信", "手动停信、自动停信、远方停信", "区内停信、区外停信、通道停信", "无停信概念"], "answer": 0, "explain": "断路器为跳闸位置时始终停信。"}, {"num": "5.1", "part": "纵联保护", "type": "single", "q": "光纤分相差动保护需专门解决的问题是（　）", "options": ["采样同步（同步端与参考端）", "励磁涌流识别", "振荡闭锁", "TV 断线"], "answer": 0, "explain": "通道 ms 级延时要求两侧信息同步交换。"}, {"num": "5.1", "part": "纵联保护", "type": "judge", "q": "纵联保护采用双侧测量原理，不能单侧工作。", "answer": true}, {"num": "5.1", "part": "纵联保护", "type": "judge", "q": "220kV 及以上线路保护按双重化配置：两套独立装置（光差或高频距离+距离+零序+重合闸）。", "answer": true}, {"num": "5.1", "part": "纵联保护", "type": "blank", "q": "光纤通信的缺点：弯曲半径一般不小于____mm、切断连接工艺要求高、分路耦合复杂。", "answer": ["30"], "explain": ""}, {"num": "6.1", "part": "自动重合闸", "type": "single", "q": "自动重合闸应用的前提是（　）", "options": ["所有故障都是永久性故障", "统计表明大部分线路故障（60%～90%）为瞬时性故障", "断路器性能良好", "保护动作可靠"], "answer": 1, "explain": "绝缘子闪络、短时碰线等瞬时故障占 60%～90%。"}, {"num": "6.1", "part": "自动重合闸", "type": "single", "q": "重合于永久性故障的弊端不包括（　）", "options": ["系统再次遭受故障电流冲击", "断路器短时间内两次切断故障电流，工作条件恶劣", "瞬时故障恢复供电", "可能扩大设备损坏"], "answer": 2, "explain": "瞬时故障重合后恢复供电是利，不是弊。"}, {"num": "6.1", "part": "自动重合闸", "type": "single", "q": "手动跳闸后重合闸装置应当（　）", "options": ["立即重合", "延时重合", "闭锁不重合", "隔 5s 重合"], "answer": 2, "explain": "手动跳闸或手动合闸于故障线路基本为永久故障，不应重合。"}, {"num": "6.1", "part": "自动重合闸", "type": "single", "q": "双侧电源\"检同期重合闸\"的正确配合方式是（　）", "options": ["两侧同时检同期合闸", "检无压侧先合、检同期侧后合，检无压侧同时投入同期检定", "两侧同时检无压合闸", "随机选择一侧先合"], "answer": 1, "explain": "检无压侧同时投入同步检定防止误跳；检同期侧不能同时投入无压检定；两侧宜定期轮换。"}, {"num": "6.1", "part": "自动重合闸", "type": "single", "q": "双侧电源重合闸时间整定按最不利情况考虑，即（　）", "options": ["两侧同时跳闸", "本侧保护先跳闸、对侧保护延时跳闸", "对侧先跳闸", "不计保护动作时间"], "answer": 1, "explain": "tARC=(t2.QF+t2.p-t1.p-t1.QF)+tu+裕度。"}, {"num": "6.1", "part": "自动重合闸", "type": "single", "q": "重合闸前加速保护的主要优点不包括（　）", "options": ["能快速切除瞬时性故障", "可能阻止瞬时故障发展为永久性故障", "使用设备少、简单经济", "每个断路器都配备重合闸"], "answer": 3, "explain": "前加速只需装设一套重合闸装置；每个断路器都装是后加速的配置。"}, {"num": "6.1", "part": "自动重合闸", "type": "single", "q": "重合闸后加速保护的应用场合是（　）", "options": ["35kV 及以下发电厂直配线", "35kV 及以上电网或重要负荷的送电线", "只用于电缆线路", "变压器回路"], "answer": 1, "explain": "前加速主要用于 35kV 及以下直配线；后加速用于 35kV 及以上电网。"}, {"num": "6.1", "part": "自动重合闸", "type": "single", "q": "单相重合闸非全相运行期间的主要问题是（　）", "options": ["三相电压不平衡使距离保护拒动", "出现负序、零序分量使零序保护等可能误动，需闭锁或调整", "频率下降", "重合闸拒动"], "answer": 1, "explain": "需闭锁会误动的保护、调整整定值或调整时限。"}, {"num": "6.1", "part": "自动重合闸", "type": "single", "q": "单相重合闸动作时限需要考虑的特殊因素是（　）", "options": ["潜供电流对灭弧的影响", "励磁涌流", "TV 断线", "断路器失灵"], "answer": 0, "explain": "健全相电容耦合与互感电势产生潜供电流，影响故障点熄弧。"}, {"num": "6.1", "part": "自动重合闸", "type": "single", "q": "综合重合闸的四种运行方式是（　）", "options": ["单重、三重、综重、停用", "快速、慢速、检同期、非同期", "前加速、后加速、不加速、停用", "一次、两次、三次、停用"], "answer": 0, "explain": "国内已不考虑综重方式的设计。"}, {"num": "6.1", "part": "自动重合闸", "type": "judge", "q": "重合闸必须在故障点切除之后才允许动作，通常利用线路无电流的特点判别。", "answer": true, "explain": "同时必须考虑对侧切除时间（无全线速动保护时一侧Ⅰ段另一侧Ⅱ段动作）。"}, {"num": "6.1", "part": "自动重合闸", "type": "judge", "q": "母线保护动作后一般要闭锁线路重合闸，母线重合闸几乎不使用。", "answer": true, "explain": "母线故障几乎为永久性故障。"}, {"num": "6.1", "part": "自动重合闸", "type": "blank", "q": "瞬时性故障约占线路故障总数的____%～90%。", "answer": ["60"], "explain": ""}, {"num": "6.1", "part": "自动重合闸", "type": "short", "q": "简述对自动重合闸装置的七条基本要求。", "answer": "①动作迅速（一般 0.5～1.5s），且必须在故障点切除后才允许重合（考虑对侧切除时间）；②不允许任意多次重合，动作次数符合预先规定；③应能与保护配合，实现重合闸前或后加速；④双侧电源线路应考虑电源同步问题（防冲击）；⑤动作后能自动复归，准备好再次动作；⑥手动跳闸时不应重合；⑦断路器不正常状态（如气压、液压降低）时不重合。"}, {"num": "6.1", "part": "自动重合闸", "type": "short", "q": "比较重合闸前加速与后加速的优缺点及应用场合。", "answer": "前加速：任何故障第一次都由电源端保护无时限切除。优点——快速切除瞬时故障、可能阻止其发展为永久故障、母线电压保持 0.6～0.7UN 以上、只需一套装置简单经济；缺点——装 ARC 的断路器动作频繁工作恶劣、永久故障切除可能较慢、ARC 或该断路器拒动停电范围扩大；应用 35kV 及以下直配线。后加速：第一次有选择性跳闸，重合后加速切除永久故障。优点——第一次不扩大停电、永久故障瞬时切除且仍有选择性、不受网络结构限制；缺点——每套断路器都需装重合闸、第一次切除可能带延时；应用 35kV 及以上电网或重要负荷送电线。"}, {"num": "7.1", "part": "变压器保护", "type": "single", "q": "变压器油箱内部的故障不包括（　）", "options": ["绕组相间短路", "绕组匝间短路", "绕组单相接地短路", "套管相间短路"], "answer": 3, "explain": "套管与引出线故障属油箱外部故障。"}, {"num": "7.1", "part": "变压器保护", "type": "single", "q": "瓦斯保护的动作行为是（　）", "options": ["轻瓦斯跳闸、重瓦斯发信号", "轻瓦斯发信号、重瓦斯跳闸", "两者都只发信号", "两者都直接跳闸"], "answer": 1, "explain": "轻瓦斯反映油面降低等轻微异常发信号，重瓦斯反映油箱内严重故障跳闸。"}, {"num": "7.1", "part": "变压器保护", "type": "single", "q": "瓦斯保护的缺点是（　）", "options": ["不灵敏", "动作时间较长且不能反应油箱外部故障", "只能反应相间短路", "需要差动配合"], "answer": 1, "explain": "优点是油箱内所有故障灵敏；缺点动作时间较长、不反应油箱外故障。"}, {"num": "7.1", "part": "变压器保护", "type": "single", "q": "变压器纵差保护的不平衡电流因素中，需要通过\"识别、闭锁\"处理的是（　）", "options": ["接线方式不同", "计算变比与实际变比不同", "励磁涌流", "调压分接头"], "answer": 2, "explain": "前几项通过二次修正/定值考虑处理；励磁涌流需识别并闭锁差动（仍在研究）。"}, {"num": "7.1", "part": "变压器保护", "type": "single", "q": "励磁涌流可达变压器额定电流的（　）", "options": ["1～2 倍", "3～4 倍", "6～8 倍", "10～20 倍"], "answer": 2, "explain": "空载合闸铁芯严重饱和产生 6～8 倍额定电流的励磁涌流。"}, {"num": "7.1", "part": "变压器保护", "type": "single", "q": "励磁涌流的三大特征是（　）", "options": ["对称正弦、无谐波、连续", "偏于时间轴一侧（大直流分量）、谐波含量大、波形有间断", "幅值很小、频率高、对称", "只含基波、对称、连续"], "answer": 1, "explain": "数值大且偏一侧、谐波大、有间断角；三相变压器至少一相有涌流。"}, {"num": "7.1", "part": "变压器保护", "type": "single", "q": "应用最多、最成熟的励磁涌流闭锁措施是（　）", "options": ["间断角原理", "波形对称原理", "二次谐波制动（二次谐波/基波≥15% 闭锁）", "低电压闭锁"], "answer": 2, "explain": "典型闭锁门槛为二次谐波对基波之比 ≥15%。"}, {"num": "7.1", "part": "变压器保护", "type": "single", "q": "比率制动式纵差保护的制动电流通常取（　）", "options": ["两侧电流之和的绝对值 max(|I1'|,|I2'|) 或 |I1'-I2'|/2", "两侧电流之差的绝对值", "额定电流", "负序电流"], "answer": 0, "explain": "动作电流 Id=|I1'+I2'|；制动电流两种定义都有厂家采用。"}, {"num": "7.1", "part": "变压器保护", "type": "single", "q": "配置差动电流速断的原因是（　）", "options": ["内部严重故障时 TA 饱和、高次谐波增大可能影响比率差动快速动作", "防止励磁涌流", "提高外部故障可靠性", "降低定值"], "answer": 0, "explain": "差流速断不受谐波闭锁制约，快速切除内部严重故障。"}, {"num": "7.1", "part": "变压器保护", "type": "single", "q": "变压器零序电流差动的优点是（　）", "options": ["不受励磁涌流和电压分接头调整的影响", "不受 TA 误差影响", "动作更快", "不需要中性点侧 TA"], "answer": 0, "explain": "由中性点侧零序 TA 与星形侧 TA 零序回路构成；但中性点 TA 特性、极性验证还不理想。"}, {"num": "7.1", "part": "变压器保护", "type": "single", "q": "复合电压启动的过电流保护中，负序过电压元件与低电压元件分别反映（　）", "options": ["三相短路、不对称故障", "不对称故障、三相短路", "接地故障、匝间故障", "过负荷、过励磁"], "answer": 1, "explain": "负序过电压反映不对称故障，低电压反映三相短路；负序电压整定 0.06～0.12UN。"}, {"num": "7.1", "part": "变压器保护", "type": "single", "q": "外部故障切除后电压恢复过程中产生励磁涌流的机理是（　）", "options": ["电压突变导致绕组过电压", "铁芯磁通不能突变+剩磁使铁芯严重饱和", "中性点位移", "直流分量叠加"], "answer": 1, "explain": "与空载合闸机理相同：磁通不能突变产生非周期分量，半周后磁通达 2Φm+Φsy，铁芯饱和。"}, {"num": "7.1", "part": "变压器保护", "type": "single", "q": "变压器过励磁保护针对的异常工况是（　）", "options": ["电压升高或频率降低", "电流升高", "负荷波动", "冷却系统故障"], "answer": 0, "explain": "外加电压过高或频率降低引起过励磁。"}, {"num": "7.1", "part": "变压器保护", "type": "judge", "q": "变压器纵差保护中 Yd11 接线两侧电流相位差 30°，微机保护通过全 Y 接入并软件计算完成相位修正。", "answer": true}, {"num": "7.1", "part": "变压器保护", "type": "judge", "q": "电压为峰值（或谷值）时合闸变压器，励磁涌流最小。", "answer": true, "explain": "此时铁芯磁通初始条件最有利。"}, {"num": "7.1", "part": "变压器保护", "type": "judge", "q": "采用二次谐波制动后，变压器合闸于故障时差动保护会延时动作。", "answer": true, "explain": "需等谐波衰减后才能动作，这是涌流闭锁措施的代价。"}, {"num": "7.1", "part": "变压器保护", "type": "blank", "q": "变压器纵差保护理想变比关系为 nTA1·nTA2=____。", "answer": ["nT"], "explain": "两侧 TA 变比与变压器变比满足 nTA1·nTA2=nT 时差动电流为零。"}, {"num": "7.1", "part": "变压器保护", "type": "short", "q": "简述励磁涌流产生的机理、特征及三种闭锁措施。", "answer": "机理：空载合闸或外部故障切除电压恢复时，铁芯磁通不能突变，须产生非周期分量抵偿 -Φm 使磁通从 0 开始，加上剩磁 Φsy，半周后磁通达 2Φm+Φsy，铁芯严重饱和，励磁阻抗降低，出现 6～8 倍额定电流的励磁涌流（电压峰值合闸时涌流最小）。特征：①数值大且偏于时间轴一侧（含大直流分量）；②含大量谐波（二次谐波突出）；③波形有间断角；三相变压器至少一相有涌流。闭锁措施：二次谐波制动（比值≥15% 闭锁，最常用）、波形对称原理、间断角原理。代价：合闸于故障时会延时动作。"}, {"num": "8.1", "part": "母线保护", "type": "single", "q": "母线短路的主要原因包括（　）", "options": ["绝缘子闪络损坏与运行人员误操作", "线路过负荷", "系统振荡", "变压器励磁涌流"], "answer": 0, "explain": "如绝缘子/套管闪络损坏；带地线误合闸、带负荷断隔离开关产生电弧等。"}, {"num": "8.1", "part": "母线保护", "type": "single", "q": "母线完全电流差动保护的动作依据是（　）", "options": ["母线上所有连接元件电流的相量和（KCL）", "母线电压降低", "负序电压升高", "母联电流相位"], "answer": 0, "explain": "正常及外部故障时 ΣI≈0（仅不平衡电流），母线故障时差动电流大。"}, {"num": "8.1", "part": "母线保护", "type": "single", "q": "电流比相式母线保护的优点是（　）", "options": ["动作条件与幅值无关，不要求 TA 变比相同，且不受不平衡电流影响", "动作更快", "不需要 TV", "可以判别故障相"], "answer": 0, "explain": "内部故障各元件电流几乎同相位，外部故障流入流出相位相反。"}, {"num": "8.1", "part": "母线保护", "type": "single", "q": "母联电流比相式母差保护的缺点不包括（　）", "options": ["正常运行时母联断路器必须投入", "动作电流受外部最大不平衡电流影响", "母联断路器与母联 TA 之间短路存在死区", "两母线相继故障时只能切除先故障母线", "运行方式不灵活"], "answer": 4, "explain": "母联电流比相式母差的优点恰恰是运行方式灵活、接线简单。"}, {"num": "8.1", "part": "母线保护", "type": "single", "q": "下列不属于应装设专用母线保护的情况是（　）", "options": ["系统稳定要求母线故障快速切除", "双母线需要有选择性切除故障母线", "断路器切断容量按电抗器后短路选择时", "所有低压母线一律装设"], "answer": 3, "explain": "应根据规程规定的 5 种情况判断，并非所有母线都装专用保护。"}, {"num": "8.1", "part": "母线保护", "type": "single", "q": "断路器失灵保护动作的先后顺序是（　）", "options": ["直接跳全部相邻断路器", "先动作于母联断路器和分段断路器，再视情况切除", "先跳线路对侧", "先发信号延时处理"], "answer": 1, "explain": "失灵保护首先动作于母联和分段断路器；若相邻元件保护已能相继切除，则仅动作于母联/分段。"}, {"num": "8.1", "part": "母线保护", "type": "judge", "q": "断路器失灵保护的误动与母线保护误动一样影响范围广，必须有较高的可靠性。", "answer": true}, {"num": "8.1", "part": "母线保护", "type": "short", "q": "简述断路器失灵保护的主要装设条件与基本要求。", "answer": "装设条件：①线路保护采用近后备且断路器可能拒动；②远后备方式但由其他元件后备切除会扩大停电范围并引起严重后果；③断路器与 TA 之间故障主保护不能切除；④相邻元件远后备灵敏度不够；⑤分相操作断路器按单相接地校验灵敏度满足时；⑥220kV 及以上多母线变电所且失灵保护能缩小停电范围。要求：①高可靠性不应误动；②先动作于母联和分段断路器；③较短延时有选择性切除有关断路器；④故障鉴别与闭锁元件对所在线路末端故障有足够灵敏度。"}];
+const TYPE_NAME = {single:'单选题', judge:'判断题', blank:'填空题', short:'简答题'};
+const $ = id => document.getElementById(id);
+const params = new URLSearchParams(location.search);
+let activeNum = params.get('num') || '';
+let wrong = JSON.parse(localStorage.getItem('jb_wrong') || '[]');
+let list = [], idx = 0, done = 0, right = 0, answered = {}, revealed = {};
+
+function saveWrong(){ localStorage.setItem('jb_wrong', JSON.stringify(wrong)); $('wrongCnt').textContent = wrong.length; }
+function key(q){ return q.type + '|' + q.q; }
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function initFilters(){
+  const parts = [...new Set(QUESTIONS.map(q=>q.part))];
+  const types = [...new Set(QUESTIONS.map(q=>q.type))];
+  $('part').innerHTML = '<option value="all">全部章节</option>' + parts.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('');
+  $('type').innerHTML = '<option value="all">全部题型</option>' + types.map(t=>`<option value="${t}">${TYPE_NAME[t]}</option>`).join('');
+  $('total').textContent = QUESTIONS.length;
+  $('wrongCnt').textContent = wrong.length;
+  const p = params.get('part'), t = params.get('type'), o = params.get('order');
+  if(p) $('part').value = p;
+  if(t) $('type').value = t;
+  if(o) $('order').value = o;
+  if(activeNum){
+    $('scopeNum').textContent = activeNum;
+    $('scope').classList.add('show');
+  }
+}
+
+function start(onlyWrong){
+  let pool = QUESTIONS.slice();
+  if(onlyWrong){ const s = new Set(wrong); pool = pool.filter(q=>s.has(key(q))); if(!pool.length){ alert('错题本为空，先做几题吧'); return; } }
+  else {
+    const p = $('part').value, t = $('type').value;
+    if(p!=='all') pool = pool.filter(q=>q.part===p);
+    if(t!=='all') pool = pool.filter(q=>q.type===t);
+    if(activeNum){
+      const narrowed = pool.filter(q=>q.num===activeNum);
+      if(narrowed.length) pool = narrowed;
+    }
+  }
+  if(!pool.length){ alert('没有符合条件的题目'); return; }
+  if($('order').value==='rand') pool.sort(()=>Math.random()-0.5);
+  list = pool; idx = 0; done = 0; right = 0; answered = {}; revealed = {};
+  $('card').style.display='block'; $('finish').style.display='none';
+  render(); updateStats();
+}
+
+function render(){
+  const q = list[idx];
+  $('badge').textContent = TYPE_NAME[q.type] + ' · ' + q.num;
+  $('badge').className = 'badge ' + (q.type==='judge'?'j':q.type==='blank'?'b':q.type==='short'?'s':'');
+  $('qref').href = '继电保护原理_知识点总结与复习计划.html#sec-' + q.num.replace(/\./g,'-');
+  $('qref').title = '在总结页查看 ' + q.num + ' 的课件要点';
+  $('pos').textContent = `第 ${idx+1} / ${list.length} 题`;
+  $('qtext').textContent = q.q;
+  const area = $('area'); area.innerHTML='';
+  $('fb').className='fb'; $('fb').innerHTML='';
+  $('self').className='self';
+  $('submit').disabled = false; $('reveal').disabled = false;
+
+  if(q.type==='single'){
+    const box=document.createElement('div'); box.className='opts';
+    q.options.forEach((op,i)=>{
+      const lab=document.createElement('label'); lab.className='opt';
+      const inp=document.createElement('input'); inp.type='radio'; inp.name='ans'; inp.value=i;
+      const span=document.createElement('span'); span.textContent=op;
+      lab.append(inp,span); lab.onclick=()=>{ [...box.children].forEach(c=>c.classList.remove('sel')); lab.classList.add('sel'); };
+      box.append(lab);
+    });
+    area.append(box);
+  } else if(q.type==='judge'){
+    const box=document.createElement('div'); box.className='opts';
+    [['正确',true],['错误',false]].forEach(([txt,val])=>{
+      const lab=document.createElement('label'); lab.className='opt';
+      const inp=document.createElement('input'); inp.type='radio'; inp.name='ans'; inp.value=val?'1':'0';
+      const span=document.createElement('span'); span.textContent=txt;
+      lab.append(inp,span); lab.onclick=()=>{ [...box.children].forEach(c=>c.classList.remove('sel')); lab.classList.add('sel'); };
+      box.append(lab);
+    });
+    area.append(box);
+  } else if(q.type==='blank'){
+    const box=document.createElement('div'); box.className='blank';
+    const inp=document.createElement('input'); inp.type='text'; inp.id='blankAns'; inp.placeholder='填入答案（多个空用逗号分隔）';
+    box.append(inp); area.append(box);
+  } else {
+    const ta=document.createElement('textarea'); ta.id='shortAns'; ta.placeholder='先写下自己的答案，再对照参考答案自评';
+    area.append(ta);
+  }
+  if(answered[key(q)]!==undefined){ $('submit').disabled=true; }
+}
+
+function answerFromForm(q){
+  if(q.type==='single'||q.type==='judge'){
+    const el=document.querySelector('input[name=ans]:checked');
+    return el ? (q.type==='judge' ? el.value==='1' : Number(el.value)) : undefined;
+  }
+  if(q.type==='blank'){ const v=$('blankAns').value.trim(); return v? v.split(/[,，;；]/).map(s=>s.trim()).filter(Boolean) : undefined; }
+  const v=$('shortAns').value.trim(); return v? v : undefined;
+}
+
+function isCorrect(q,a){
+  if(a===undefined) return false;
+  if(q.type==='blank'){
+    const norm=s=>String(s).replace(/[\s，,。．.、；;：:]/g,'').toLowerCase();
+    const given=Array.isArray(a)?a:[a], ans=q.answer.map(norm);
+    return ans.every((x,i)=>norm(given[i]||'')===x || (given[i]&&x.includes(norm(given[i]))));
+  }
+  return a===q.answer;
+}
+
+function showFeedback(q, ok, self){
+  const k=key(q);
+  const fb=$('fb');
+  let ansTxt = q.type==='single' ? q.options[q.answer]
+    : q.type==='judge' ? (q.answer?'正确':'错误')
+    : q.type==='blank' ? q.answer.join('、')
+    : q.answer;
+  if(self==='view'){
+    fb.className='fb note';
+    fb.innerHTML='<b>参考答案</b>'+esc(ansTxt)+(q.explain?'<br>'+esc(q.explain):'');
+    if(q.type==='short') $('self').className='self show';
+    $('reveal').disabled=true;
+    return;
+  }
+  answered[k]=ok?1:0;
+  if(self===undefined){
+    fb.className='fb '+(ok?'ok':'bad');
+    fb.innerHTML='<b>'+(ok?'回答正确':'回答错误')+'</b>参考答案：'+esc(ansTxt)+(q.explain?'<br>'+esc(q.explain):'');
+    if(!ok && !wrong.includes(k)) wrong.push(k);
+    if(ok) wrong=wrong.filter(x=>x!==k);
+  } else {
+    fb.className='fb note';
+    fb.innerHTML='<b>参考答案</b>'+esc(ansTxt)+(q.explain?'<br>'+esc(q.explain):'');
+    if(self){ if(!wrong.includes(k)) wrong.push(k); } else wrong=wrong.filter(x=>x!==k);
+  }
+  saveWrong();
+  $('submit').disabled=true; $('reveal').disabled=true;
+  if(q.type==='short') $('self').className='self show';
+}
+
+function checkAnswer(){
+  const q=list[idx], a=answerFromForm(q);
+  if(a===undefined){ alert('请先作答'); return; }
+  if(q.type==='short'){ showFeedback(q,false,'view'); return; }
+  const ok=isCorrect(q,a);
+  if(!answered[key(q)]){ done++; if(ok) right++; }
+  showFeedback(q,ok); updateStats();
+}
+
+function reveal(){
+  const q=list[idx], k=key(q);
+  if(q.type==='short'){ showFeedback(q,false,'view'); return; }
+  if(answered[k]===undefined){ done++; updateStats(); }
+  showFeedback(q,false,undefined);
+}
+
+function selfGrade(ok){
+  const q=list[idx], k=key(q);
+  if(answered[k]===undefined){ done++; if(ok) right++; }
+  else if(ok && answered[k]===0){ right++; }
+  answered[k]=ok?1:0;
+  showFeedback(q,ok,ok); updateStats();
+}
+
+function updateStats(){
+  $('done').textContent=done; $('right').textContent=right;
+  $('acc').textContent=done? Math.round(right/done*100)+'%' : '—';
+  $('progress').style.width=(list.length? idx/list.length*100:0)+'%';
+}
+
+function finish(){
+  $('card').style.display='none'; $('finish').style.display='block';
+  const acc=done? Math.round(right/done*100):0;
+  const wrongList=list.filter(q=>answered[key(q)]===0);
+  $('summary').innerHTML=`<p>本次共 <b>${list.length}</b> 题，已作答 <b>${done}</b> 题，答对 <b>${right}</b> 题，正确率 <b>${acc}%</b>。</p>`
+    + (wrongList.length? `<p>需要回炉的题（${wrongList.length}）：</p><ol class="list">`+wrongList.slice(0,20).map(q=>`<li>${esc(q.q)}</li>`).join('')+'</ol>':'<p>本次全部答对，很好。</p>');
+  $('progress').style.width='100%';
+}
+
+$('start').onclick=()=>start(false);
+$('wrongOnly').onclick=()=>start(true);
+$('clearWrong').onclick=()=>{ if(confirm('确定清空错题本？')){ wrong=[]; saveWrong(); } };
+$('submit').onclick=checkAnswer;
+$('reveal').onclick=reveal;
+$('selfOk').onclick=()=>selfGrade(true);
+$('selfNo').onclick=()=>selfGrade(false);
+$('prev').onclick=()=>{ if(idx>0){ idx--; render(); updateStats(); } };
+$('next').onclick=()=>{ if(idx<list.length-1){ idx++; render(); updateStats(); } else finish(); };
+$('again').onclick=()=>start(false);
+$('clearScope').onclick=()=>{
+  activeNum=''; $('scope').classList.remove('show');
+  const u=new URL(location.href); u.searchParams.delete('num'); history.replaceState(null,'',u);
+  start(false);
+};
+document.addEventListener('keydown',e=>{ if(e.key==='Enter' && !e.shiftKey && document.activeElement.tagName!=='TEXTAREA' && $('card').style.display!=='none'){ e.preventDefault(); if(answered[key(list[idx])]===undefined) checkAnswer(); } });
+initFilters();
+if(params.get('autostart')==='1') start(false);
+</script>
+</body>
+</html>

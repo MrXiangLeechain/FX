@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>期末复习资料 · 课程主页</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--ink:#1f2937;--muted:#5b6472;--line:#e3e8ef;--brand:#1d4ed8;--brand2:#eff6ff;--ok:#15803d;--warn:#c2410c}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.7;overflow-x:hidden}
+#fx{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55}
+.wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:36px 18px 80px}
+
+/* ---- Hero ---- */
+header{position:relative;background:linear-gradient(135deg,#0f2a6b,#1d4ed8 45%,#0e9488);background-size:200% 200%;animation:grad 9s ease infinite;color:#fff;border-radius:18px;padding:34px 34px 30px;margin-bottom:20px;box-shadow:0 10px 30px rgba(29,78,216,.25);overflow:hidden}
+@keyframes grad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+header::after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.08);top:-70px;right:-50px;animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(18px)}}
+header h1{margin:0 0 8px;font-size:30px;letter-spacing:1px;text-shadow:0 2px 12px rgba(0,0,0,.25)}
+header p{margin:4px 0;opacity:.92;font-size:14px}
+.nextexam{display:inline-flex;align-items:center;gap:10px;margin-top:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(4px);border-radius:12px;padding:10px 16px;font-size:14px}
+.nextexam b{font-size:18px;font-variant-numeric:tabular-nums}
+.pulse{width:10px;height:10px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 rgba(74,222,128,.7);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.6)}70%{box-shadow:0 0 0 10px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+
+/* ---- stats ---- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:18px 0 24px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;text-align:center;padding:16px 10px;box-shadow:0 1px 3px rgba(16,24,40,.05);transition:transform .25s}
+.stat:hover{transform:translateY(-4px)}
+.stat .num{font-size:30px;font-weight:800;color:var(--brand);font-variant-numeric:tabular-nums}
+.stat .lbl{font-size:13px;color:var(--muted)}
+
+/* ---- course cards ---- */
+.course{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 3px rgba(16,24,40,.05);display:flex;gap:18px;align-items:center;flex-wrap:wrap;opacity:0;transform:translateY(22px);transition:transform .3s,box-shadow .3s,border-color .3s}
+.course.show{opacity:1;transform:none}
+.course:hover{transform:translateY(-5px);box-shadow:0 14px 30px rgba(29,78,216,.14);border-color:#bfd3fe}
+.accent{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;flex-shrink:0;box-shadow:0 6px 14px rgba(0,0,0,.15)}
+.cbody{flex:1;min-width:280px}
+.cbody h2{margin:0 0 4px;font-size:19px}
+.exam{font-size:13px;color:var(--warn);font-weight:600;margin-bottom:10px}
+.links{display:flex;gap:8px;flex-wrap:wrap}
+.links a{font-size:13px;padding:6px 13px;border:1px solid var(--line);border-radius:8px;background:#f8fafc;color:#334155;text-decoration:none;transition:all .2s}
+.links a:hover{background:var(--brand2);border-color:var(--brand);color:var(--brand);transform:translateY(-2px)}
+.links a.main{background:var(--brand);border-color:var(--brand);color:#fff}
+.links a.main:hover{background:#1e50e0;color:#fff}
+.badge{font-size:12px;font-weight:700;border-radius:99px;padding:4px 12px;white-space:nowrap;background:#ecfdf5;color:var(--ok);border:1px solid #bbf7d0}
+.cd{text-align:center;flex-shrink:0;min-width:96px}
+.cd .d{font-size:32px;font-weight:800;color:var(--brand);font-variant-numeric:tabular-nums;line-height:1.1}
+.cd .d.soon{color:#dc2626}
+.cd .t{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* ---- quiz ---- */
+.quiz{background:linear-gradient(160deg,#fff, #f0f6ff);border:1px solid #cfe0fe;border-radius:16px;padding:22px 24px;margin-top:26px;box-shadow:0 2px 10px rgba(29,78,216,.08)}
+.quiz h3{margin:0 0 4px;font-size:18px}
+.quiz .sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.qq{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.qq .tag{display:inline-block;font-size:11px;background:var(--brand2);color:var(--brand);border-radius:99px;padding:2px 10px;margin-bottom:8px}
+.qq .stem{font-weight:600;margin-bottom:12px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;font-size:14px;padding:10px 14px;border:1.5px solid var(--line);border-radius:10px;background:#fafcff;cursor:pointer;transition:all .18s;font-family:inherit;color:var(--ink)}
+.opt:hover:not(:disabled){border-color:var(--brand);background:var(--brand2);transform:translateX(3px)}
+.opt.right{border-color:#22c55e;background:#f0fdf4}
+.opt.wrong{border-color:#ef4444;background:#fef2f2;animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.qmeta{display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap;gap:10px}
+.streak{font-size:13px;color:var(--muted)}
+.streak b{color:#dc2626;font-size:16px}
+.qbtn{font-size:14px;font-weight:700;padding:8px 20px;border:none;border-radius:10px;background:var(--brand);color:#fff;cursor:pointer;transition:all .2s;font-family:inherit}
+.qbtn:hover{background:#1e50e0;transform:translateY(-2px);box-shadow:0 6px 14px rgba(29,78,216,.3)}
+.qbtn:active{transform:scale(.97)}
+
+.note{background:#fffbeb;border:1px solid #fde68a;color:#78350f;border-radius:12px;padding:12px 15px;font-size:13px;margin-top:24px}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px}
+#totop{position:fixed;right:22px;bottom:24px;width:44px;height:44px;border-radius:50%;background:var(--brand);color:#fff;border:none;font-size:18px;cursor:pointer;box-shadow:0 6px 16px rgba(29,78,216,.35);opacity:0;pointer-events:none;transition:opacity .3s;z-index:5}
+#totop.on{opacity:1;pointer-events:auto}
+#totop:hover{transform:translateY(-3px)}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<div class="wrap">
+
+<header>
+  <h1>📚 期末复习资料站</h1>
+  <p>共 4 门课程 · 702 道练习题 · 173 条公式 · 依据学习通课程课件整理</p>
+  <div class="nextexam"><span class="pulse"></span>下一场考试：<b id="nxName">—</b> 倒计时 <b id="nxCd">--:--:--</b></div>
+</header>
+
+<div class="stats">
+  <div class="stat"><div class="num" data-n="4">0</div><div class="lbl">课程</div></div>
+  <div class="stat"><div class="num" data-n="702">0</div><div class="lbl">练习题</div></div>
+  <div class="stat"><div class="num" data-n="173">0</div><div class="lbl">公式（LaTeX）</div></div>
+  <div class="stat"><div class="num" data-n="706">0</div><div class="lbl">知识点节</div></div>
+</div>
+
+<div class="course" data-date="2026-12-20T09:00:00" data-name="高电压技术">
+  <div class="accent" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">⚡</div>
+  <div class="cbody">
+    <h2>高电压技术</h2>
+    <div class="exam">📅 考试：2026 年 12 月 20 日（最近！）</div>
+    <div class="links">
+      <a class="main" href="gdy/高电压技术_知识点总结与复习计划.html">知识点总结</a>
+      <a href="gdy/高电压技术_练习题库.html">练习题库（123 题）</a>
+      <a href="gdy/高电压技术_公式速查.html">公式速查（29 条）</a>
+      <a href="gdy/高电压技术_公式速查.md">公式 MD</a>
+    </div>
+  </div>
+  <div class="badge">✅ 已完成</div>
+  <div class="cd"><div class="d" id="cd0">--</div><div class="t" id="ct0"></div></div>
+</div>
+
+<div class="course" data-date="2026-12-21T09:00:00" data-name="继电保护原理">
+  <div class="accent" style="background:linear-gradient(135deg,#2563eb,#7c3aed)">🔌</div>
+  <div class="cbody">
+    <h2>继电保护原理</h2>
+    <div class="exam">📅 考试：2026 年 12 月 21 日</div>
+    <div class="links">
+      <a class="main" href="jb/继电保护原理_知识点总结与复习计划.html">知识点总结</a>
+      <a href="jb/继电保护原理_练习题库.html">练习题库（206 题）</a>
+      <a href="jb/继电保护原理_公式速查.html">公式速查（64 条）</a>
+      <a href="jb/继电保护原理_公式速查.md">公式 MD</a>
+    </div>
+  </div>
+  <div class="badge">✅ 已完成</div>
+  <div class="cd"><div class="d" id="cd1">--</div><div class="t" id="ct1"></div></div>
+</div>
+
+<div class="course" data-date="2027-01-05T09:00:00" data-name="电力电子技术">
+  <div class="accent" style="background:linear-gradient(135deg,#059669,#0d9488)">🔋</div>
+  <div class="cbody">
+    <h2>电力电子技术</h2>
+    <div class="exam">📅 考试：2027 年 1 月 5 日</div>
+    <div class="links">
+      <a class="main" href="dldz/电力电子技术_知识点总结与复习计划.html">知识点总结</a>
+      <a href="dldz/电力电子技术_练习题库.html">练习题库（192 题）</a>
+      <a href="dldz/电力电子技术_公式速查.html">公式速查（35 条）</a>
+      <a href="dldz/电力电子技术_公式速查.md">公式 MD</a>
+    </div>
+  </div>
+  <div class="badge">✅ 已完成</div>
+  <div class="cd"><div class="d" id="cd2">--</div><div class="t" id="ct2"></div></div>
+</div>
+
+<div class="course" data-date="2027-01-06T09:00:00" data-name="发电厂电气部分">
+  <div class="accent" style="background:linear-gradient(135deg,#0891b2,#6366f1)">🏭</div>
+  <div class="cbody">
+    <h2>发电厂电气部分</h2>
+    <div class="exam">📅 考试：2027 年 1 月 6 日</div>
+    <div class="links">
+      <a class="main" href="dfc/发电厂电气部分_知识点总结与复习计划.html">知识点总结</a>
+      <a href="dfc/发电厂电气部分_练习题库.html">练习题库（181 题）</a>
+      <a href="dfc/发电厂电气部分_公式速查.html">公式速查（45 条）</a>
+      <a href="dfc/发电厂电气部分_公式速查.md">公式 MD</a>
+    </div>
+  </div>
+  <div class="badge">✅ 已完成</div>
+  <div class="cd"><div class="d" id="cd3">--</div><div class="t" id="ct3"></div></div>
+</div>
+
+<div class="quiz">
+  <h3>🎯 开场热身 · 随机快问</h3>
+  <div class="sub">从四门课的题库里抽的高频考点，点选项立刻判分，连胜会有彩蛋 ⚡</div>
+  <div class="qq">
+    <span class="tag" id="qTag">—</span>
+    <div class="stem" id="qStem">加载中…</div>
+    <div class="opts" id="qOpts"></div>
+    <div class="qmeta">
+      <span class="streak">本轮答题 <b id="qDone">0</b> · 答对 <b id="qOk" style="color:#16a34a">0</b> · 连对 <b id="qStreak">0</b></span>
+      <button class="qbtn" id="qNext">换一题 →</button>
+    </div>
+  </div>
+</div>
+
+<div class="note">
+  使用提示：① 各课练习题库支持按章节/题型筛选、随机顺序、错题本（保存在浏览器本地）；总结页每个知识点后都有「去练习 →」可定向练该节。② 公式速查页可搜索、可一键复制 LaTeX。③ 考试时间按 09:00 估算倒计时，以学校通知为准。
+</div>
+
+<div class="footer">资料由学习通课程课件自动整理生成 · 公式为恢复稿，考试前请对照教材核实</div>
+</div>
+<button id="totop" title="回到顶部">↑</button>
+
+<script>
+/* ---- 背景：连线粒子 ---- */
+const cv=document.getElementById('fx'),cx=cv.getContext('2d');
+let W,H,pts=[];
+function resize(){W=cv.width=innerWidth;H=cv.height=innerHeight;
+  pts=Array.from({length:Math.min(70,Math.floor(W*H/22000))},()=>({
+    x:Math.random()*W,y:Math.random()*H,
+    vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*1.8+.8}));}
+resize();addEventListener('resize',resize);
+(function loop(){
+  cx.clearRect(0,0,W,H);
+  for(const p of pts){p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+    cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fillStyle='#93b4f8';cx.fill();}
+  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+    const a=pts[i],b=pts[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+    if(d<130){cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);
+      cx.strokeStyle='rgba(120,160,240,'+(.35*(1-d/130))+')';cx.stroke();}}
+  requestAnimationFrame(loop);})();
+
+/* ---- 卡片入场 ---- */
+const cards=[...document.querySelectorAll('.course')];
+cards.forEach((c,i)=>setTimeout(()=>c.classList.add('show'),160*i+80));
+
+/* ---- 数字滚动 ---- */
+document.querySelectorAll('.stat .num').forEach(el=>{
+  const n=+el.dataset.n,t0=performance.now();
+  (function step(t){const p=Math.min(1,(t-t0)/1100),e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(n*e);if(p<1)requestAnimationFrame(step);})(t0);});
+
+/* ---- 倒计时 ---- */
+const EX=cards.map(c=>({name:c.dataset.name,date:new Date(c.dataset.date)}));
+function fmt(ms){const s=Math.max(0,Math.floor(ms/1000)),
+  d=Math.floor(s/86400),h=String(Math.floor(s%86400/3600)).padStart(2,'0'),
+  m=String(Math.floor(s%3600/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
+  return {d,str:h+':'+m+':'+ss};}
+function tick(){
+  const now=new Date(),up=EX.filter(e=>e.date>now).sort((a,b)=>a.date-b.date);
+  if(up.length){
+    document.getElementById('nxName').textContent=up[0].name;
+    const f=fmt(up[0].date-now);
+    document.getElementById('nxCd').textContent=f.d+' 天 '+f.str;
+  }else{document.getElementById('nxName').textContent='全部结束，祝好成绩！';document.getElementById('nxCd').textContent='🎉';}
+  EX.forEach((e,i)=>{
+    const d=document.getElementById('cd'+i),t=document.getElementById('ct'+i);
+    if(e.date<=now){d.textContent='0';d.classList.add('soon');t.textContent='已考完';return;}
+    const f=fmt(e.date-now);d.textContent=f.d;
+    if(f.d<=7)d.classList.add('soon');
+    t.textContent=f.d+'天'+f.str+'后开考';});
+}
+tick();setInterval(tick,1000);
+
+/* ---- 随机快问 ---- */
+const BANK=[
+ {c:'高电压技术',q:'汤逊理论适用于哪种放电区域？',o:['低气压短间隙','大气压长间隙','沿面放电','污闪'],a:0},
+ {c:'高电压技术',q:'提高气隙击穿电压最常用的屏障效果最好的极性组合是',o:['正棒—正板','正棒—负板','负棒—正板','负棒—负板'],a:2},
+ {c:'高电压技术',q:'波在架空线路中的传播速度约为',o:['1.5×10⁸ m/s','3×10⁸ m/s','光速的一半以下','视导线而定'],a:1},
+ {c:'高电压技术',q:'避雷器的额定电压应按什么电压选取？',o:['系统最高工作相电压','系统的工频续流','灭弧电压（最大允许工频电压）','雷电冲击电压'],a:2},
+ {c:'继电保护原理',q:'三段式电流保护中，Ⅰ段的可靠系数 Krel′ 一般取',o:['1.05','1.2～1.3','1.5～2','0.9'],a:1},
+ {c:'继电保护原理',q:'距离保护Ⅰ段的保护范围通常为线路全长的',o:['100%','80%～85%','50%','30%'],a:1},
+ {c:'继电保护原理',q:'励磁涌流可达额定电流的倍数约为',o:['1～2 倍','2～3 倍','6～8 倍','10 倍以上且无衰减'],a:2},
+ {c:'继电保护原理',q:'二次谐波制动主要用于防止哪种误动？',o:['区外故障','励磁涌流引起的差动误动','TA 断线','振荡'],a:1},
+ {c:'电力电子技术',q:'单相桥式全控整流电阻性负载输出平均电压 Ud =',o:['0.45U₂','0.9U₂cosα','2.34U₂cosα','1.17U₂'],a:1},
+ {c:'电力电子技术',q:'三相桥式全控整流（大电感负载）Ud =',o:['1.17U₂cosα','0.9U₂','2.34U₂cosα','0.45U₂'],a:2},
+ {c:'电力电子技术',q:'晶闸管通态平均电流定义对应的电流波形是',o:['方波','正弦半波','三角波','锯齿波'],a:1},
+ {c:'电力电子技术',q:'考虑变压器漏抗时换相压降与哪项成正比？',o:['换相电抗与负载电流','滤波电容','负载电阻','输出频率'],a:0},
+ {c:'发电厂电气部分',q:'双母线接线的主要优点不包括',o:['检修母线不停电','运行方式灵活','投资最省','便于扩建'],a:2},
+ {c:'发电厂电气部分',q:'一个半断路器接线（3/2 接线）主要应用于',o:['小型水电站','330kV 及以上超高压枢纽变电所','10kV 厂用电','农网配电'],a:1},
+ {c:'发电厂电气部分',q:'校验导体热稳定用的是什么效应？',o:['电动力效应','短路电流热效应','集肤效应','电晕效应'],a:1},
+ {c:'发电厂电气部分',q:'SF₆ 断路器优良的灭弧性能主要因为 SF₆ 气体',o:['密度小','负电性强，吸收自由电子','无毒无味','价格低'],a:1}
+];
+let qi=-1,done=0,ok=0,streak=0;
+const $=id=>document.getElementById(id);
+function drawQ(){
+  let i;do{i=Math.floor(Math.random()*BANK.length)}while(i===qi&&BANK.length>1);
+  qi=i;const q=BANK[i];
+  $('qTag').textContent=q.c;
+  $('qStem').textContent=q.q;
+  const box=$('qOpts');box.innerHTML='';
+  q.o.forEach((o,k)=>{
+    const b=document.createElement('button');
+    b.className='opt';b.textContent=String.fromCharCode(65+k)+'. '+o;
+    b.onclick=()=>{
+      [...box.children].forEach(x=>x.disabled=true);
+      if(k===q.a){b.classList.add('right');ok++;streak++;
+        if(streak===3)b.textContent+=' 🎉三连！';
+        if(streak===5)b.textContent+=' 🔥火了吗？';}
+      else{b.classList.add('wrong');box.children[q.a].classList.add('right');streak=0;}
+      done++;update();
+    };
+    box.appendChild(b);});
+}
+function update(){$('qDone').textContent=done;$('qOk').textContent=ok;$('qStreak').textContent=streak;}
+$('qNext').onclick=drawQ;
+drawQ();
+
+/* ---- 回到顶部 ---- */
+const tt=$('totop');
+addEventListener('scroll',()=>tt.classList.toggle('on',scrollY>400));
+tt.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+</script>
+</body>
+</html>

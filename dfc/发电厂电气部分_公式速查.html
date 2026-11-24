@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>发电厂电气部分 · 公式速查</title><style>
+:root{--bg:#f7f9fc;--card:#fff;--ink:#1f2937;--muted:#5b6472;--line:#e3e8ef;--brand:#1d4ed8;--brand2:#eff6ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.7}
+.wrap{max-width:1000px;margin:0 auto;padding:30px 18px 70px}
+header{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;border-radius:16px;padding:26px 30px;margin-bottom:18px}
+header h1{margin:0 0 8px;font-size:26px}header p{margin:4px 0;opacity:.92;font-size:14px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:18px}
+.nav .nav-title{font-size:13px;color:var(--muted);margin-right:4px;font-weight:600}
+.nav a{font-size:13px;padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:#f8fafc;color:#334155;text-decoration:none}
+.nav a:hover{background:var(--brand2);border-color:var(--brand);color:var(--brand)}
+.nav a.current{background:var(--brand);border-color:var(--brand);color:#fff}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:18px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+select,input,button{font-family:inherit;font-size:14px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:#fff;color:var(--ink)}
+button{cursor:pointer}button:hover{border-color:var(--brand);color:var(--brand)}
+label{font-size:13px;color:var(--muted);margin-right:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.card.hide{display:none}
+.chead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.chap{font-size:12px;color:var(--muted);background:#f1f5f9;border-radius:99px;padding:2px 9px}
+.name{font-weight:700;color:#1e3a8a;font-size:15px}
+.plain{font-family:Consolas,"Courier New",monospace;font-size:14px;background:#f8fafc;border-left:3px solid var(--brand);padding:8px 11px;border-radius:0 8px 8px 0;margin-bottom:8px;word-break:break-word}
+pre.latex{font-family:Consolas,"Courier New",monospace;font-size:12.5px;color:#334155;background:#f8fafc;border:1px dashed var(--line);border-radius:8px;padding:9px 11px;margin:0;white-space:pre-wrap;word-break:break-all}
+.acts{margin-top:10px;display:flex;gap:8px}
+.note{background:#fffbeb;border:1px solid #fde68a;color:#78350f;border-radius:10px;padding:12px 15px;font-size:14px;margin:12px 0}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+.foot a{color:var(--brand);text-decoration:none}
+.count{font-size:13px;color:var(--muted);margin-left:auto}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.wrap{padding:18px 12px 40px}}
+</style></head><body><div class="wrap">
+<header>
+  <h1>发电厂电气部分 · 公式速查</h1>
+  <p>课件中丢失的公式，按上下文与教材通行写法恢复 · 共 45 条 · 可复制 LaTeX 到笔记软件</p>
+</header>
+<div class="nav" id="siteNav">
+  <span class="nav-title">资料导航</span>
+  <a href="../index.html">🏠 全部课程</a>
+  <a href="发电厂电气部分_知识点总结与复习计划.html">知识点总结</a>
+  <a href="发电厂电气部分_练习题库.html">练习题库</a>
+  <a class="current" href="发电厂电气部分_公式速查.html">公式速查</a>
+  <a href="发电厂电气部分_公式速查.md">公式 Markdown 源文件</a>
+</div>
+<div class="panel">
+  <div class="row">
+    <div><label for="chap">章节</label><select id="chap"><option value="all">全部章节</option><option value="2.1 发热与电动力">2.1 发热与电动力</option><option value="3.1 电弧与灭弧">3.1 电弧与灭弧</option><option value="4.3 主变压器选择">4.3 主变压器选择</option><option value="4.4 限制短路电流">4.4 限制短路电流</option><option value="5.2 厂用负荷计算">5.2 厂用负荷计算</option><option value="6.1 设备选择">6.1 设备选择</option><option value="6.2 互感器">6.2 互感器</option><option value="6.3 电抗器选择">6.3 电抗器选择</option><option value="7.1 安全净距">7.1 安全净距</option></select></div>
+    <div><label for="kw">搜索</label><input id="kw" type="text" placeholder="公式名 / 符号 / LaTeX"></div>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="note">本页是「恢复稿」，不是课件原图。考试前请对照教材或原课件核实，尤其是振荡测量阻抗轨迹、比率制动电流定义、零序方向角等条目。</div>
+</div>
+<div class="grid" id="grid">
+    <div class="card" data-chapter="2.1 发热与电动力" data-text="2.1 发热与电动力 两平行导体电动力 F = 2×10^-7 · i1·i2 · (L/a)   (N) F = 2\times10^{-7}\, i_1 i_2 \frac{L}{a}">
+      <div class="chead"><span class="chap">2.1 发热与电动力</span><span class="name">两平行导体电动力</span></div>
+      <div class="plain">F = 2×10^-7 · i1·i2 · (L/a)   (N)</div>
+      <pre class="latex" id="latex-0">F = 2\times10^{-7}\, i_1 i_2 \frac{L}{a}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(0, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.1 发热与电动力" data-text="2.1 发热与电动力 三相短路最大电动力（中间相） F(max) ≈ √3 × 10^-7 · ish² · (L/a) F_{\max} \approx \sqrt{3}\times10^{-7}\, i_{sh}^2 \frac{L}{a}">
+      <div class="chead"><span class="chap">2.1 发热与电动力</span><span class="name">三相短路最大电动力（中间相）</span></div>
+      <div class="plain">F(max) ≈ √3 × 10^-7 · ish² · (L/a)</div>
+      <pre class="latex" id="latex-1">F_{\max} \approx \sqrt{3}\times10^{-7}\, i_{sh}^2 \frac{L}{a}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(1, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.1 发热与电动力" data-text="2.1 发热与电动力 长期发热温升 τ = τ∞(1 − e^(−t/T)) \tau = \tau_\infty (1-e^{-t/T})">
+      <div class="chead"><span class="chap">2.1 发热与电动力</span><span class="name">长期发热温升</span></div>
+      <div class="plain">τ = τ∞(1 − e^(−t/T))</div>
+      <pre class="latex" id="latex-2">\tau = \tau_\infty (1-e^{-t/T})</pre>
+      <div class="acts">
+        <button onclick="copyLatex(2, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.1 发热与电动力" data-text="2.1 发热与电动力 长期发热校验 Ial ≥ Imax I_{al} \ge I_{\max}">
+      <div class="chead"><span class="chap">2.1 发热与电动力</span><span class="name">长期发热校验</span></div>
+      <div class="plain">Ial ≥ Imax</div>
+      <pre class="latex" id="latex-3">I_{al} \ge I_{\max}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(3, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.1 发热与电动力" data-text="2.1 发热与电动力 短时发热热效应 Qt = ∫ ik² dt  ≤ It²·t Q_k = \int i_k^2\,dt \le I_t^2\, t">
+      <div class="chead"><span class="chap">2.1 发热与电动力</span><span class="name">短时发热热效应</span></div>
+      <div class="plain">Qt = ∫ ik² dt  ≤ It²·t</div>
+      <pre class="latex" id="latex-4">Q_k = \int i_k^2\,dt \le I_t^2\, t</pre>
+      <div class="acts">
+        <button onclick="copyLatex(4, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.1 发热与电动力" data-text="2.1 发热与电动力 母线机械强度校验 σjs ≤ σal（硬铝约 70 MPa） \sigma_{js} \le \sigma_{al}">
+      <div class="chead"><span class="chap">2.1 发热与电动力</span><span class="name">母线机械强度校验</span></div>
+      <div class="plain">σjs ≤ σal（硬铝约 70 MPa）</div>
+      <pre class="latex" id="latex-5">\sigma_{js} \le \sigma_{al}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(5, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.1 电弧与灭弧" data-text="3.1 电弧与灭弧 交流电弧最终熄灭条件 ud(t) ≥ ur(t) u_d(t) \ge u_r(t)">
+      <div class="chead"><span class="chap">3.1 电弧与灭弧</span><span class="name">交流电弧最终熄灭条件</span></div>
+      <div class="plain">ud(t) ≥ ur(t)</div>
+      <pre class="latex" id="latex-6">u_d(t) \ge u_r(t)</pre>
+      <div class="acts">
+        <button onclick="copyLatex(6, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.1 电弧与灭弧" data-text="3.1 电弧与灭弧 双断口电压分配（不均压） U1 ≈ (2/3)U，U2 ≈ (1/3)U U_1 \approx \tfrac{2}{3}U,\quad U_2 \approx \tfrac{1}{3}U">
+      <div class="chead"><span class="chap">3.1 电弧与灭弧</span><span class="name">双断口电压分配（不均压）</span></div>
+      <div class="plain">U1 ≈ (2/3)U，U2 ≈ (1/3)U</div>
+      <pre class="latex" id="latex-7">U_1 \approx \tfrac{2}{3}U,\quad U_2 \approx \tfrac{1}{3}U</pre>
+      <div class="acts">
+        <button onclick="copyLatex(7, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.1 电弧与灭弧" data-text="3.1 电弧与灭弧 双断口电压分配（装均压电容后） U1 ≈ U2 ≈ U/2 U_1 \approx U_2 \approx \frac{U}{2}">
+      <div class="chead"><span class="chap">3.1 电弧与灭弧</span><span class="name">双断口电压分配（装均压电容后）</span></div>
+      <div class="plain">U1 ≈ U2 ≈ U/2</div>
+      <pre class="latex" id="latex-8">U_1 \approx U_2 \approx \frac{U}{2}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(8, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.1 电弧与灭弧" data-text="3.1 电弧与灭弧 全开断时间 tbr = 固有分闸时间 tin + 燃弧时间 ta t_{br} = t_{in} + t_a">
+      <div class="chead"><span class="chap">3.1 电弧与灭弧</span><span class="name">全开断时间</span></div>
+      <div class="plain">tbr = 固有分闸时间 tin + 燃弧时间 ta</div>
+      <pre class="latex" id="latex-9">t_{br} = t_{in} + t_a</pre>
+      <div class="acts">
+        <button onclick="copyLatex(9, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.1 电弧与灭弧" data-text="3.1 电弧与灭弧 断路器速度等级 tbr &lt; 0.08s 快速；0.08~0.12s 中速；&gt; 0.12s 低速 t_{br}&lt;0.08\,s\ \text{快速}">
+      <div class="chead"><span class="chap">3.1 电弧与灭弧</span><span class="name">断路器速度等级</span></div>
+      <div class="plain">tbr &lt; 0.08s 快速；0.08~0.12s 中速；&gt; 0.12s 低速</div>
+      <pre class="latex" id="latex-10">t_{br}&lt;0.08\,s\ \text{快速}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(10, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.3 主变压器选择" data-text="4.3 主变压器选择 单元接线主变容量 ST = 1.1·PG·(1 − kp) / cosΦ S_T = 1.1\,P_G (1-k_p)/\cos\Phi">
+      <div class="chead"><span class="chap">4.3 主变压器选择</span><span class="name">单元接线主变容量</span></div>
+      <div class="plain">ST = 1.1·PG·(1 − kp) / cosΦ</div>
+      <pre class="latex" id="latex-11">S_T = 1.1\,P_G (1-k_p)/\cos\Phi</pre>
+      <div class="acts">
+        <button onclick="copyLatex(11, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.3 主变压器选择" data-text="4.3 主变压器选择 发电机电压母线主变容量（剩余功率送出） S ≈ Σ[SGi(1−kp)]/cosφ − Smin S \approx \sum_i \frac{S_{Gi}(1-k_p)}{\cos\varphi} - S_{\min}">
+      <div class="chead"><span class="chap">4.3 主变压器选择</span><span class="name">发电机电压母线主变容量（剩余功率送出）</span></div>
+      <div class="plain">S ≈ Σ[SGi(1−kp)]/cosφ − Smin</div>
+      <pre class="latex" id="latex-12">S \approx \sum_i \frac{S_{Gi}(1-k_p)}{\cos\varphi} - S_{\min}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(12, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.3 主变压器选择" data-text="4.3 主变压器选择 发电机电压母线主变容量（最大机倒送） S ≈ Smax − Σ[SGi(1−kp)]/cosφ（其余机组） S \approx S_{\max} - \sum_{i\ne m}\frac{S_{Gi}(1-k_p)}{\cos\varphi}">
+      <div class="chead"><span class="chap">4.3 主变压器选择</span><span class="name">发电机电压母线主变容量（最大机倒送）</span></div>
+      <div class="plain">S ≈ Smax − Σ[SGi(1−kp)]/cosφ（其余机组）</div>
+      <pre class="latex" id="latex-13">S \approx S_{\max} - \sum_{i\ne m}\frac{S_{Gi}(1-k_p)}{\cos\varphi}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(13, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.4 限制短路电流" data-text="4.4 限制短路电流 出线电抗器电压损失 ΔU% = (Imax/IN)·XL%·sinφ ≤ 5% \Delta U\% = \frac{I_{\max}}{I_N} X_L\% \sin\varphi \le 5\%">
+      <div class="chead"><span class="chap">4.4 限制短路电流</span><span class="name">出线电抗器电压损失</span></div>
+      <div class="plain">ΔU% = (Imax/IN)·XL%·sinφ ≤ 5%</div>
+      <pre class="latex" id="latex-14">\Delta U\% = \frac{I_{\max}}{I_N} X_L\% \sin\varphi \le 5\%</pre>
+      <div class="acts">
+        <button onclick="copyLatex(14, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.4 限制短路电流" data-text="4.4 限制短路电流 母线残压校验 ΔUre% = (I″/IN)·XL% ≥ 60%~70% \Delta U_{re}\% = \frac{I&#x27;&#x27;}{I_N} X_L\% \ge (60\sim70)\%">
+      <div class="chead"><span class="chap">4.4 限制短路电流</span><span class="name">母线残压校验</span></div>
+      <div class="plain">ΔUre% = (I″/IN)·XL% ≥ 60%~70%</div>
+      <pre class="latex" id="latex-15">\Delta U_{re}\% = \frac{I&#x27;&#x27;}{I_N} X_L\% \ge (60\sim70)\%</pre>
+      <div class="acts">
+        <button onclick="copyLatex(15, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.4 限制短路电流" data-text="4.4 限制短路电流 所需电抗标幺值 x*L = x*Σ − x*Σ′（x*Σ = Id/I″） x^{*}_{L} = x^{*}_{\Sigma} - x^{*\prime}_{\Sigma}">
+      <div class="chead"><span class="chap">4.4 限制短路电流</span><span class="name">所需电抗标幺值</span></div>
+      <div class="plain">x*L = x*Σ − x*Σ′（x*Σ = Id/I″）</div>
+      <pre class="latex" id="latex-16">x^{*}_{L} = x^{*}_{\Sigma} - x^{*\prime}_{\Sigma}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(16, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.4 限制短路电流" data-text="4.4 限制短路电流 电抗器百分电抗换算 XL(%) = x*L · (IN/Id) × 100% X_L\% = x^{*}_{L}\cdot\frac{I_N}{I_d}\times100\%">
+      <div class="chead"><span class="chap">4.4 限制短路电流</span><span class="name">电抗器百分电抗换算</span></div>
+      <div class="plain">XL(%) = x*L · (IN/Id) × 100%</div>
+      <pre class="latex" id="latex-17">X_L\% = x^{*}_{L}\cdot\frac{I_N}{I_d}\times100\%</pre>
+      <div class="acts">
+        <button onclick="copyLatex(17, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.4 限制短路电流" data-text="4.4 限制短路电流 出线电抗器百分电抗取值 XK% = 3%~6% X_K\% = (3\sim6)\%">
+      <div class="chead"><span class="chap">4.4 限制短路电流</span><span class="name">出线电抗器百分电抗取值</span></div>
+      <div class="plain">XK% = 3%~6%</div>
+      <pre class="latex" id="latex-18">X_K\% = (3\sim6)\%</pre>
+      <div class="acts">
+        <button onclick="copyLatex(18, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="5.2 厂用负荷计算" data-text="5.2 厂用负荷计算 换算系数法 S = Σ (K·P) / (η·cosφ) S = \sum \frac{K P}{\eta\cos\varphi}">
+      <div class="chead"><span class="chap">5.2 厂用负荷计算</span><span class="name">换算系数法</span></div>
+      <div class="plain">S = Σ (K·P) / (η·cosφ)</div>
+      <pre class="latex" id="latex-19">S = \sum \frac{K P}{\eta\cos\varphi}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(19, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="5.2 厂用负荷计算" data-text="5.2 厂用负荷计算 轴功率法 S = Km·Pmax/(η·cosφ) + ΣSL（Km 新建 0.9、扩建 0.95） S = \frac{K_m P_{\max}}{\eta\cos\varphi} + \Sigma S_L">
+      <div class="chead"><span class="chap">5.2 厂用负荷计算</span><span class="name">轴功率法</span></div>
+      <div class="plain">S = Km·Pmax/(η·cosφ) + ΣSL（Km 新建 0.9、扩建 0.95）</div>
+      <pre class="latex" id="latex-20">S = \frac{K_m P_{\max}}{\eta\cos\varphi} + \Sigma S_L</pre>
+      <div class="acts">
+        <button onclick="copyLatex(20, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="5.2 厂用负荷计算" data-text="5.2 厂用负荷计算 修配厂负荷折算 P = 0.14·ΣP + 0.4·ΣP5 P = 0.14\Sigma P + 0.4\Sigma P_5">
+      <div class="chead"><span class="chap">5.2 厂用负荷计算</span><span class="name">修配厂负荷折算</span></div>
+      <div class="plain">P = 0.14·ΣP + 0.4·ΣP5</div>
+      <pre class="latex" id="latex-21">P = 0.14\Sigma P + 0.4\Sigma P_5</pre>
+      <div class="acts">
+        <button onclick="copyLatex(21, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.1 设备选择" data-text="6.1 设备选择 额定电压选择 Ualm ≥ USN（Ualm ≈ 1.1~1.15 UN） U_{alm} \ge U_{SN}">
+      <div class="chead"><span class="chap">6.1 设备选择</span><span class="name">额定电压选择</span></div>
+      <div class="plain">Ualm ≥ USN（Ualm ≈ 1.1~1.15 UN）</div>
+      <pre class="latex" id="latex-22">U_{alm} \ge U_{SN}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(22, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.1 设备选择" data-text="6.1 设备选择 额定电流选择 IN ≥ Imax I_N \ge I_{\max}">
+      <div class="chead"><span class="chap">6.1 设备选择</span><span class="name">额定电流选择</span></div>
+      <div class="plain">IN ≥ Imax</div>
+      <pre class="latex" id="latex-23">I_N \ge I_{\max}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(23, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.1 设备选择" data-text="6.1 设备选择 发电机回路最大持续工作电流 Imax = 1.05·IGN I_{\max} = 1.05\,I_{GN}">
+      <div class="chead"><span class="chap">6.1 设备选择</span><span class="name">发电机回路最大持续工作电流</span></div>
+      <div class="plain">Imax = 1.05·IGN</div>
+      <pre class="latex" id="latex-24">I_{\max} = 1.05\,I_{GN}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(24, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.1 设备选择" data-text="6.1 设备选择 海拔修正 每增加 100 m，最高工作电压降低 1% \Delta U = 1\%\,/\,100\,m">
+      <div class="chead"><span class="chap">6.1 设备选择</span><span class="name">海拔修正</span></div>
+      <div class="plain">每增加 100 m，最高工作电压降低 1%</div>
+      <pre class="latex" id="latex-25">\Delta U = 1\%\,/\,100\,m</pre>
+      <div class="acts">
+        <button onclick="copyLatex(25, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.1 设备选择" data-text="6.1 设备选择 热稳定校验 Qt ≤ It²·t Q_k \le I_t^2\, t">
+      <div class="chead"><span class="chap">6.1 设备选择</span><span class="name">热稳定校验</span></div>
+      <div class="plain">Qt ≤ It²·t</div>
+      <pre class="latex" id="latex-26">Q_k \le I_t^2\, t</pre>
+      <div class="acts">
+        <button onclick="copyLatex(26, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.1 设备选择" data-text="6.1 设备选择 动稳定校验 ies ≥ ish  或  Ies ≥ Ish i_{es} \ge i_{sh}\ \text{或}\ I_{es} \ge I_{sh}">
+      <div class="chead"><span class="chap">6.1 设备选择</span><span class="name">动稳定校验</span></div>
+      <div class="plain">ies ≥ ish  或  Ies ≥ Ish</div>
+      <pre class="latex" id="latex-27">i_{es} \ge i_{sh}\ \text{或}\ I_{es} \ge I_{sh}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(27, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.1 设备选择" data-text="6.1 设备选择 开断计算时间 tk′ = tpr1 + tin（主保护动作时间+固有分闸时间） t_k&#x27; = t_{pr1} + t_{in}">
+      <div class="chead"><span class="chap">6.1 设备选择</span><span class="name">开断计算时间</span></div>
+      <div class="plain">tk′ = tpr1 + tin（主保护动作时间+固有分闸时间）</div>
+      <pre class="latex" id="latex-28">t_k&#x27; = t_{pr1} + t_{in}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(28, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.1 设备选择" data-text="6.1 设备选择 热效应计算时间 tk = tpr + tbr（后备保护+全开断时间） t_k = t_{pr} + t_{br}">
+      <div class="chead"><span class="chap">6.1 设备选择</span><span class="name">热效应计算时间</span></div>
+      <div class="plain">tk = tpr + tbr（后备保护+全开断时间）</div>
+      <pre class="latex" id="latex-29">t_k = t_{pr} + t_{br}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(29, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.2 互感器" data-text="6.2 互感器 TA 额定电流比 kI = I1N/I2N = N2/N1 k_I = \frac{I_{1N}}{I_{2N}} = \frac{N_2}{N_1}">
+      <div class="chead"><span class="chap">6.2 互感器</span><span class="name">TA 额定电流比</span></div>
+      <div class="plain">kI = I1N/I2N = N2/N1</div>
+      <pre class="latex" id="latex-30">k_I = \frac{I_{1N}}{I_{2N}} = \frac{N_2}{N_1}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(30, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.2 互感器" data-text="6.2 互感器 TA 电流误差 fi = (kI·I2 − I1)/I1 × 100% f_i = \frac{k_I I_2 - I_1}{I_1}\times100\%">
+      <div class="chead"><span class="chap">6.2 互感器</span><span class="name">TA 电流误差</span></div>
+      <div class="plain">fi = (kI·I2 − I1)/I1 × 100%</div>
+      <pre class="latex" id="latex-31">f_i = \frac{k_I I_2 - I_1}{I_1}\times100\%</pre>
+      <div class="acts">
+        <button onclick="copyLatex(31, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.2 互感器" data-text="6.2 互感器 TA 额定容量 S2N = I2N² · Z2N S_{2N} = I_{2N}^2 Z_{2N}">
+      <div class="chead"><span class="chap">6.2 互感器</span><span class="name">TA 额定容量</span></div>
+      <div class="plain">S2N = I2N² · Z2N</div>
+      <pre class="latex" id="latex-32">S_{2N} = I_{2N}^2 Z_{2N}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(32, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.2 互感器" data-text="6.2 互感器 TA 准确级保证条件 Z2L ≤ Z2N Z_{2L} \le Z_{2N}">
+      <div class="chead"><span class="chap">6.2 互感器</span><span class="name">TA 准确级保证条件</span></div>
+      <div class="plain">Z2L ≤ Z2N</div>
+      <pre class="latex" id="latex-33">Z_{2L} \le Z_{2N}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(33, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.2 互感器" data-text="6.2 互感器 TA 二次负载组成 Z2 = Σra + rc + rre（仪表/继电器电阻+电缆+接触电阻） Z_2 = \Sigma r_a + r_c + r_{re}">
+      <div class="chead"><span class="chap">6.2 互感器</span><span class="name">TA 二次负载组成</span></div>
+      <div class="plain">Z2 = Σra + rc + rre（仪表/继电器电阻+电缆+接触电阻）</div>
+      <pre class="latex" id="latex-34">Z_2 = \Sigma r_a + r_c + r_{re}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(34, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.3 电抗器选择" data-text="6.3 电抗器选择 百分电抗定义 XL% = XK/XN × 100%，XN = UN/(√3·IN) X_L\% = \frac{X_K}{X_N}\times100\%,\ X_N=\frac{U_N}{\sqrt3 I_N}">
+      <div class="chead"><span class="chap">6.3 电抗器选择</span><span class="name">百分电抗定义</span></div>
+      <div class="plain">XL% = XK/XN × 100%，XN = UN/(√3·IN)</div>
+      <pre class="latex" id="latex-35">X_L\% = \frac{X_K}{X_N}\times100\%,\ X_N=\frac{U_N}{\sqrt3 I_N}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(35, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.3 电抗器选择" data-text="6.3 电抗器选择 限流要求所需电抗 x*Σ = Id/I″，x*L = x*Σ − x*Σ′ x^{*}_{\Sigma} = \frac{I_d}{I&#x27;&#x27;},\quad x^{*}_{L}=x^{*}_{\Sigma}-x^{*\prime}_{\Sigma}">
+      <div class="chead"><span class="chap">6.3 电抗器选择</span><span class="name">限流要求所需电抗</span></div>
+      <div class="plain">x*Σ = Id/I″，x*L = x*Σ − x*Σ′</div>
+      <pre class="latex" id="latex-36">x^{*}_{\Sigma} = \frac{I_d}{I&#x27;&#x27;},\quad x^{*}_{L}=x^{*}_{\Sigma}-x^{*\prime}_{\Sigma}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(36, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.3 电抗器选择" data-text="6.3 电抗器选择 电压损失校验 ΔU% = (Imax/IN)·XL%·sinφ ≤ 5% \Delta U\% = \frac{I_{\max}}{I_N} X_L\% \sin\varphi \le 5\%">
+      <div class="chead"><span class="chap">6.3 电抗器选择</span><span class="name">电压损失校验</span></div>
+      <div class="plain">ΔU% = (Imax/IN)·XL%·sinφ ≤ 5%</div>
+      <pre class="latex" id="latex-37">\Delta U\% = \frac{I_{\max}}{I_N} X_L\% \sin\varphi \le 5\%</pre>
+      <div class="acts">
+        <button onclick="copyLatex(37, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.3 电抗器选择" data-text="6.3 电抗器选择 母线残压校验 ΔUre% = (I″/IN)·XL% ≥ 60%~70% \Delta U_{re}\% = \frac{I&#x27;&#x27;}{I_N} X_L\% \ge (60\sim70)\%">
+      <div class="chead"><span class="chap">6.3 电抗器选择</span><span class="name">母线残压校验</span></div>
+      <div class="plain">ΔUre% = (I″/IN)·XL% ≥ 60%~70%</div>
+      <pre class="latex" id="latex-38">\Delta U_{re}\% = \frac{I&#x27;&#x27;}{I_N} X_L\% \ge (60\sim70)\%</pre>
+      <div class="acts">
+        <button onclick="copyLatex(38, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="7.1 安全净距" data-text="7.1 安全净距 B1 带电部分至栅状遮栏 B1 = A1 + 750 mm B_1 = A_1 + 750\,\mathrm{mm}">
+      <div class="chead"><span class="chap">7.1 安全净距</span><span class="name">B1 带电部分至栅状遮栏</span></div>
+      <div class="plain">B1 = A1 + 750 mm</div>
+      <pre class="latex" id="latex-39">B_1 = A_1 + 750\,\mathrm{mm}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(39, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="7.1 安全净距" data-text="7.1 安全净距 B2 带电部分至网状遮栏 B2 = A1 + 70 + 30 mm B_2 = A_1 + 70 + 30\,\mathrm{mm}">
+      <div class="chead"><span class="chap">7.1 安全净距</span><span class="name">B2 带电部分至网状遮栏</span></div>
+      <div class="plain">B2 = A1 + 70 + 30 mm</div>
+      <pre class="latex" id="latex-40">B_2 = A_1 + 70 + 30\,\mathrm{mm}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(40, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="7.1 安全净距" data-text="7.1 安全净距 B3 带电部分至板状遮栏 B3 = A1 + 30 mm B_3 = A_1 + 30\,\mathrm{mm}">
+      <div class="chead"><span class="chap">7.1 安全净距</span><span class="name">B3 带电部分至板状遮栏</span></div>
+      <div class="plain">B3 = A1 + 30 mm</div>
+      <pre class="latex" id="latex-41">B_3 = A_1 + 30\,\mathrm{mm}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(41, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="7.1 安全净距" data-text="7.1 安全净距 C 值（无遮栏裸导体至地面） 屋外 C = A1 + 2300 + 200 mm；屋内 C = A1 + 2300 mm C_{\text{屋外}} = A_1 + 2300 + 200\,\mathrm{mm}">
+      <div class="chead"><span class="chap">7.1 安全净距</span><span class="name">C 值（无遮栏裸导体至地面）</span></div>
+      <div class="plain">屋外 C = A1 + 2300 + 200 mm；屋内 C = A1 + 2300 mm</div>
+      <pre class="latex" id="latex-42">C_{\text{屋外}} = A_1 + 2300 + 200\,\mathrm{mm}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(42, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="7.1 安全净距" data-text="7.1 安全净距 D 值（平行无遮栏裸导体间） 屋外 D = A1 + 1800 + 200 mm；屋内 D = A1 + 1800 mm D_{\text{屋外}} = A_1 + 1800 + 200\,\mathrm{mm}">
+      <div class="chead"><span class="chap">7.1 安全净距</span><span class="name">D 值（平行无遮栏裸导体间）</span></div>
+      <div class="plain">屋外 D = A1 + 1800 + 200 mm；屋内 D = A1 + 1800 mm</div>
+      <pre class="latex" id="latex-43">D_{\text{屋外}} = A_1 + 1800 + 200\,\mathrm{mm}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(43, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="7.1 安全净距" data-text="7.1 安全净距 E 值（出线套管至屋外路面） 35kV 及以下 E = 4000 mm；≥60kV 取 E = A1 + 3500 mm E_{\le35kV} = 4000\,\mathrm{mm}">
+      <div class="chead"><span class="chap">7.1 安全净距</span><span class="name">E 值（出线套管至屋外路面）</span></div>
+      <div class="plain">35kV 及以下 E = 4000 mm；≥60kV 取 E = A1 + 3500 mm</div>
+      <pre class="latex" id="latex-44">E_{\le35kV} = 4000\,\mathrm{mm}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(44, this)">复制 LaTeX</button>
+      </div>
+    </div></div>
+<div class="foot">
+  配套资料：<a href="发电厂电气部分_知识点总结与复习计划.html">知识点总结与复习计划</a> ·
+  <a href="发电厂电气部分_练习题库.html">章节练习题库</a> ·
+  <a href="发电厂电气部分_公式速查.md">Markdown 源文件</a> ·
+  <a href="../index.html">返回课程主页</a><br>
+</div>
+</div>
+<script>
+function apply(){
+  const c=document.getElementById('chap').value;
+  const k=document.getElementById('kw').value.trim().toLowerCase();
+  let n=0;
+  document.querySelectorAll('.card').forEach(el=>{
+    const ok=(c==='all'||el.dataset.chapter===c)&&(!k||el.dataset.text.toLowerCase().includes(k));
+    el.classList.toggle('hide',!ok); if(ok)n++;
+  });
+  document.getElementById('count').textContent='显示 '+n+' / 45 条';
+}
+document.getElementById('chap').onchange=apply;
+document.getElementById('kw').oninput=apply;
+function copyLatex(i, btn){
+  const text=document.getElementById('latex-'+i).textContent;
+  const done=(ok)=>{const old=btn.textContent;btn.textContent=ok?'已复制 ✓':'请手动选中复制';setTimeout(()=>btn.textContent=old,1600);};
+  if(navigator.clipboard&&location.protocol!=='file:'){navigator.clipboard.writeText(text).then(()=>done(true)).catch(()=>fallback(text,done));}
+  else fallback(text,done);
+}
+function fallback(text,done){
+  const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  let ok=false;
+  try{ok=!!document.execCommand('copy');}catch(e){ok=false;}
+  ta.remove();
+  done(ok);
+}
+apply();
+</script></body></html>

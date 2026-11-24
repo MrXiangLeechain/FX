@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>高电压技术 · 章节练习题库</title>
+<style>
+:root{
+  --bg:#f6f8fb; --card:#ffffff; --ink:#1f2937; --muted:#6b7280;
+  --line:#e5e7eb; --brand:#2563eb; --brand-soft:#eff6ff;
+  --ok:#15803d; --ok-bg:#ecfdf5; --bad:#b91c1c; --bad-bg:#fef2f2;
+  --warn:#b45309; --warn-bg:#fffbeb;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;line-height:1.7}
+.wrap{max-width:960px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:26px;margin:0 0 6px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:22px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(16,24,40,.04)}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+label{font-size:13px;color:var(--muted);margin-right:6px}
+select,button,input[type=text],textarea{font-family:inherit;font-size:14px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:#fff;color:var(--ink)}
+select{min-width:150px}
+button{cursor:pointer;background:#fff;transition:.15s}
+button:hover{border-color:var(--brand);color:var(--brand)}
+button.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+button.primary:hover{background:#1d4ed8;color:#fff}
+button:disabled{opacity:.45;cursor:not-allowed}
+.stats{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:var(--muted)}
+.stats b{color:var(--ink);font-size:16px}
+.bar{height:8px;background:#eef2f7;border-radius:99px;overflow:hidden;margin-top:14px}
+.bar>i{display:block;height:100%;background:var(--brand);width:0;transition:width .25s}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.badge{font-size:12px;padding:3px 9px;border-radius:99px;background:var(--brand-soft);color:var(--brand);font-weight:600}
+.badge.j{background:#f5f3ff;color:#6d28d9}
+.badge.b{background:#fff7ed;color:#c2410c}
+.badge.s{background:#ecfeff;color:#0e7490}
+.qtext{font-size:17px;font-weight:600;margin:6px 0 16px;white-space:pre-wrap}
+.opts{display:grid;gap:9px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:9px;padding:10px 12px;cursor:pointer;background:#fff}
+.opt:hover{border-color:var(--brand)}
+.opt.sel{border-color:var(--brand);background:var(--brand-soft)}
+.opt.correct{border-color:var(--ok);background:var(--ok-bg)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt input{margin-top:5px}
+.blank{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.blank input{min-width:220px;flex:1}
+textarea{width:100%;min-height:130px;resize:vertical}
+.fb{margin-top:14px;border-radius:9px;padding:12px 14px;font-size:14px;display:none}
+.fb.ok{display:block;background:var(--ok-bg);color:var(--ok);border:1px solid #bbf7d0}
+.fb.bad{display:block;background:var(--bad-bg);color:var(--bad);border:1px solid #fecaca}
+.fb.note{display:block;background:var(--warn-bg);color:var(--warn);border:1px solid #fde68a}
+.fb b{display:block;margin-bottom:4px}
+.act{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.self{margin-top:12px;display:none;gap:10px}
+.self.show{display:flex}
+.foot{color:var(--muted);font-size:12px;text-align:center;margin-top:26px}
+.foot a{color:var(--brand);text-decoration:none}.foot a:hover{text-decoration:underline}
+.nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:16px}
+.nav .nav-title{font-size:13px;color:var(--muted);margin-right:4px;font-weight:600}
+.nav a{font-size:13px;padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:#f8fafc;color:#334155;text-decoration:none}
+.nav a:hover{background:var(--brand-soft);border-color:var(--brand);color:var(--brand)}
+.nav a.current{background:var(--brand);border-color:var(--brand);color:#fff}
+.scope{margin-top:12px;font-size:13px;color:var(--muted);display:none;align-items:center;gap:8px}
+.scope.show{display:flex}
+.scope b{color:var(--brand)}
+.scope button{padding:3px 9px;font-size:12px}
+.qref{font-size:12px;padding:3px 9px;border:1px solid #bfdbfe;border-radius:99px;background:var(--brand-soft);color:var(--brand);text-decoration:none;white-space:nowrap}
+.qref:hover{background:var(--brand);color:#fff;text-decoration:none}
+.list{margin:0;padding-left:20px}
+.list li{margin:4px 0}
+@media(max-width:600px){.wrap{padding:18px 12px 40px}h1{font-size:22px}.qtext{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>高电压技术 · 章节练习题库</h1>
+  <div class="sub">依据课程 52 个知识点整理 · 支持单选 / 判断 / 填空 / 简答 · 自动记录错题（保存在本机浏览器）</div>
+
+  <div class="nav" id="siteNav">
+    <span class="nav-title">资料导航</span>
+  <a href="../index.html">🏠 全部课程</a>
+    <a href="高电压技术_知识点总结与复习计划.html">知识点总结</a>
+    <a class="current" href="高电压技术_练习题库.html">练习题库（123题）</a>
+    <a href="高电压技术_公式速查.html">公式速查</a>
+    <a href="高电压技术_公式速查.md">公式 Markdown 源文件</a>
+  </div>
+
+  <div class="panel">
+    <div class="row">
+      <div><label for="part">章节</label><select id="part"></select></div>
+      <div><label for="type">题型</label><select id="type"></select></div>
+      <div><label for="order">顺序</label><select id="order"><option value="seq">按顺序</option><option value="rand">随机</option></select></div>
+      <button id="start" class="primary">开始练习</button>
+      <button id="wrongOnly">只练错题</button>
+      <button id="clearWrong">清空错题本</button>
+    </div>
+    <div class="scope" id="scope">
+      当前范围：知识点 <b id="scopeNum"></b>（来自总结页跳转）
+      <button id="clearScope">清除范围，练全部</button>
+    </div>
+    <div class="stats">
+      <span>题库总数 <b id="total">0</b></span>
+      <span>本次已答 <b id="done">0</b></span>
+      <span>答对 <b id="right">0</b></span>
+      <span>正确率 <b id="acc">—</b></span>
+      <span>错题本 <b id="wrongCnt">0</b></span>
+    </div>
+    <div class="bar"><i id="progress"></i></div>
+  </div>
+
+  <div class="panel" id="card" style="display:none">
+    <div class="qhead">
+      <div class="badge" id="badge"></div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <a class="qref" id="qref" href="#">回总结原文 ↗</a>
+        <div id="pos" style="color:var(--muted);font-size:13px"></div>
+      </div>
+    </div>
+    <div class="qtext" id="qtext"></div>
+    <div id="area"></div>
+    <div class="fb" id="fb"></div>
+    <div class="self" id="self">
+      <button id="selfOk">✅ 我答对了</button>
+      <button id="selfNo">❌ 没答好</button>
+    </div>
+    <div class="act">
+      <button id="submit" class="primary">提交答案</button>
+      <button id="reveal">查看参考答案</button>
+      <button id="prev">上一题</button>
+      <button id="next">下一题</button>
+    </div>
+  </div>
+
+  <div class="panel" id="finish" style="display:none">
+    <h3 style="margin-top:0">本次练习完成</h3>
+    <div id="summary"></div>
+    <button id="again" class="primary">再练一次</button>
+  </div>
+
+  <div class="foot">
+    配套资料：<a href="高电压技术_知识点总结与复习计划.html">知识点总结与复习计划</a> ·
+    <a href="高电压技术_公式速查.html">公式速查网页版</a> ·
+    <a href="高电压技术_公式速查.md">公式 Markdown 源文件</a><br>
+    提示：简答题为主观题，请先看参考答案再自评；错题本仅存于当前浏览器。
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [{"type": "single", "part": "第一部分", "num": "1.1", "q": "在外电场作用下，电介质沿电场方向两端形成等量异号电荷的现象称为（ ）。", "options": ["游离", "极化", "击穿", "老化"], "answer": 1, "explain": "极化是束缚电荷位移/转向造成对外呈现极性；游离是产生自由带电质点。"}, {"type": "single", "part": "第一部分", "num": "1.1", "q": "极化所需时间最短的极化形式是（ ）。", "options": ["电子式极化", "离子式极化", "偶极子极化", "空间电荷极化"], "answer": 0, "explain": "电子式极化约10^-15 s，存在于一切电介质中，几乎无损耗。"}, {"type": "single", "part": "第一部分", "num": "1.1", "q": "下列属于有能量损耗的极化形式是（ ）。", "options": ["电子式极化", "离子式极化", "偶极子转向极化", "以上都不是"], "answer": 2, "explain": "偶极子转向要克服分子间作用力，能量不能回收；夹层/空间电荷极化也有损耗。"}, {"type": "single", "part": "第一部分", "num": "1.2", "q": "气体电介质的相对介电常数在工程上通常近似取（ ）。", "options": ["0", "1", "2~4", ">10"], "answer": 1, "explain": "气体密度小，单位体积分子数少，εr≈1，且随温度升高而下降。"}, {"type": "single", "part": "第一部分", "num": "1.2", "q": "用作电容器的绝缘介质，希望其相对介电常数（ ）。", "options": ["较大", "较小", "为零", "不考虑"], "answer": 0, "explain": "电容与εr成正比，εr越大同样体积下电容量越大。"}, {"type": "single", "part": "第一部分", "num": "1.3", "q": "固体和液体电介质的电导通常主要是指（ ）。", "options": ["电子电导", "离子电导", "表面电导", "电泳电导"], "answer": 1, "explain": "出现大量电子电导意味着已发生碰撞电离、介质击穿，正常运行时以离子电导为主。"}, {"type": "single", "part": "第一部分", "num": "1.4", "q": "表征电介质在交流电压下损耗大小、且只取决于材料本身与尺寸无关的物理量是（ ）。", "options": ["电阻率", "电导率", "介质损耗角正切tanδ", "击穿场强"], "answer": 2, "explain": "tanδ仅取决于材料特性，是判断介质品质的重要指标。"}, {"type": "single", "part": "第一部分", "num": "1.4", "q": "若介质损耗主要由电导引起，常用的等值电路是（ ）。", "options": ["串联等值电路", "并联等值电路", "纯电容电路", "纯电阻电路"], "answer": 1, "explain": "电导损耗为主用并联等值电路；极化及引线电阻损耗为主常用串联等值电路。"}, {"type": "judge", "part": "第一部分", "num": "1.1", "q": "电子式极化具有弹性，外电场去掉后正负电荷作用中心立即重合，因此没有能量损耗。（ ）", "answer": true, "explain": "正确。电子式极化时间极短、弹性极化、几乎无损耗，且温度影响不大。"}, {"type": "judge", "part": "第一部分", "num": "1.1", "q": "空间电荷极化是束缚电荷位移形成的，极化速度很快。（ ）", "answer": false, "explain": "错误。空间电荷极化由自由离子/电子移动形成，过程缓慢，常在10^-1 s以上甚至数小时。"}, {"type": "judge", "part": "第一部分", "num": "1.2", "q": "对极性液体电介质，电场频率越高，相对介电常数越小。（ ）", "answer": true, "explain": "正确。频率升高时转向极化、夹层极化跟不上电场变化，只剩电子式极化起作用。"}, {"type": "judge", "part": "第一部分", "num": "1.3", "q": "亲水性物质的表面电导通常可能大于憎水性物质。（ ）", "answer": true, "explain": "正确。表面电导主要由吸附水分和污物引起，亲水表面更易吸附水膜。"}, {"type": "judge", "part": "第一部分", "num": "1.4", "q": "介质损耗角正切tanδ随试品尺寸增大而增大。（ ）", "answer": false, "explain": "错误。tanδ只取决于材料特性，与材料尺寸无关。"}, {"type": "blank", "part": "第一部分", "num": "1.1", "q": "电介质按化学结构可分为非极性电介质、弱极性电介质、极性电介质和________电介质。", "answer": ["离子性"], "explain": "按状态分为固体、液体、气体；按化学结构分为非极性、弱极性、极性、离子性。"}, {"type": "blank", "part": "第一部分", "num": "1.1", "q": "电介质的四种基本极化形式是电子式极化、离子式极化、偶极子（转向）极化和________极化。", "answer": ["空间电荷"], "explain": "夹层极化属于空间电荷极化的一种。"}, {"type": "blank", "part": "第一部分", "num": "1.3", "q": "固体电介质的电导分为体积电导和________电导。", "answer": ["表面"], "explain": "体积电导由材料纯度与极性决定；表面电导主要由表面水分和污物引起。"}, {"type": "blank", "part": "第一部分", "num": "1.4", "q": "电介质的能量损耗由电导损耗和________损耗两部分组成。", "answer": ["极化"], "explain": "极性介质的偶极子转向、夹层极化等会引起极化损耗。"}, {"type": "short", "part": "第一部分", "num": "1.1", "q": "简述电介质四种极化形式的形成机理及主要特点。", "answer": "①电子式极化：电子相对原子核位移，约10^-15 s，存在于一切介质，弹性、无损耗、温度影响小；②离子式极化：正负离子相对位移，约10^-13 s，弹性、几乎无损耗，随温度升高而增强；③偶极子（转向）极化：极性分子顺电场转向，10^-10~10^-2 s，有损耗，与频率、温度关系密切；④空间电荷极化：自由离子/电子移动在电极或界面堆积，10^-1 s以上甚至数小时，有损耗，夹层极化属于此类。", "explain": "答题抓住机理、时间尺度、损耗、温度/频率依赖关系四个维度。"}, {"type": "short", "part": "第一部分", "num": "1.2", "q": "为什么电介质极化后电容器的电容量会增大？", "answer": "外电场使介质内部正负电荷发生位移或转向，在介质表面出现束缚电荷，削弱了介质中的场强。在极板间电压和距离不变时，为维持原场强电源必须向极板补充更多电荷，极板电荷量增大，故C=Q/U增大，相对介电常数εr随之增大。", "explain": "关键是束缚电荷削弱电场→电源补充电荷→Q增大→C增大。"}, {"type": "short", "part": "第一部分", "num": "1.4", "q": "简述极性液体电介质的tanδ随温度和频率变化的规律。", "answer": "温度较低时损耗小；温度升高极化损耗增大，tanδ出现极大值；继续升温极化损耗减小快于电导损耗增加，tanδ下降；温度再高时电导损耗急剧增大，tanδ重新上升。频率升高时极化跟不上电场变化，极化程度变小，tanδ减小。", "explain": "记忆“低—峰—谷—升”四段式，频率升高总体减小。"}, {"type": "single", "part": "第二部分", "num": "2.1.1", "q": "气体中带电质点的来源主要有（ ）。", "options": ["气体分子本身电离和金属表面电离", "只有碰撞电离", "只有热电离", "只有光电离"], "answer": 0, "explain": "一是气体分子（或原子）电离，二是固体/液体金属电极表面电离。"}, {"type": "single", "part": "第二部分", "num": "2.1.1", "q": "气体碰撞电离中，最主要的碰撞质点是（ ）。", "options": ["电子", "正离子", "负离子", "中性分子"], "answer": 0, "explain": "电子自由行程长、质量小易被加速，是碰撞电离的主要质点。"}, {"type": "single", "part": "第二部分", "num": "2.1.1", "q": "SF6 气体耐电强度很高，主要原因是（ ）。", "options": ["分子量很大", "含F电负性强，易形成负离子抑制放电", "密度大", "不可压缩"], "answer": 1, "explain": "电子附着形成负离子，减少自由电子数，对放电起抑制作用。"}, {"type": "single", "part": "第二部分", "num": "2.1.2", "q": "均匀电场中，电场不均匀系数 f 等于（ ）。", "options": ["0", "1", "2", ">2"], "answer": 1, "explain": "f=最大场强/平均场强；f=1为均匀电场，f≤2为稍不均匀，f>2为极不均匀。"}, {"type": "single", "part": "第二部分", "num": "2.1.2", "q": "汤逊理论适用于（ ）。", "options": ["高气压长间隙", "低气压短间隙（δd较小）", "任何间隙", "极不均匀电场"], "answer": 1, "explain": "δd较小时由电子碰撞电离和正离子撞击阴极表面电离主导，符合汤逊理论与巴申定律。"}, {"type": "single", "part": "第二部分", "num": "2.1.2", "q": "流注理论相比汤逊理论，特别考虑了（ ）。", "options": ["电子碰撞电离", "空间电荷对电场的畸变和光电离", "正离子撞击阴极", "电极材料影响"], "answer": 1, "explain": "流注理论强调空间光电离形成二次电子崩，与主崩汇合形成流注通道。"}, {"type": "single", "part": "第二部分", "num": "2.1.3", "q": "能否出现稳定的电晕放电，是区分（ ）的标志。", "options": ["均匀电场与稍不均匀电场", "极不均匀电场与稍不均匀电场", "气体与液体介质", "直流与交流"], "answer": 1, "explain": "电晕放电是极不均匀电场所特有的自持放电形式。"}, {"type": "single", "part": "第二部分", "num": "2.1.4", "q": "对于棒—板间隙，正棒—负板相比负棒—正板（ ）。", "options": ["起晕电压高、击穿电压低", "起晕电压低、击穿电压高", "两者完全相同", "只影响电晕颜色"], "answer": 0, "explain": "正棒时棒附近正空间电荷削弱棒极场强→起晕电压高；板极附近场强加强→击穿电压低。"}, {"type": "single", "part": "第二部分", "num": "2.1.5", "q": "沿面闪络电压与同样距离的纯空气间隙击穿电压相比（ ）。", "options": ["更高", "更低", "相等", "无法比较"], "answer": 1, "explain": "固体表面吸附水分、粗糙、气隙等因素畸变电场，使闪络电压低于纯气隙击穿电压。"}, {"type": "single", "part": "第二部分", "num": "2.1.5", "q": "滑闪放电是（ ）绝缘结构特有的放电形式。", "options": ["具有强垂直（法线）分量电场", "均匀电场", "弱法线分量电场", "纯液体介质"], "answer": 0, "explain": "强垂直分量使带电质点撞击介质表面局部升温，形成热电离通道（类似先导）。"}, {"type": "judge", "part": "第二部分", "num": "2.1.1", "q": "固体介质中的破坏性放电会使介质强度永久丧失，而气体或液体中一般只暂时丧失。（ ）", "answer": true, "explain": "正确。这是固体与气体/液体击穿的重要区别。"}, {"type": "judge", "part": "第二部分", "num": "2.1.1", "q": "带电质点的复合一定会抑制气体放电的发展。（ ）", "answer": false, "explain": "错误。复合时产生的光辐射可能引起光电离，有时反而促进放电发展。"}, {"type": "judge", "part": "第二部分", "num": "2.1.3", "q": "负电晕的电流脉冲重复机制比正电晕更强。（ ）", "answer": true, "explain": "正确。尖极为负时形成的负电晕，其有规则的重复电流脉冲机制比正电晕强。"}, {"type": "judge", "part": "第二部分", "num": "2.1.3", "q": "采用分裂导线可在保持截面积的同时增大导线表面积，降低表面场强，从而减少电晕损耗。（ ）", "answer": true, "explain": "正确。分裂导线是高压线路抑制电晕的常用措施。"}, {"type": "judge", "part": "第二部分", "num": "2.1.4", "q": "长间隙负棒—正板放电中，只有负先导才可能形成迎面先导。（ ）", "answer": true, "explain": "课件原文：只有负先导接近板极时，才由板极发出迎面（正）先导；正先导比负先导更易发展，故负先导可诱发迎面先导。"}, {"type": "judge", "part": "第二部分", "num": "2.1.5", "q": "雷电冲击作用时间短，绝缘子表面来不及烘干，因此不易形成湿闪。（ ）", "answer": true, "explain": "正确。湿闪需要一定时间形成烘干区，冲击电压下往往来不及。"}, {"type": "blank", "part": "第二部分", "num": "2.1.1", "q": "金属表面电离（阴极发射电子）的四种形式为热电子发射、强场发射、正离子撞击阴极和________。", "answer": ["光电效应"], "explain": "也称光电子发射，用短波长光照射阴极表面产生电子发射。"}, {"type": "blank", "part": "第二部分", "num": "2.1.1", "q": "气体中带电质点消失的三种主要方式是到达电极中和电量、扩散和________。", "answer": ["复合"], "explain": "复合是异号电荷质点相遇中和还原为中性质点的过程。"}, {"type": "blank", "part": "第二部分", "num": "2.1.2", "q": "电子在电场中由阴极奔向阳极，碰撞电离使电子数按 2^n 规律猛增，这种现象称为________。", "answer": ["电子崩"], "explain": "电子位于崩头，崩体内主要是正离子和未电离的气体分子。"}, {"type": "blank", "part": "第二部分", "num": "2.1.4", "q": "长气隙放电发展过程中，离子浓度关系为：主放电通道 > ________ > 流注通道。", "answer": ["先导", "先导通道"], "explain": "先导具有热电离过程，离子浓度高于流注通道，低于主放电通道。"}, {"type": "blank", "part": "第二部分", "num": "2.1.5", "q": "沿固体介质表面发展的放电称为沿面放电，若发展到对面电极则称为________。", "answer": ["闪络", "沿面闪络"], "explain": "闪络电压通常低于同样距离的纯空气间隙击穿电压。"}, {"type": "short", "part": "第二部分", "num": "2.1.2", "q": "简述汤逊理论与流注理论的主要区别。", "answer": "适用条件不同：汤逊理论适用于低气压、短间隙（δd较小），流注理论适用于高气压、长间隙（δd较大）。机理不同：汤逊理论认为自持放电依靠电子碰撞电离（α过程）和正离子撞击阴极产生二次电子（γ过程）；流注理论强调空间电荷使电场畸变、光电离产生二次电子崩，与主电子崩汇合形成流注通道。现象解释不同：汤逊理论不能解释放电时间短、与阴极材料无关、放电有分支通道等现象，流注理论可以。", "explain": "抓住“适用条件—二次电子来源—能否解释实验现象”三条主线。"}, {"type": "short", "part": "第二部分", "num": "2.1.4", "q": "什么是极性效应？以棒—板间隙说明正棒与负棒的起晕电压和击穿电压差异及原因。", "answer": "极性效应指极不对称的不均匀电场气隙中，棒极极性不同导致起晕电压和击穿电压不同的现象，根源是空间电荷对外电场的畸变作用不同。正棒—负板：电子进入棒极，棒附近留下正空间电荷，削弱棒极场强，故起晕电压高；同时加强板极附近场强，故击穿电压低。负棒—正板：棒附近正空间电荷加强棒极场强，起晕电压低；板极附近场强被削弱，击穿电压高。", "explain": "记忆口诀：正棒“难起晕、易击穿”；负棒“易起晕、难击穿”。"}, {"type": "short", "part": "第二部分", "num": "2.1.5", "q": "提高气隙沿面闪络电压的常用方法有哪些？（至少答出5点）", "answer": "①屏障（伞裙，增大爬电距离）；②屏蔽（改善电极形状，均匀表面电位分布）；③加电容极板（电容围屏）；④消除电极与绝缘体间的窄气隙；⑤绝缘表面涂覆憎水性涂料（如硅橡胶）；⑥改变表面电阻率（涂半导体漆）；⑦强制固定沿面各点电位（环形电极加分压器）；⑧加装均压环等附加金具；⑨采用合成/半导体釉绝缘子等阻抗调节措施。", "explain": "答题时按“增大爬距—均匀电位—改善表面—消除气隙”分类记忆。"}, {"type": "single", "part": "第二部分", "num": "2.2.1", "q": "气隙的击穿时间不包括下列哪一项？（ ）", "options": ["升压时间", "统计时延", "放电形成时延", "电压保持时间"], "answer": 3, "explain": "击穿时间 t = t1（升压时间）+ ts（统计时延）+ tf（放电形成时延）。"}, {"type": "single", "part": "第二部分", "num": "2.2.2", "q": "我国标准雷电冲击电压波形参数为（ ）。", "options": ["1.2/50 μs", "250/2500 μs", "8/20 μs", "10/350 μs"], "answer": 0, "explain": "视在波前时间T1=1.2 μs±30%，视在半峰值时间T2=50 μs±20%。"}, {"type": "single", "part": "第二部分", "num": "2.2.2", "q": "标准操作冲击电压波形参数为（ ）。", "options": ["1.2/50 μs", "250/2500 μs", "8/20 μs", "1/10 μs"], "answer": 1, "explain": "波前时间Tp=250 μs±20%，半峰值时间T2=2500 μs±60%。"}, {"type": "single", "part": "第二部分", "num": "2.2.2", "q": "关于伏秒特性，下列说法正确的是（ ）。", "options": ["均匀电场伏秒特性整体上翘", "极不均匀电场伏秒特性仅在很小范围上翘", "避雷器伏秒特性应位于被保护设备伏秒特性下方", "伏秒特性与波形无关"], "answer": 2, "explain": "为可靠保护，避雷器伏秒特性必须在被保护绝缘伏秒特性之下；均匀/稍不均匀电场只在短时区域上翘，极不均匀电场整体上翘。"}, {"type": "single", "part": "第二部分", "num": "2.2.3", "q": "外绝缘破坏性放电电压与大气校正因数kT的关系是（ ）。", "options": ["U = U0 / kT", "U = U0 × kT", "U = U0 + kT", "与kT无关"], "answer": 1, "explain": "kT = kd（空气密度校正因数）× kh（空气湿度校正因数），U = U0·kT。"}, {"type": "judge", "part": "第二部分", "num": "2.2.2", "q": "50%击穿电压能全面反映气隙在冲击电压下的击穿特性。（ ）", "answer": false, "explain": "错误。50%击穿电压只是50%伏秒特性上的一点，不能全面反映冲击击穿电压。"}, {"type": "judge", "part": "第二部分", "num": "2.2.2", "q": "极不均匀电场的伏秒特性曲线在较大范围内左上翘。（ ）", "answer": true, "explain": "正确；均匀与稍不均匀电场只在很小范围内上翘，右边较平坦。"}, {"type": "blank", "part": "第二部分", "num": "2.2.1", "q": "气隙击穿时间由升压时间、统计时延和________时延三部分组成。", "answer": ["放电形成"], "explain": "t = t1 + ts + tf。"}, {"type": "blank", "part": "第二部分", "num": "2.2.3", "q": "大气校正因数kT等于空气密度校正因数kd与空气________校正因数kh的乘积。", "answer": ["湿度"], "explain": "U = U0·kd·kh。"}, {"type": "short", "part": "第二部分", "num": "2.2.2", "q": "什么是伏秒特性？它在绝缘配合中有什么应用？", "answer": "在波形不变、幅值不同的冲击电压作用下，气隙击穿电压与击穿时间之间的对应关系称为伏秒特性；由于放电时间有分散性，实际为上下包络线间的带状区域，常用50%伏秒特性表示。应用：避雷器与变压器等被保护设备的绝缘配合中，要求避雷器的伏秒特性位于被保护设备伏秒特性的下方，才能保证在各种波前时间下都能可靠保护。", "explain": "关键词：波形不变、击穿电压—击穿时间关系、50%伏秒特性、避雷器在下。"}, {"type": "single", "part": "第二部分", "num": "2.2.5", "q": "操作冲击电压作用下，极不均匀电场正极性U50%与负极性相比（ ）。", "options": ["正极性更低，更危险", "负极性更低，更危险", "二者相等", "无法比较"], "answer": 0, "explain": "各种不均匀电场中正极性操作冲击U50%均比负极性低，正极性更危险。"}, {"type": "single", "part": "第二部分", "num": "2.2.5", "q": "极不均匀间隙在正极性操作冲击下，U50%随波前时间变化呈（ ）。", "options": ["直线上升", "U形曲线", "单调下降", "水平线"], "answer": 1, "explain": "存在临界波前时间与临界击穿电压；左侧受放电时延影响，右侧受空间电荷改善电场影响。"}, {"type": "single", "part": "第二部分", "num": "2.2.5", "q": "操作冲击下棒—板间隙长度超过约（ ）时，U50%出现明显饱和现象。", "options": ["0.5 m", "1 m", "3 m", "5 m"], "answer": 3, "explain": "间隙超过5 m后，随距离增大U50%不再明显变化。"}, {"type": "single", "part": "第二部分", "num": "2.2.6", "q": "提高气隙击穿电压的两条主要途径是（ ）。", "options": ["改善电场分布；改变气体状态和种类", "增大间隙；升高温度", "减小气压；增大电极面积", "增加湿度；增大电极面积"], "answer": 0, "explain": "一是使电场尽可能均匀，二是削弱气体中的电离过程（如增高气压、采用高耐电强度气体）。"}, {"type": "single", "part": "第二部分", "num": "2.2.6", "q": "在持续电压下用屏障提高棒—板间隙击穿电压时，屏障最佳位置约为（ ）。", "options": ["d1/d = 0.05", "d1/d = 0.2", "d1/d = 0.5", "d1/d = 0.8"], "answer": 1, "explain": "d1为屏障离棒极距离，d为间隙距离，最佳约0.2。"}, {"type": "judge", "part": "第二部分", "num": "2.2.6", "q": "细线效应在雷电冲击电压下同样能显著提高击穿电压。（ ）", "answer": false, "explain": "错误。细线效应依靠电晕空间电荷改善电场，雷电冲击下作用时间太短，来不及积聚空间电荷。"}, {"type": "judge", "part": "第二部分", "num": "2.2.6", "q": "高气压下，电极面积越大，气隙击穿电压越低，这是面积效应。（ ）", "answer": true, "explain": "正确。面积增大使阴极表面粗糙处发生强场发射导致击穿的概率增大。"}, {"type": "blank", "part": "第二部分", "num": "2.2.5", "q": "操作冲击下U50%随波前时间呈U形曲线，曲线最低点对应的波前时间称为________。", "answer": ["临界波前时间"], "explain": "对应的最低击穿电压称为临界击穿电压。"}, {"type": "blank", "part": "第二部分", "num": "2.2.6", "q": "屏障的作用是阻挡________，利用其产生的电场改变原电场分布。", "answer": ["空间电荷"], "explain": "屏障本身击穿电压意义不大。"}, {"type": "short", "part": "第二部分", "num": "2.2.6", "q": "简述提高气体间隙击穿电压的主要方法。", "answer": "①改善电场分布：改变电极形状（增大曲率半径、屏蔽）、利用电晕空间电荷改善电场（细线效应，仅持续电压有效）、在极不均匀电场中设置屏障；②改变气体状态与种类：增高气压（削弱电离，遵循巴申定律并在高压下趋于饱和）、采用高耐电强度气体（如SF6）或混合气体、抽成高真空；③其他：减小间隙距离、电极表面光洁处理与老炼、合理的电极面积设计。", "explain": "按“改善电场—改变气体—表面与结构”三类作答。"}, {"type": "single", "part": "第三部分", "num": "3.1.1", "q": "固体电介质三种击穿形式中，击穿时间最短的是（ ）。", "options": ["电击穿", "热击穿", "电化学击穿", "水树击穿"], "answer": 0, "explain": "电击穿时间<热击穿时间<电化学击穿时间。"}, {"type": "single", "part": "第三部分", "num": "3.1.1", "q": "击穿电压低、击穿时间长、击穿前介质发热，且与电压作用时间和环境温度有关的是（ ）。", "options": ["电击穿", "热击穿", "电化学击穿", "树枝化击穿"], "answer": 1, "explain": "热击穿由介质损耗发热积累引起。"}, {"type": "single", "part": "第三部分", "num": "3.1.2", "q": "固体介质在幅值较低或作用时间较短的冲击电压反复作用下，击穿电压逐步下降的现象称为（ ）。", "options": ["热老化", "累积效应", "电晕", "电击穿"], "answer": 1, "explain": "不完全击穿逐步延伸，每次加压使损伤向前发展。"}, {"type": "single", "part": "第三部分", "num": "3.1.2", "q": "固体介质在各种电压作用下，击穿电压由高到低的顺序一般为（ ）。", "options": ["冲击>直流>交流", "交流>直流>冲击", "直流>冲击>交流", "三者相同"], "answer": 0, "explain": "课件给出：冲击电压下>直流电压下>交流电压下。"}, {"type": "judge", "part": "第三部分", "num": "3.1.1", "q": "电化学击穿的击穿电压低于热击穿，且击穿时间更长。（ ）", "answer": true, "explain": "正确。长期电压作用下介质劣化导致击穿场强下降。"}, {"type": "judge", "part": "第三部分", "num": "3.1.2", "q": "对固体介质，交流电压频率越高，热击穿电压越低。（ ）", "answer": true, "explain": "正确。频率越高介质损耗发热越严重。"}, {"type": "blank", "part": "第三部分", "num": "3.1.1", "q": "固体电介质的三种击穿形式为电击穿、热击穿和________击穿。", "answer": ["电化学"], "explain": "按击穿时间排序：电击穿<热击穿<电化学击穿。"}, {"type": "blank", "part": "第三部分", "num": "3.1.3", "q": "提高固体电介质击穿电压的三方面措施是改进绝缘设计、改进制造工艺和________。", "answer": ["改善运行条件"], "explain": "改进设计包括组合绝缘、改善电极形状与接触条件；改进工艺主要消除杂质水分；运行条件主要是防潮。"}, {"type": "short", "part": "第三部分", "num": "3.1.1", "q": "比较固体电介质电击穿、热击穿与电化学击穿的机理和特点。", "answer": "电击穿：少量带电质点积聚动能碰撞电离产生电子崩，击穿电压高、时间短、击穿前不发热，与电场均匀程度有关而与周围环境温度无关。热击穿：介质损耗发热使温度升高、局部放电加剧而丧失绝缘，击穿电压低、时间长、击穿前发热，与电压作用时间、温度、散热条件有关。电化学击穿：长期加电压导致介质劣化，击穿场强下降，击穿电压低于热击穿、时间可长达数月数年。时间关系：电击穿<热击穿<电化学击穿。", "explain": "按机理—击穿电压高低—时间长短—影响因素四维对比。"}, {"type": "single", "part": "第三部分", "num": "3.2.2", "q": "水分在液体电介质中以三种状态存在，对击穿电压影响最大的是（ ）。", "options": ["溶解态", "悬浮态", "沉淀态", "蒸发态"], "answer": 1, "explain": "悬浮态水滴易沿电场方向排成“小桥”，显著降低击穿电压。"}, {"type": "single", "part": "第三部分", "num": "3.2.2", "q": "关于工程用液体电介质，下列说法正确的是（ ）。", "options": ["电场越均匀击穿电压越高", "电场越不均匀击穿电压反而越高", "电场均匀程度无影响", "与电场无关只与温度有关"], "answer": 1, "explain": "工程用油中杂质形成小桥需要一定条件；极不均匀电场中局部放电引起油扰动，反而不易成桥，故击穿电压较高。"}, {"type": "single", "part": "第三部分", "num": "3.2.3", "q": "在电极间放置液体绝缘板以机械阻隔杂质“小桥”的措施称为（ ）。", "options": ["覆盖", "绝缘层", "极间障", "吸附剂法"], "answer": 2, "explain": "极间障不宜太厚，离曲率半径小的电极约0.2倍间隙距离时效果最好。"}, {"type": "single", "part": "第三部分", "num": "3.1.4", "q": "绝缘受潮后，电导和介质损耗增大，会进一步促使发热并加速（ ）。", "options": ["电击穿", "热老化", "机械老化", "电化学击穿"], "answer": 1, "explain": "水分与污物形成弱电解质离解出离子，使损耗增大、发热加剧，加速热老化。"}, {"type": "judge", "part": "第三部分", "num": "3.2.1", "q": "纯净液体电介质的电击穿电压通常比气体高。（ ）", "answer": true, "explain": "正确。液体分子排列紧密，击穿场强高于气体。"}, {"type": "blank", "part": "第三部分", "num": "3.2.1", "q": "工程用液体电介质的击穿通常是由杂质引起的________击穿。", "answer": ["气泡", "小桥", "气泡击穿"], "explain": "杂质极化后首尾相连形成小桥，发热汽化产生气泡导致击穿。"}, {"type": "short", "part": "第三部分", "num": "3.2.3", "q": "提高液体电介质击穿电压的常用方法有哪些？", "answer": "①提高并保持油质：压力过滤法滤除纤维、碳粒等杂质，真空喷雾法除去水分和气体，吸附剂法吸附杂质；②覆盖：在电极上加零点几毫米薄绝缘层，阻止杂质与电极接触、抑制小桥发展；③绝缘层：几毫米到几十毫米，用于不均匀电场中包在小曲率半径电极上；④极间障：在极间放置液体绝缘板机械阻隔小桥，面积足够大，距小曲率电极约0.2倍间隙距离时最佳。", "explain": "按“净化—覆盖—绝缘层—极间障”四层记忆。"}, {"type": "single", "part": "第四部分", "num": "4.1.1", "q": "用兆欧表测量绝缘电阻时，通常以加压（ ）时的电阻值作为绝缘电阻。", "options": ["15 s", "60 s", "10 min", "1 min"], "answer": 1, "explain": "直流加压后吸收电流需衰减，一般加压60 s后读数。"}, {"type": "single", "part": "第四部分", "num": "4.1.1", "q": "吸收比是指（ ）。", "options": ["R60s / R15s", "R10min / R1min", "R15s / R60s", "R1min / R10min"], "answer": 0, "explain": "吸收比K=R60/R15；极化指数为R10min/R1min。"}, {"type": "single", "part": "第四部分", "num": "4.1.2", "q": "测量泄漏电流时通常采用负极性直流电压，原因是（ ）。", "options": ["负极性更容易发现绝缘缺陷", "负极性设备更简单", "负极性电流更小", "负极性更安全"], "answer": 0, "explain": "绝缘受潮时水分子带正电，加正电压会把水分排斥，故负极性更易暴露缺陷。"}, {"type": "single", "part": "第四部分", "num": "4.1.3", "q": "测量tanδ最常用的仪器/方法是（ ）。", "options": ["西林电桥（QS1）", "兆欧表", "万用表", "示波器"], "answer": 0, "explain": "常用QS1型高压西林电桥、M-800介损仪等。"}, {"type": "single", "part": "第四部分", "num": "4.1.4", "q": "目前普遍采用的局部放电定量检测方法是（ ）。", "options": ["脉冲电流法", "超声波法", "气相色谱法", "光测法"], "answer": 0, "explain": "脉冲电流法测量视在放电量，可灵敏检测并定量；其他多为定性或辅助。"}, {"type": "single", "part": "第四部分", "num": "4.2.1", "q": "工频耐压试验的耐压时间一般为（ ）。", "options": ["10 s", "1 min", "5 min", "1 h"], "answer": 1, "explain": "工频耐压一般1 min；试验应在非破坏性试验合格后进行。"}, {"type": "single", "part": "第四部分", "num": "4.2.1", "q": "工频耐压试验一般适用于（ ）的电力设备。", "options": ["不高于220 kV", "不低于330 kV", "所有电压等级", "只适用于配电设备"], "answer": 0, "explain": "不小于330 kV的设备改用操作波耐压试验。"}, {"type": "judge", "part": "第四部分", "num": "4.1.3", "q": "西林电桥正接线抗干扰能力强、准确度高，但要求被试品两端对地绝缘。（ ）", "answer": true, "explain": "正确；反接线适用于一端接地被试品，但抗干扰能力较弱。"}, {"type": "judge", "part": "第四部分", "num": "4.2.1", "q": "交流耐压试验属于非破坏性试验，可在其他试验之前进行。（ ）", "answer": false, "explain": "错误。交流耐压是破坏性试验，必须在非破坏性试验全部合格后才能进行。"}, {"type": "blank", "part": "第四部分", "num": "4.1.1", "q": "极化指数是指在加压10 min时的绝缘电阻与加压________时的绝缘电阻之比。", "answer": ["1min", "1 min", "1分钟"], "explain": "吸收比为R60/R15，极化指数为R10min/R1min。"}, {"type": "blank", "part": "第四部分", "num": "4.2.2", "q": "对长电缆、电力电容器等大电容设备，常采用________耐压试验代替工频耐压试验。", "answer": ["直流"], "explain": "大电容设备工频试验需要很大容量，直流试验可与泄漏电流测量同步进行。"}, {"type": "short", "part": "第四部分", "num": "4.1.1", "q": "测量绝缘电阻为什么不能发现绝缘中的局部损伤、裂缝和内部气隙？", "answer": "兆欧表输出电压较低，绝缘中的局部损伤、裂缝、分层脱开、内部气隙等局部缺陷在低电压下对整体绝缘电阻的影响很小，绝缘电阻读数可能仍在正常范围。因此需配合泄漏电流、tanδ、局部放电等其他试验综合判断。", "explain": "核心原因：兆欧表电压低，局部缺陷对总电导贡献小。"}, {"type": "single", "part": "第五部分", "num": "5.1", "q": "关于波阻抗与电阻的区别，下列说法错误的是（ ）。", "options": ["电阻消耗能量，波阻抗贮藏能量", "波阻抗是同方向传播的电压波与电流波之比", "波阻抗与线路长度有关", "波阻抗只与单位长度电感和电容有关"], "answer": 2, "explain": "波阻抗Z=√(L0/C0)只取决于单位长度参数，与线路长度无关。"}, {"type": "single", "part": "第五部分", "num": "5.2", "q": "行波到达线路末端开路处时，电压波与电流波的变化是（ ）。", "options": ["电压加倍、电流为零", "电流加倍、电压为零", "电压电流均加倍", "均不变"], "answer": 0, "explain": "末端开路相当于Z2→∞，反射系数β=+1，末端电压加倍，电流为零。"}, {"type": "single", "part": "第五部分", "num": "5.2", "q": "为降低入侵波陡度，当两段线路波阻抗Z1较大时宜采用（ ）。", "options": ["串联电感", "并联电容", "增大电阻", "缩短线路"], "answer": 1, "explain": "Z1较大时（如发电机）采用并联电容；Z1较小时采用串联电感。"}, {"type": "single", "part": "第五部分", "num": "5.3", "q": "变压器绕组在冲击波作用下的初始电位分布不均，主要原因是（ ）。", "options": ["绕组电阻过大", "对地电容的分流作用", "匝间电感太大", "铁芯饱和"], "answer": 1, "explain": "对地电容分流使首端电位梯度大，大部分电压降落在首端附近；常用电容环、电容匝增大纵电容改善。"}, {"type": "judge", "part": "第五部分", "num": "5.1", "q": "线路上同时存在前行波和反行波时，电压与电流的比值仍等于波阻抗。（ ）", "answer": false, "explain": "错误。只有同一方向传播的电压波与电流波之比才等于波阻抗。"}, {"type": "blank", "part": "第五部分", "num": "5.2", "q": "行波从波阻抗Z1的线路进入Z2的线路，在连接点会发生波的________和折射。", "answer": ["反射"], "explain": "结点处因波阻抗不同发生能量重新分配。"}, {"type": "short", "part": "第五部分", "num": "5.3", "q": "为什么变压器绕组要采取措施改善冲击电压下的电位分布？常用方法是什么？", "answer": "冲击波作用瞬间（t=0）电感相当于开路，绕组电位主要按对地电容与匝间电容分布，初始分布与稳态分布不一致，过渡过程中出现振荡，绕组各点可能出现远高于稳态的最高电位，且首端附近电位梯度最大，危及首端绝缘与匝间绝缘。改善方法：在绕组首端加装电容环、电容匝以增大纵电容（匝间电容），减小对地电容分流影响，使电位分布趋于均匀；同时采用避雷器限制侵入波幅值与陡度。", "explain": "关键词：初始分布≠稳态分布、振荡、首端梯度大、增大纵电容。"}, {"type": "single", "part": "第六部分", "num": "6.1", "q": "避雷针（线）保护被物体的原理是（ ）。", "options": ["屏蔽电磁波", "吸引雷电并安全导入大地", "降低周围温度", "改变线路波阻抗"], "answer": 1, "explain": "顶端场强集中引导雷电先导向自身放电，经接地引线和接地装置入地。"}, {"type": "single", "part": "第六部分", "num": "6.1", "q": "避雷器类型中，用于变电所和发电厂保护的主要是（ ）。", "options": ["保护间隙", "管型避雷器", "阀型避雷器", "放电器"], "answer": 2, "explain": "保护间隙和管型避雷器多用于配电系统及进线段；阀型（含磁吹、氧化锌）用于变电所、发电厂。"}, {"type": "single", "part": "第六部分", "num": "6.2", "q": "输电线路的耐雷水平是指（ ）。", "options": ["线路能承受的最大工作电压", "雷击线路绝缘不发生闪络的最大雷电流幅值", "绝缘子片数", "每年雷击跳闸次数"], "answer": 1, "explain": "耐雷水平以kA计；雷击跳闸率衡量综合防雷性能。"}, {"type": "single", "part": "第六部分", "num": "6.2", "q": "对所有电压等级线路都有威胁的雷电过电压是（ ）。", "options": ["感应雷过电压", "直击雷过电压", "操作过电压", "工频过电压"], "answer": 1, "explain": "感应雷过电压只对35 kV以下线路有威胁；直击雷过电压危害最大。"}, {"type": "single", "part": "第六部分", "num": "6.4", "q": "直配电机的防雷要求中，流入磁吹避雷器FCD的雷电流应限制在（ ）以下。", "options": ["10 kA", "5 kA", "3 kA", "1 kA"], "answer": 2, "explain": "旋转电机出厂耐压值仅为变压器的约一半，需限制在3 kA以下。"}, {"type": "judge", "part": "第六部分", "num": "6.2", "q": "雷击杆塔塔顶时，塔顶电位高于导线电位引起的绝缘子串闪络称为“反击”。（ ）", "answer": true, "explain": "正确。绕击则是雷电绕过避雷线直接击中导线。"}, {"type": "judge", "part": "第六部分", "num": "6.3", "q": "变电站进线段保护的作用是限制流经避雷器的雷电流和入侵波陡度。（ ）", "answer": true, "explain": "正确。"}, {"type": "blank", "part": "第六部分", "num": "6.1", "q": "避雷线和外侧导线的连线与避雷线和地面的垂线之间的夹角称为________。", "answer": ["保护角"], "explain": "保护角越小，雷击导线的概率越小，通常取15°~30°左右。"}, {"type": "short", "part": "第六部分", "num": "6.2", "q": "架空输电线路常用的防雷措施有哪些？（至少答5点）", "answer": "①架设避雷线（分流、耦合提高耐雷水平、减小感应过电压）；②降低杆塔接地电阻；③架设耦合地线；④同塔双回路采用不平衡绝缘方式；⑤装设自动重合闸；⑥采用消弧线圈接地；⑦在交叉处和高杆塔装设管型避雷器；⑧加强绝缘（增加绝缘子片数、木横担等）。", "explain": "按“引雷—降阻—耦合—绝缘—重合闸”线索记忆。"}, {"type": "single", "part": "第七部分", "num": "7.1", "q": "我国超高压系统要求线路侧工频过电压不大于最高运行相电压的（ ）。", "options": ["1.1倍", "1.3倍", "1.4倍", "2.0倍"], "answer": 2, "explain": "线路侧不大于1.4倍，母线不大于1.3倍。"}, {"type": "single", "part": "第七部分", "num": "7.1", "q": "限制空载长线路电容效应引起的工频过电压，通常装设（ ）。", "options": ["串联电容器", "并联电抗器", "避雷器", "消弧线圈"], "answer": 1, "explain": "并联电抗器补偿线路电容电流，削弱电容效应。"}, {"type": "single", "part": "第七部分", "num": "7.2.1", "q": "间歇电弧接地过电压主要发生在（ ）系统。", "options": ["中性点直接接地", "中性点不接地", "中性点经低阻接地", "三相四线制"], "answer": 1, "explain": "中性点不接地系统单相接地电弧时燃时灭，引起电磁振荡。"}, {"type": "single", "part": "第七部分", "num": "7.2.2", "q": "切除空载变压器产生过电压的根本原因是（ ）。", "options": ["断路器重燃", "截流使电感磁场能量转化为电场能量", "电容效应", "单相接地"], "answer": 1, "explain": "电感电流在未到自然零值前被强行切断，磁场能量转为电场能量。"}, {"type": "single", "part": "第七部分", "num": "7.2.3", "q": "空载线路分闸过电压产生的关键因素是断路器发生（ ）。", "options": ["截流", "重燃", "拒动", "误动"], "answer": 1, "explain": "重燃使电容元件从电源断续获得能量并积累，形成过电压。"}, {"type": "single", "part": "第七部分", "num": "7.2.4", "q": "空载线路合闸过电压中最严重的情况通常是（ ）。", "options": ["计划性合闸", "自动重合闸", "正常合闸", "手动合闸"], "answer": 1, "explain": "自动重合闸时线路保留残余电荷，重合后振荡最严重。"}, {"type": "judge", "part": "第七部分", "num": "7.2.3", "q": "空载线路分闸过电压是确定220 kV及以下设备操作冲击绝缘水平的主要依据。（ ）", "answer": true, "explain": "正确。"}, {"type": "blank", "part": "第七部分", "num": "7.2.4", "q": "限制合闸过电压的措施包括降低工频稳态电压、消除残余电压、采用带________的断路器、同步合闸和性能良好的避雷器。", "answer": ["合闸电阻"], "explain": "装并联电抗器可降低工频稳态电压。"}, {"type": "short", "part": "第七部分", "num": "7.2", "q": "简述四类操作过电压的产生机理及主要限制措施。", "answer": "①间歇电弧接地过电压：中性点不接地系统单相接地电弧时燃时灭，导致L-C电磁振荡；限制措施为中性点直接接地或经消弧线圈接地。②空载变压器分闸（截流）过电压：断路器强制截断电感电流，磁场能量转为电场能量；用避雷器（紧靠断路器侧）限制。③空载线路分闸过电压：断路器重燃使电容元件反复从电源获得能量积累；提高灭弧能力、触头并联电阻、接电磁式电压互感器或并联电抗器。④空载线路合闸/重合闸过电压：电源对线路电容充电引起振荡，重合闸因残余电荷最严重；装并联电抗器、消除残余电压、合闸电阻、同步合闸、避雷器。", "explain": "按“机理—措施”成对记忆。"}, {"type": "single", "part": "第八部分", "num": "8.1", "q": "220 kV及以下系统中，电气设备绝缘水平主要由（ ）决定。", "options": ["工频过电压", "雷电过电压", "操作过电压", "谐振过电压"], "answer": 1, "explain": "220 kV及以下由雷电过电压决定；超高压系统中操作过电压逐渐起控制作用。"}, {"type": "single", "part": "第八部分", "num": "8.1", "q": "绝缘配合的最终目的是（ ）。", "options": ["提高设备造价", "确定电气设备的绝缘水平（试验电压）", "取消避雷器", "降低耐雷水平"], "answer": 1, "explain": "绝缘配合综合考虑作用电压、保护装置特性和绝缘耐受特性，合理确定绝缘水平。"}, {"type": "single", "part": "第八部分", "num": "8.2", "q": "基本冲击绝缘水平BIL是指设备的（ ）。", "options": ["额定短时工频耐受电压", "额定雷电冲击耐受电压", "额定操作冲击耐受电压", "工频放电电压"], "answer": 1, "explain": "BIL为额定雷电冲击耐受电压；SIL为额定操作冲击耐受电压（250/2500 μs）。"}, {"type": "judge", "part": "第八部分", "num": "8.1", "q": "中性点有效接地系统的电气设备绝缘水平通常低于中性点非有效接地系统。（ ）", "answer": true, "explain": "正确。有效接地系统相对地长期工作电压为相电压，避雷器额定电压与残压较低。"}, {"type": "blank", "part": "第八部分", "num": "8.2", "q": "额定操作冲击耐受电压称为操作冲击绝缘水平，缩写为________。", "answer": ["SIL"], "explain": "雷电冲击绝缘水平缩写为BIL。"}, {"type": "short", "part": "第八部分", "num": "8.1", "q": "什么是绝缘配合？简述其基本原则。", "answer": "绝缘配合是综合考虑设备可能承受的工作电压和各种过电压、保护装置特性及设备绝缘的耐压特性，合理确定必要绝缘水平，使造价、维护费用与事故损失综合效益最高。原则：①以系统最高工作电压为基础参数；②220 kV及以下由雷电过电压决定，超高压系统操作过电压逐渐起控制作用；③力求作用电压与绝缘强度的全伏秒特性配合（避雷器与设备绝缘配合）；④兼顾经济效益，因系统结构、地区和发展阶段而异；⑤线路绝缘水平一般不需与变电站配合，且通常高于变电站；⑥使各种电压作用下等效安全系数大致相同。", "explain": "定义+六条原则，重点记“220 kV分界、全伏秒配合、经济安全统一”。"}];
+const TYPE_NAME = {single:'单选题', judge:'判断题', blank:'填空题', short:'简答题'};
+const $ = id => document.getElementById(id);
+const params = new URLSearchParams(location.search);
+let activeNum = params.get('num') || '';
+let wrong = JSON.parse(localStorage.getItem('hv_wrong') || '[]');
+let list = [], idx = 0, done = 0, right = 0, answered = {}, revealed = {};
+
+function saveWrong(){ localStorage.setItem('hv_wrong', JSON.stringify(wrong)); $('wrongCnt').textContent = wrong.length; }
+function key(q){ return q.type + '|' + q.q; }
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function initFilters(){
+  const parts = [...new Set(QUESTIONS.map(q=>q.part))];
+  const types = [...new Set(QUESTIONS.map(q=>q.type))];
+  $('part').innerHTML = '<option value="all">全部章节</option>' + parts.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('');
+  $('type').innerHTML = '<option value="all">全部题型</option>' + types.map(t=>`<option value="${t}">${TYPE_NAME[t]}</option>`).join('');
+  $('total').textContent = QUESTIONS.length;
+  $('wrongCnt').textContent = wrong.length;
+  const p = params.get('part'), t = params.get('type'), o = params.get('order');
+  if(p) $('part').value = p;
+  if(t) $('type').value = t;
+  if(o) $('order').value = o;
+  if(activeNum){
+    $('scopeNum').textContent = activeNum;
+    $('scope').classList.add('show');
+  }
+}
+
+function start(onlyWrong){
+  let pool = QUESTIONS.slice();
+  if(onlyWrong){ const s = new Set(wrong); pool = pool.filter(q=>s.has(key(q))); if(!pool.length){ alert('错题本为空，先做几题吧'); return; } }
+  else {
+    const p = $('part').value, t = $('type').value;
+    if(p!=='all') pool = pool.filter(q=>q.part===p);
+    if(t!=='all') pool = pool.filter(q=>q.type===t);
+    if(activeNum){
+      const narrowed = pool.filter(q=>q.num===activeNum);
+      if(narrowed.length) pool = narrowed;
+    }
+  }
+  if(!pool.length){ alert('没有符合条件的题目'); return; }
+  if($('order').value==='rand') pool.sort(()=>Math.random()-0.5);
+  list = pool; idx = 0; done = 0; right = 0; answered = {}; revealed = {};
+  $('card').style.display='block'; $('finish').style.display='none';
+  render(); updateStats();
+}
+
+function render(){
+  const q = list[idx];
+  $('badge').textContent = TYPE_NAME[q.type] + ' · ' + q.num;
+  $('badge').className = 'badge ' + (q.type==='judge'?'j':q.type==='blank'?'b':q.type==='short'?'s':'');
+  $('qref').href = '高电压技术_知识点总结与复习计划.html#sec-' + q.num.replace(/\./g,'-');
+  $('qref').title = '在总结页查看 ' + q.num + ' 的课件要点';
+  $('pos').textContent = `第 ${idx+1} / ${list.length} 题`;
+  $('qtext').textContent = q.q;
+  const area = $('area'); area.innerHTML='';
+  $('fb').className='fb'; $('fb').innerHTML='';
+  $('self').className='self';
+  $('submit').disabled = false; $('reveal').disabled = false;
+
+  if(q.type==='single'){
+    const box=document.createElement('div'); box.className='opts';
+    q.options.forEach((op,i)=>{
+      const lab=document.createElement('label'); lab.className='opt';
+      const inp=document.createElement('input'); inp.type='radio'; inp.name='ans'; inp.value=i;
+      const span=document.createElement('span'); span.textContent=op;
+      lab.append(inp,span); lab.onclick=()=>{ [...box.children].forEach(c=>c.classList.remove('sel')); lab.classList.add('sel'); };
+      box.append(lab);
+    });
+    area.append(box);
+  } else if(q.type==='judge'){
+    const box=document.createElement('div'); box.className='opts';
+    [['正确',true],['错误',false]].forEach(([txt,val])=>{
+      const lab=document.createElement('label'); lab.className='opt';
+      const inp=document.createElement('input'); inp.type='radio'; inp.name='ans'; inp.value=val?'1':'0';
+      const span=document.createElement('span'); span.textContent=txt;
+      lab.append(inp,span); lab.onclick=()=>{ [...box.children].forEach(c=>c.classList.remove('sel')); lab.classList.add('sel'); };
+      box.append(lab);
+    });
+    area.append(box);
+  } else if(q.type==='blank'){
+    const box=document.createElement('div'); box.className='blank';
+    const inp=document.createElement('input'); inp.type='text'; inp.id='blankAns'; inp.placeholder='填入答案（多个空用逗号分隔）';
+    box.append(inp); area.append(box);
+  } else {
+    const ta=document.createElement('textarea'); ta.id='shortAns'; ta.placeholder='先写下自己的答案，再对照参考答案自评';
+    area.append(ta);
+  }
+  if(answered[key(q)]!==undefined){ $('submit').disabled=true; }
+}
+
+function answerFromForm(q){
+  if(q.type==='single'||q.type==='judge'){
+    const el=document.querySelector('input[name=ans]:checked');
+    return el ? (q.type==='judge' ? el.value==='1' : Number(el.value)) : undefined;
+  }
+  if(q.type==='blank'){ const v=$('blankAns').value.trim(); return v? v.split(/[,，;；]/).map(s=>s.trim()).filter(Boolean) : undefined; }
+  const v=$('shortAns').value.trim(); return v? v : undefined;
+}
+
+function isCorrect(q,a){
+  if(a===undefined) return false;
+  if(q.type==='blank'){
+    const norm=s=>String(s).replace(/[\s，,。．.、；;：:]/g,'').toLowerCase();
+    const given=Array.isArray(a)?a:[a], ans=q.answer.map(norm);
+    return ans.every((x,i)=>norm(given[i]||'')===x || (given[i]&&x.includes(norm(given[i]))));
+  }
+  return a===q.answer;
+}
+
+function showFeedback(q, ok, self){
+  const k=key(q);
+  const fb=$('fb');
+  let ansTxt = q.type==='single' ? q.options[q.answer]
+    : q.type==='judge' ? (q.answer?'正确':'错误')
+    : q.type==='blank' ? q.answer.join('、')
+    : q.answer;
+  if(self==='view'){
+    fb.className='fb note';
+    fb.innerHTML='<b>参考答案</b>'+esc(ansTxt)+(q.explain?'<br>'+esc(q.explain):'');
+    if(q.type==='short') $('self').className='self show';
+    $('reveal').disabled=true;
+    return;
+  }
+  answered[k]=ok?1:0;
+  if(self===undefined){
+    fb.className='fb '+(ok?'ok':'bad');
+    fb.innerHTML='<b>'+(ok?'回答正确':'回答错误')+'</b>参考答案：'+esc(ansTxt)+(q.explain?'<br>'+esc(q.explain):'');
+    if(!ok && !wrong.includes(k)) wrong.push(k);
+    if(ok) wrong=wrong.filter(x=>x!==k);
+  } else {
+    fb.className='fb note';
+    fb.innerHTML='<b>参考答案</b>'+esc(ansTxt)+(q.explain?'<br>'+esc(q.explain):'');
+    if(self){ if(!wrong.includes(k)) wrong.push(k); } else wrong=wrong.filter(x=>x!==k);
+  }
+  saveWrong();
+  $('submit').disabled=true; $('reveal').disabled=true;
+  if(q.type==='short') $('self').className='self show';
+}
+
+function checkAnswer(){
+  const q=list[idx], a=answerFromForm(q);
+  if(a===undefined){ alert('请先作答'); return; }
+  if(q.type==='short'){ showFeedback(q,false,'view'); return; }
+  const ok=isCorrect(q,a);
+  if(!answered[key(q)]){ done++; if(ok) right++; }
+  showFeedback(q,ok); updateStats();
+}
+
+function reveal(){
+  const q=list[idx], k=key(q);
+  if(q.type==='short'){ showFeedback(q,false,'view'); return; }
+  if(answered[k]===undefined){ done++; updateStats(); }
+  showFeedback(q,false,undefined);
+}
+
+function selfGrade(ok){
+  const q=list[idx], k=key(q);
+  if(answered[k]===undefined){ done++; if(ok) right++; }
+  else if(ok && answered[k]===0){ right++; }
+  answered[k]=ok?1:0;
+  showFeedback(q,ok,ok); updateStats();
+}
+
+function updateStats(){
+  $('done').textContent=done; $('right').textContent=right;
+  $('acc').textContent=done? Math.round(right/done*100)+'%' : '—';
+  $('progress').style.width=(list.length? idx/list.length*100:0)+'%';
+}
+
+function finish(){
+  $('card').style.display='none'; $('finish').style.display='block';
+  const acc=done? Math.round(right/done*100):0;
+  const wrongList=list.filter(q=>answered[key(q)]===0);
+  $('summary').innerHTML=`<p>本次共 <b>${list.length}</b> 题，已作答 <b>${done}</b> 题，答对 <b>${right}</b> 题，正确率 <b>${acc}%</b>。</p>`
+    + (wrongList.length? `<p>需要回炉的题（${wrongList.length}）：</p><ol class="list">`+wrongList.slice(0,20).map(q=>`<li>${esc(q.q)}</li>`).join('')+'</ol>':'<p>本次全部答对，很好。</p>');
+  $('progress').style.width='100%';
+}
+
+$('start').onclick=()=>start(false);
+$('wrongOnly').onclick=()=>start(true);
+$('clearWrong').onclick=()=>{ if(confirm('确定清空错题本？')){ wrong=[]; saveWrong(); } };
+$('submit').onclick=checkAnswer;
+$('reveal').onclick=reveal;
+$('selfOk').onclick=()=>selfGrade(true);
+$('selfNo').onclick=()=>selfGrade(false);
+$('prev').onclick=()=>{ if(idx>0){ idx--; render(); updateStats(); } };
+$('next').onclick=()=>{ if(idx<list.length-1){ idx++; render(); updateStats(); } else finish(); };
+$('again').onclick=()=>start(false);
+$('clearScope').onclick=()=>{
+  activeNum=''; $('scope').classList.remove('show');
+  const u=new URL(location.href); u.searchParams.delete('num'); history.replaceState(null,'',u);
+  start(false);
+};
+document.addEventListener('keydown',e=>{ if(e.key==='Enter' && !e.shiftKey && document.activeElement.tagName!=='TEXTAREA' && $('card').style.display!=='none'){ e.preventDefault(); if(answered[key(list[idx])]===undefined) checkAnswer(); } });
+initFilters();
+if(params.get('autostart')==='1') start(false);
+</script>
+</body>
+</html>

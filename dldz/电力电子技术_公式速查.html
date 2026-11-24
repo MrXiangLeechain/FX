@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>电力电子技术 · 公式速查</title><style>
+:root{--bg:#f7f9fc;--card:#fff;--ink:#1f2937;--muted:#5b6472;--line:#e3e8ef;--brand:#1d4ed8;--brand2:#eff6ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.7}
+.wrap{max-width:1000px;margin:0 auto;padding:30px 18px 70px}
+header{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;border-radius:16px;padding:26px 30px;margin-bottom:18px}
+header h1{margin:0 0 8px;font-size:26px}header p{margin:4px 0;opacity:.92;font-size:14px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:18px}
+.nav .nav-title{font-size:13px;color:var(--muted);margin-right:4px;font-weight:600}
+.nav a{font-size:13px;padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:#f8fafc;color:#334155;text-decoration:none}
+.nav a:hover{background:var(--brand2);border-color:var(--brand);color:var(--brand)}
+.nav a.current{background:var(--brand);border-color:var(--brand);color:#fff}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:18px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+select,input,button{font-family:inherit;font-size:14px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:#fff;color:var(--ink)}
+button{cursor:pointer}button:hover{border-color:var(--brand);color:var(--brand)}
+label{font-size:13px;color:var(--muted);margin-right:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.card.hide{display:none}
+.chead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.chap{font-size:12px;color:var(--muted);background:#f1f5f9;border-radius:99px;padding:2px 9px}
+.name{font-weight:700;color:#1e3a8a;font-size:15px}
+.plain{font-family:Consolas,"Courier New",monospace;font-size:14px;background:#f8fafc;border-left:3px solid var(--brand);padding:8px 11px;border-radius:0 8px 8px 0;margin-bottom:8px;word-break:break-word}
+pre.latex{font-family:Consolas,"Courier New",monospace;font-size:12.5px;color:#334155;background:#f8fafc;border:1px dashed var(--line);border-radius:8px;padding:9px 11px;margin:0;white-space:pre-wrap;word-break:break-all}
+.acts{margin-top:10px;display:flex;gap:8px}
+.note{background:#fffbeb;border:1px solid #fde68a;color:#78350f;border-radius:10px;padding:12px 15px;font-size:14px;margin:12px 0}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+.foot a{color:var(--brand);text-decoration:none}
+.count{font-size:13px;color:var(--muted);margin-left:auto}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.wrap{padding:18px 12px 40px}}
+</style></head><body><div class="wrap">
+<header>
+  <h1>电力电子技术 · 公式速查</h1>
+  <p>课件中丢失的公式，按上下文与教材通行写法恢复 · 共 35 条 · 可复制 LaTeX 到笔记软件</p>
+</header>
+<div class="nav" id="siteNav">
+  <span class="nav-title">资料导航</span>
+  <a href="../index.html">🏠 全部课程</a>
+  <a href="电力电子技术_知识点总结与复习计划.html">知识点总结</a>
+  <a href="电力电子技术_练习题库.html">练习题库</a>
+  <a class="current" href="电力电子技术_公式速查.html">公式速查</a>
+  <a href="电力电子技术_公式速查.md">公式 Markdown 源文件</a>
+</div>
+<div class="panel">
+  <div class="row">
+    <div><label for="chap">章节</label><select id="chap"><option value="all">全部章节</option><option value="2.2 单相整流">2.2 单相整流</option><option value="2.3 三相整流">2.3 三相整流</option><option value="2.5 漏抗影响">2.5 漏抗影响</option><option value="2.6 有源逆变">2.6 有源逆变</option><option value="3.2 交流调压">3.2 交流调压</option><option value="4.2 斩波控制">4.2 斩波控制</option><option value="4.3 降压变换器">4.3 降压变换器</option><option value="4.4 升压变换器">4.4 升压变换器</option><option value="4.5 升降压变换器">4.5 升降压变换器</option><option value="4.7 全桥斩波器">4.7 全桥斩波器</option><option value="5.3 电压型逆变器">5.3 电压型逆变器</option><option value="5.5 SPWM">5.5 SPWM</option><option value="6.3 准谐振">6.3 准谐振</option><option value="7.2 保护">7.2 保护</option><option value="7.3 谐波无功">7.3 谐波无功</option></select></div>
+    <div><label for="kw">搜索</label><input id="kw" type="text" placeholder="公式名 / 符号 / LaTeX"></div>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="note">本页是「恢复稿」，不是课件原图。考试前请对照教材或原课件核实，尤其是振荡测量阻抗轨迹、比率制动电流定义、零序方向角等条目。</div>
+</div>
+<div class="grid" id="grid">
+    <div class="card" data-chapter="2.2 单相整流" data-text="2.2 单相整流 单相半波电阻负载输出电压 Ud = 0.45·U2·(1+cosα)/2 U_d = 0.45\,U_2\,\frac{1+\cos\alpha}{2}">
+      <div class="chead"><span class="chap">2.2 单相整流</span><span class="name">单相半波电阻负载输出电压</span></div>
+      <div class="plain">Ud = 0.45·U2·(1+cosα)/2</div>
+      <pre class="latex" id="latex-0">U_d = 0.45\,U_2\,\frac{1+\cos\alpha}{2}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(0, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2 单相整流" data-text="2.2 单相整流 单相桥式电阻负载输出电压 Ud = 0.45·U2·(1+cosα)   (α=0 时 0.9U2) U_d = 0.45\,U_2\,(1+\cos\alpha)">
+      <div class="chead"><span class="chap">2.2 单相整流</span><span class="name">单相桥式电阻负载输出电压</span></div>
+      <div class="plain">Ud = 0.45·U2·(1+cosα)   (α=0 时 0.9U2)</div>
+      <pre class="latex" id="latex-1">U_d = 0.45\,U_2\,(1+\cos\alpha)</pre>
+      <div class="acts">
+        <button onclick="copyLatex(1, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2 单相整流" data-text="2.2 单相整流 单相桥式电感负载输出电压 Ud = 0.9·U2·cosα   (移相 0~90°) U_d = 0.9\,U_2\cos\alpha">
+      <div class="chead"><span class="chap">2.2 单相整流</span><span class="name">单相桥式电感负载输出电压</span></div>
+      <div class="plain">Ud = 0.9·U2·cosα   (移相 0~90°)</div>
+      <pre class="latex" id="latex-2">U_d = 0.9\,U_2\cos\alpha</pre>
+      <div class="acts">
+        <button onclick="copyLatex(2, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2 单相整流" data-text="2.2 单相整流 半波电阻负载输出电流有效值 I = U2·√[(π−α)/2π + sin2α/4π] ÷ R I = \frac{U_2}{R}\sqrt{\frac{\pi-\alpha}{2\pi}+\frac{\sin 2\alpha}{4\pi}}">
+      <div class="chead"><span class="chap">2.2 单相整流</span><span class="name">半波电阻负载输出电流有效值</span></div>
+      <div class="plain">I = U2·√[(π−α)/2π + sin2α/4π] ÷ R</div>
+      <pre class="latex" id="latex-3">I = \frac{U_2}{R}\sqrt{\frac{\pi-\alpha}{2\pi}+\frac{\sin 2\alpha}{4\pi}}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(3, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2 单相整流" data-text="2.2 单相整流 整流功率因数 PF = P/S = UI/(U2·I) PF = \frac{UI}{U_2 I}">
+      <div class="chead"><span class="chap">2.2 单相整流</span><span class="name">整流功率因数</span></div>
+      <div class="plain">PF = P/S = UI/(U2·I)</div>
+      <pre class="latex" id="latex-4">PF = \frac{UI}{U_2 I}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(4, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2 单相整流" data-text="2.2 单相整流 晶闸管额定电流选型 IT(AV) = (1.5~2)·IT/1.57 I_{T(AV)} = \frac{(1.5\sim2)\,I_T}{1.57}">
+      <div class="chead"><span class="chap">2.2 单相整流</span><span class="name">晶闸管额定电流选型</span></div>
+      <div class="plain">IT(AV) = (1.5~2)·IT/1.57</div>
+      <pre class="latex" id="latex-5">I_{T(AV)} = \frac{(1.5\sim2)\,I_T}{1.57}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(5, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.2 单相整流" data-text="2.2 单相整流 晶闸管额定电压选型 UN = (2~3)·√2·U2 U_N = (2\sim3)\sqrt{2}\,U_2">
+      <div class="chead"><span class="chap">2.2 单相整流</span><span class="name">晶闸管额定电压选型</span></div>
+      <div class="plain">UN = (2~3)·√2·U2</div>
+      <pre class="latex" id="latex-6">U_N = (2\sim3)\sqrt{2}\,U_2</pre>
+      <div class="acts">
+        <button onclick="copyLatex(6, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.3 三相整流" data-text="2.3 三相整流 三相半波电感负载输出电压 Ud = 1.17·U2·cosα   (移相 0~90°) U_d = 1.17\,U_2\cos\alpha">
+      <div class="chead"><span class="chap">2.3 三相整流</span><span class="name">三相半波电感负载输出电压</span></div>
+      <div class="plain">Ud = 1.17·U2·cosα   (移相 0~90°)</div>
+      <pre class="latex" id="latex-7">U_d = 1.17\,U_2\cos\alpha</pre>
+      <div class="acts">
+        <button onclick="copyLatex(7, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.3 三相整流" data-text="2.3 三相整流 三相桥式电感负载输出电压 Ud = 2.34·U2·cosα = 1.35·UL·cosα U_d = 2.34\,U_2\cos\alpha = 1.35\,U_L\cos\alpha">
+      <div class="chead"><span class="chap">2.3 三相整流</span><span class="name">三相桥式电感负载输出电压</span></div>
+      <div class="plain">Ud = 2.34·U2·cosα = 1.35·UL·cosα</div>
+      <pre class="latex" id="latex-8">U_d = 2.34\,U_2\cos\alpha = 1.35\,U_L\cos\alpha</pre>
+      <div class="acts">
+        <button onclick="copyLatex(8, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.3 三相整流" data-text="2.3 三相整流 三相桥式晶闸管电流有效值 IT = Id/√3 ≈ 0.577·Id I_T = \frac{I_d}{\sqrt{3}}">
+      <div class="chead"><span class="chap">2.3 三相整流</span><span class="name">三相桥式晶闸管电流有效值</span></div>
+      <div class="plain">IT = Id/√3 ≈ 0.577·Id</div>
+      <pre class="latex" id="latex-9">I_T = \frac{I_d}{\sqrt{3}}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(9, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.3 三相整流" data-text="2.3 三相整流 三相桥式变压器二次电流有效值 I2 = √2·Id/√3 ≈ 0.816·Id I_2 = \frac{\sqrt{2}\,I_d}{\sqrt{3}} \approx 0.816\,I_d">
+      <div class="chead"><span class="chap">2.3 三相整流</span><span class="name">三相桥式变压器二次电流有效值</span></div>
+      <div class="plain">I2 = √2·Id/√3 ≈ 0.816·Id</div>
+      <pre class="latex" id="latex-10">I_2 = \frac{\sqrt{2}\,I_d}{\sqrt{3}} \approx 0.816\,I_d</pre>
+      <div class="acts">
+        <button onclick="copyLatex(10, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.3 三相整流" data-text="2.3 三相整流 晶闸管承受最大正反向电压 单相：√2·U2（相电压峰值）；三相桥：√6·U2（线电压峰值） U_m = \sqrt{6}\,U_2\ \text{(三相桥)}">
+      <div class="chead"><span class="chap">2.3 三相整流</span><span class="name">晶闸管承受最大正反向电压</span></div>
+      <div class="plain">单相：√2·U2（相电压峰值）；三相桥：√6·U2（线电压峰值）</div>
+      <pre class="latex" id="latex-11">U_m = \sqrt{6}\,U_2\ \text{(三相桥)}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(11, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.5 漏抗影响" data-text="2.5 漏抗影响 换相重叠角 cosα − cos(α+γ) = 2·XB·Id/(√6·U2)   (三相) \cos\alpha - \cos(\alpha+\gamma) = \frac{2 X_B I_d}{\sqrt{6}\,U_2}">
+      <div class="chead"><span class="chap">2.5 漏抗影响</span><span class="name">换相重叠角</span></div>
+      <div class="plain">cosα − cos(α+γ) = 2·XB·Id/(√6·U2)   (三相)</div>
+      <pre class="latex" id="latex-12">\cos\alpha - \cos(\alpha+\gamma) = \frac{2 X_B I_d}{\sqrt{6}\,U_2}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(12, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.5 漏抗影响" data-text="2.5 漏抗影响 换相压降 ΔUd = m·XB·Id/π   (m=2 单相双半波；三相 m=3) \Delta U_d = \frac{m X_B I_d}{\pi}">
+      <div class="chead"><span class="chap">2.5 漏抗影响</span><span class="name">换相压降</span></div>
+      <div class="plain">ΔUd = m·XB·Id/π   (m=2 单相双半波；三相 m=3)</div>
+      <pre class="latex" id="latex-13">\Delta U_d = \frac{m X_B I_d}{\pi}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(13, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.6 有源逆变" data-text="2.6 有源逆变 最小逆变角 βmin = γ + δ(4°~5°) + θ′(≈10°) ≈ 30°~35° \beta_{\min} = \gamma + \delta + \theta&#x27; \approx 30^{\circ}\!\sim\!35^{\circ}">
+      <div class="chead"><span class="chap">2.6 有源逆变</span><span class="name">最小逆变角</span></div>
+      <div class="plain">βmin = γ + δ(4°~5°) + θ′(≈10°) ≈ 30°~35°</div>
+      <pre class="latex" id="latex-14">\beta_{\min} = \gamma + \delta + \theta&#x27; \approx 30^{\circ}\!\sim\!35^{\circ}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(14, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="2.6 有源逆变" data-text="2.6 有源逆变 逆变角与触发角关系 β = 180° − α   (α&gt;90° 逆变) \beta = 180^{\circ} - \alpha">
+      <div class="chead"><span class="chap">2.6 有源逆变</span><span class="name">逆变角与触发角关系</span></div>
+      <div class="plain">β = 180° − α   (α&gt;90° 逆变)</div>
+      <pre class="latex" id="latex-15">\beta = 180^{\circ} - \alpha</pre>
+      <div class="acts">
+        <button onclick="copyLatex(15, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.2 交流调压" data-text="3.2 交流调压 交流调压器电阻负载输出电压有效值 U = U2·√[(π−α)/π + sin2α/(2π)] U = U_2\sqrt{\frac{\pi-\alpha}{\pi}+\frac{\sin 2\alpha}{2\pi}}">
+      <div class="chead"><span class="chap">3.2 交流调压</span><span class="name">交流调压器电阻负载输出电压有效值</span></div>
+      <div class="plain">U = U2·√[(π−α)/π + sin2α/(2π)]</div>
+      <pre class="latex" id="latex-16">U = U_2\sqrt{\frac{\pi-\alpha}{\pi}+\frac{\sin 2\alpha}{2\pi}}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(16, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.2 交流调压" data-text="3.2 交流调压 负载阻抗角 φ = arctan(ωL/R) \varphi = \arctan\frac{\omega L}{R}">
+      <div class="chead"><span class="chap">3.2 交流调压</span><span class="name">负载阻抗角</span></div>
+      <div class="plain">φ = arctan(ωL/R)</div>
+      <pre class="latex" id="latex-17">\varphi = \arctan\frac{\omega L}{R}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(17, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="3.2 交流调压" data-text="3.2 交流调压 调压器导通角关系 θ = f(α, φ)；α&lt;φ 全导通不可调，最小触发角为 φ \theta = f(\alpha,\varphi),\quad \alpha_{\min}=\varphi">
+      <div class="chead"><span class="chap">3.2 交流调压</span><span class="name">调压器导通角关系</span></div>
+      <div class="plain">θ = f(α, φ)；α&lt;φ 全导通不可调，最小触发角为 φ</div>
+      <pre class="latex" id="latex-18">\theta = f(\alpha,\varphi),\quad \alpha_{\min}=\varphi</pre>
+      <div class="acts">
+        <button onclick="copyLatex(18, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.2 斩波控制" data-text="4.2 斩波控制 占空比与输出电压 Uo = (ton/Ts)·Ud = D·Ud U_o = \frac{t_{on}}{T_s}U_d = D\,U_d">
+      <div class="chead"><span class="chap">4.2 斩波控制</span><span class="name">占空比与输出电压</span></div>
+      <div class="plain">Uo = (ton/Ts)·Ud = D·Ud</div>
+      <pre class="latex" id="latex-19">U_o = \frac{t_{on}}{T_s}U_d = D\,U_d</pre>
+      <div class="acts">
+        <button onclick="copyLatex(19, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.3 降压变换器" data-text="4.3 降压变换器 Buck 输出电压 (CCM) Uo = D·Ud U_o = D\,U_d">
+      <div class="chead"><span class="chap">4.3 降压变换器</span><span class="name">Buck 输出电压 (CCM)</span></div>
+      <div class="plain">Uo = D·Ud</div>
+      <pre class="latex" id="latex-20">U_o = D\,U_d</pre>
+      <div class="acts">
+        <button onclick="copyLatex(20, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.3 降压变换器" data-text="4.3 降压变换器 Buck 电感电流纹波 ΔiL = (Ud−Uo)·ton/L = Uo(1−D)·Ts/L \Delta i_L = \frac{U_o(1-D)T_s}{L}">
+      <div class="chead"><span class="chap">4.3 降压变换器</span><span class="name">Buck 电感电流纹波</span></div>
+      <div class="plain">ΔiL = (Ud−Uo)·ton/L = Uo(1−D)·Ts/L</div>
+      <pre class="latex" id="latex-21">\Delta i_L = \frac{U_o(1-D)T_s}{L}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(21, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.3 降压变换器" data-text="4.3 降压变换器 Buck 临界负载电流 Iok = (1−D)·D·Ud·Ts/(2L) I_{ok} = \frac{(1-D)\,D\,U_d T_s}{2L}">
+      <div class="chead"><span class="chap">4.3 降压变换器</span><span class="name">Buck 临界负载电流</span></div>
+      <div class="plain">Iok = (1−D)·D·Ud·Ts/(2L)</div>
+      <pre class="latex" id="latex-22">I_{ok} = \frac{(1-D)\,D\,U_d T_s}{2L}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(22, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.3 降压变换器" data-text="4.3 降压变换器 Buck 输出电压纹波 ΔUo = ΔiL·Ts/(8C) \Delta U_o = \frac{\Delta i_L T_s}{8C}">
+      <div class="chead"><span class="chap">4.3 降压变换器</span><span class="name">Buck 输出电压纹波</span></div>
+      <div class="plain">ΔUo = ΔiL·Ts/(8C)</div>
+      <pre class="latex" id="latex-23">\Delta U_o = \frac{\Delta i_L T_s}{8C}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(23, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.4 升压变换器" data-text="4.4 升压变换器 Boost 输出电压 (CCM) Uo = Ud/(1−D) U_o = \frac{U_d}{1-D}">
+      <div class="chead"><span class="chap">4.4 升压变换器</span><span class="name">Boost 输出电压 (CCM)</span></div>
+      <div class="plain">Uo = Ud/(1−D)</div>
+      <pre class="latex" id="latex-24">U_o = \frac{U_d}{1-D}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(24, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.4 升压变换器" data-text="4.4 升压变换器 Boost 电感电流纹波 ΔiL = Ud·D·Ts/L \Delta i_L = \frac{U_d D T_s}{L}">
+      <div class="chead"><span class="chap">4.4 升压变换器</span><span class="name">Boost 电感电流纹波</span></div>
+      <div class="plain">ΔiL = Ud·D·Ts/L</div>
+      <pre class="latex" id="latex-25">\Delta i_L = \frac{U_d D T_s}{L}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(25, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.5 升降压变换器" data-text="4.5 升降压变换器 Buck-Boost 输出电压 (CCM) Uo = D·Ud/(1−D)   (D&lt;0.5 降压，D&gt;0.5 升压，极性相反) U_o = \frac{D\,U_d}{1-D}">
+      <div class="chead"><span class="chap">4.5 升降压变换器</span><span class="name">Buck-Boost 输出电压 (CCM)</span></div>
+      <div class="plain">Uo = D·Ud/(1−D)   (D&lt;0.5 降压，D&gt;0.5 升压，极性相反)</div>
+      <pre class="latex" id="latex-26">U_o = \frac{D\,U_d}{1-D}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(26, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="4.7 全桥斩波器" data-text="4.7 全桥斩波器 双极性控制输出电压 Uo = (2D−1)·Ud U_o = (2D-1)\,U_d">
+      <div class="chead"><span class="chap">4.7 全桥斩波器</span><span class="name">双极性控制输出电压</span></div>
+      <div class="plain">Uo = (2D−1)·Ud</div>
+      <pre class="latex" id="latex-27">U_o = (2D-1)\,U_d</pre>
+      <div class="acts">
+        <button onclick="copyLatex(27, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="5.3 电压型逆变器" data-text="5.3 电压型逆变器 全桥 180° 导电型基波有效值 Uo1 = 4·Ud/(π·√2) ≈ 0.9·Ud U_{o1} = \frac{4U_d}{\pi\sqrt{2}}">
+      <div class="chead"><span class="chap">5.3 电压型逆变器</span><span class="name">全桥 180° 导电型基波有效值</span></div>
+      <div class="plain">Uo1 = 4·Ud/(π·√2) ≈ 0.9·Ud</div>
+      <pre class="latex" id="latex-28">U_{o1} = \frac{4U_d}{\pi\sqrt{2}}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(28, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="5.5 SPWM" data-text="5.5 SPWM 调制度与载波比 M = Ur/Uc (0&lt;M&lt;1)；N = fc/fr M = \frac{U_r}{U_c},\quad N = \frac{f_c}{f_r}">
+      <div class="chead"><span class="chap">5.5 SPWM</span><span class="name">调制度与载波比</span></div>
+      <div class="plain">M = Ur/Uc (0&lt;M&lt;1)；N = fc/fr</div>
+      <pre class="latex" id="latex-29">M = \frac{U_r}{U_c},\quad N = \frac{f_c}{f_r}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(29, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="5.5 SPWM" data-text="5.5 SPWM SPWM 基波电压幅值 Uo1 ≈ M·Ud/2·√2（线性区） U_{o1} \approx \frac{M U_d}{2}\cdot\sqrt2">
+      <div class="chead"><span class="chap">5.5 SPWM</span><span class="name">SPWM 基波电压幅值</span></div>
+      <div class="plain">Uo1 ≈ M·Ud/2·√2（线性区）</div>
+      <pre class="latex" id="latex-30">U_{o1} \approx \frac{M U_d}{2}\cdot\sqrt2</pre>
+      <div class="acts">
+        <button onclick="copyLatex(30, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="6.3 准谐振" data-text="6.3 准谐振 谐振角频率与特征阻抗 ωr = 1/√(Lr·Cr)；Zr = √(Lr/Cr) \omega_r = \frac{1}{\sqrt{L_r C_r}},\quad Z_r = \sqrt{\frac{L_r}{C_r}}">
+      <div class="chead"><span class="chap">6.3 准谐振</span><span class="name">谐振角频率与特征阻抗</span></div>
+      <div class="plain">ωr = 1/√(Lr·Cr)；Zr = √(Lr/Cr)</div>
+      <pre class="latex" id="latex-31">\omega_r = \frac{1}{\sqrt{L_r C_r}},\quad Z_r = \sqrt{\frac{L_r}{C_r}}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(31, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="7.2 保护" data-text="7.2 保护 RC 阻容保护电容 C ≥ (6·i0%/100)·S/U2² C \ge \frac{6\,i_0\%}{100}\cdot\frac{S}{U_2^2}">
+      <div class="chead"><span class="chap">7.2 保护</span><span class="name">RC 阻容保护电容</span></div>
+      <div class="plain">C ≥ (6·i0%/100)·S/U2²</div>
+      <pre class="latex" id="latex-32">C \ge \frac{6\,i_0\%}{100}\cdot\frac{S}{U_2^2}</pre>
+      <div class="acts">
+        <button onclick="copyLatex(32, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="7.2 保护" data-text="7.2 保护 RC 阻容保护电阻（功率） Pr ≥ (2·uk%/100)·S   （uk% 为短路电压百分值 5~10） P_R \ge \frac{2\,u_k\%}{100}\cdot S">
+      <div class="chead"><span class="chap">7.2 保护</span><span class="name">RC 阻容保护电阻（功率）</span></div>
+      <div class="plain">Pr ≥ (2·uk%/100)·S   （uk% 为短路电压百分值 5~10）</div>
+      <pre class="latex" id="latex-33">P_R \ge \frac{2\,u_k\%}{100}\cdot S</pre>
+      <div class="acts">
+        <button onclick="copyLatex(33, this)">复制 LaTeX</button>
+      </div>
+    </div>
+    <div class="card" data-chapter="7.3 谐波无功" data-text="7.3 谐波无功 谐波畸变率 THD = √(ΣUh²)/U1 × 100% THD = \frac{\sqrt{\sum U_h^2}}{U_1}\times100\%">
+      <div class="chead"><span class="chap">7.3 谐波无功</span><span class="name">谐波畸变率</span></div>
+      <div class="plain">THD = √(ΣUh²)/U1 × 100%</div>
+      <pre class="latex" id="latex-34">THD = \frac{\sqrt{\sum U_h^2}}{U_1}\times100\%</pre>
+      <div class="acts">
+        <button onclick="copyLatex(34, this)">复制 LaTeX</button>
+      </div>
+    </div></div>
+<div class="foot">
+  配套资料：<a href="电力电子技术_知识点总结与复习计划.html">知识点总结与复习计划</a> ·
+  <a href="电力电子技术_练习题库.html">章节练习题库</a> ·
+  <a href="电力电子技术_公式速查.md">Markdown 源文件</a> ·
+  <a href="../index.html">返回课程主页</a><br>
+</div>
+</div>
+<script>
+function apply(){
+  const c=document.getElementById('chap').value;
+  const k=document.getElementById('kw').value.trim().toLowerCase();
+  let n=0;
+  document.querySelectorAll('.card').forEach(el=>{
+    const ok=(c==='all'||el.dataset.chapter===c)&&(!k||el.dataset.text.toLowerCase().includes(k));
+    el.classList.toggle('hide',!ok); if(ok)n++;
+  });
+  document.getElementById('count').textContent='显示 '+n+' / 35 条';
+}
+document.getElementById('chap').onchange=apply;
+document.getElementById('kw').oninput=apply;
+function copyLatex(i, btn){
+  const text=document.getElementById('latex-'+i).textContent;
+  const done=(ok)=>{const old=btn.textContent;btn.textContent=ok?'已复制 ✓':'请手动选中复制';setTimeout(()=>btn.textContent=old,1600);};
+  if(navigator.clipboard&&location.protocol!=='file:'){navigator.clipboard.writeText(text).then(()=>done(true)).catch(()=>fallback(text,done));}
+  else fallback(text,done);
+}
+function fallback(text,done){
+  const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  let ok=false;
+  try{ok=!!document.execCommand('copy');}catch(e){ok=false;}
+  ta.remove();
+  done(ok);
+}
+apply();
+</script></body></html>
